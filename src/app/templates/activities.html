@@ -1,0 +1,38 @@
+<div class="control-group">
+        <div class="controls">
+                <label for="activities"><i class="icon-search"></i> Select an Activity</label>
+                <select id="activities" style="width: 100%; ">
+                        <option></option>
+                        {% for a in activities %}
+                            <option id="{{ a.id }}" value="{{ a.uri }}">{{ a.id }}</option>
+                        {% endfor %}
+                </select>
+        </div>
+</div>
+
+<script type="application/x-javascript" src="static/js/activity_graph.js"></script>
+<script type="application/x-javascript" src="static/js/sankey.js"></script>
+<script>
+    $(document).ready(function() { $("#activities").select2({ placeholder: "Start typing..." , allowClear: true }); });
+    
+    $('#activities').change(function () {   
+        $("#activities option:selected").each(function (){
+            if ($(this).is(":empty")) {
+                return;
+            }
+            $("#graph").empty();
+            
+            $("#noselection").hide();
+            $("#noresponse").hide();
+            $("#loading").show();
+            
+            
+            var activity_uri = $(this).attr('value')
+            var activity_id = $(this).attr('id')
+            
+            drawGraphForActivity(activity_uri, activity_id);
+
+        });
+        
+    });
+</script>

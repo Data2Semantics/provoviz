@@ -1,0 +1,60 @@
+body {
+	background-image: url('../img/bg.png');
+}
+
+.container {
+	background-color: white;
+	padding: 1em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	border: 1px solid #333;
+	box-shadow: 5px 5px 5px #222;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+
+.text-button {
+   border: none;
+   background-color: transparent;
+   padding: 0;
+   text-decoration: none; 
+   text-align: left;
+   box-sizing: inherit;
+   outline-style: none;
+   outline-width: 0px;
+   outline-color: rgb(0, 85, 128);
+}
+
+
+
+.nav > li > input.text-button {
+  display: block;
+}
+
+.nav > li > input.text-button:hover {
+  text-decoration: none;
+  background-color: #eeeeee;
+}
+
+.nav-list > li > input.text-button
+{
+  margin-right: -15px;
+  margin-left: -15px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.nav-list > li > input.text-button {
+  padding: 3px 15px;
+  width: 138px;
+  color: rgb(0, 136, 204);
+  cursor: auto;
+}
+
+.nav-list > .active > input.text-button,
+.nav-list > .active > input.text-button:hover {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+  background-color: #0088cc;
+}
+

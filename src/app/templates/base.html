@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>PROV Provenance Visualizer</title>
+    <link rel="stylesheet" href="static/css/bootstrap.css" />
+    <link rel="stylesheet" href="static/css/commit.css" />
+    <link rel="stylesheet" href="static/css/select2.css" />
+    <link rel="stylesheet" href="static/css/select2-bootstrap.css" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="static/js/d3.v3.js"></script>
+
+    <style>
+        #graph {
+            color: black;
+            
+        }
+        .node {
+          stroke: #fff;
+          stroke-width: 1.5px;
+        }
+        
+        .link {
+          stroke: #999;
+          stroke-opacity: .6;
+        }
+        
+        text {
+          font: 1px sans-serif;
+        }
+        
+        .node:not(:hover) .label {
+          display: none;
+        }
+
+        
+
+        
+        .concept, .origin, .activity {
+          font: 15px "Yanone Kaffeesatz", sans-serif;
+        }
+
+        .node rect {
+            cursor: move;
+            fill-opacity: .9;
+            shape-rendering: crispEdges;
+          }
+          
+          .node text {
+            pointer-events: none;
+            font: 10px "Open Sans", sans-serif;
+            text-shadow: 0 1px 0 #fff;
+            stroke: #333;
+          }
+          
+          .link {
+            fill: none;
+            stroke: #000;
+            stroke-opacity: .2;
+          }
+          
+          .link:hover {
+            stroke-opacity: .5;
+          }
+              
+    
+        .graph {
+            overflow: scroll;   
+        }
+        
+        
+        
+        #circle circle {
+            fill: none;
+            pointer-events: all;
+          }
+          
+          .group path {
+            fill-opacity: .5;
+          }
+          
+          path.chord {
+            stroke: #000;
+            stroke-width: .25px;
+          }
+          
+          #circle:hover path.fade {
+            display: none;
+          }
+          
+          .chord-label {
+            font: 8px "Open Sans", sans-serif;
+          }
+    </style>
+    
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="page-header">
+                    <h1><img src="static/img/logo-no-text-150dpi.png"style="float: left; width: 100px;"/>ProvoViz <small>A Provenance Visualization</small> </h1>
+                    <p>Copyright (c) 2013, Rinke Hoekstra, VU University Amsterdam</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <h4>Explore Activities</h4>
+                <p>When you select an activity from the drop down box, we will render a force-layout graph showing the <strong>activity</strong> itself, associated <strong>entities</strong> and related <strong>activities</strong>.</p>
+                {% include 'activities.html' %}
+            </div>
+        </div>
+        {% include 'nothing_selected.html' %}
+        {% include 'loading.html' %}
+        {% include 'nothing_returned.html' %}
+        <div class="row">
+            <div class="span12">
+                <div class="graph" id="graph">
+                &nbsp;
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <h5>Credits</h5>
+                <p>Thanks go to the most excellent <a href="http://d3js.org/">D3.js</a> library for the force- and chord layouts used on this page.</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="application/x-javascript">
+        $(document).ready(function() {
+            $("#loading").toggle();
+            $("#noresponse").toggle();
+        });
+    </script>
+    <script src="static/js/bootstrap.js"></script>
+    <script src="static/js/select2.js"></script>
+    <script src="static/js/vendor/jquery.ui.widget.js"></script> 
+</body>
+</html>
