@@ -14,25 +14,39 @@ from app import app
 @app.route('/')
 def index():
     
-    activities = s.get_activities()
+    graphs = s.get_named_graphs()
     
-    return render_template('base.html', activities = activities)
+    return render_template('base.html', graphs = graphs)
 
 
-@app.route('/graph', methods= ['GET'])
-def graph():
+@app.route('/activities', methods=['GET'])
+def activities():
+    graph_uri = request.args.get('graph_uri','')
+    
+    if graph_uri != '' :
+        activities = s.get_activities(graph_uri)
+    
+        return jsonify(activities = activities)
+
+    return "Nothing! Oops"
+
+
+@app.route('/diagram', methods= ['GET'])
+def diagram():
     graph_type = request.args.get('type','')
     
     if graph_type == 'activities':
         activity_uri = request.args.get('uri','')
         activity_id = request.args.get('id','')
+        graph_uri = request.args.get('graph_uri','')
+        
         
         if activity_uri == '' :
             return 'Nada'
         else :
-            graph = s.build_activity_graph(activity_uri, activity_id)
+            graph, start_nodes, types = s.build_activity_graph(activity_uri, activity_id, graph_uri)
         
-        return jsonify(graph = graph)
+        return jsonify(graph = graph, start_nodes = start_nodes, types= types)
         
     
     return "Nothing! Oops"

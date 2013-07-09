@@ -4,10 +4,12 @@
 <head>
     <title>PROV Provenance Visualizer</title>
     <link rel="stylesheet" href="static/css/bootstrap.css" />
+    <link rel="stylesheet" href="static/css/bootstrap-responsive.css" />
     <link rel="stylesheet" href="static/css/commit.css" />
     <link rel="stylesheet" href="static/css/select2.css" />
     <link rel="stylesheet" href="static/css/select2-bootstrap.css" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/static/js/jquery.storage.js"></script>
     <script src="static/js/d3.v3.js"></script>
 
     <style>
@@ -65,7 +67,7 @@
               
     
         .graph {
-            overflow: scroll;   
+            overflow: auto;   
         }
         
         
@@ -91,25 +93,37 @@
           .chord-label {
             font: 8px "Open Sans", sans-serif;
           }
+          
+          #activities-row {
+            margin-bottom: 50px;
+          }
     </style>
     
 </head>
 
 <body>
 
-    <div class="container">
+    <div class="container" id="#contents">
         <div class="row">
             <div class="span12">
                 <div class="page-header">
-                    <h1><img src="static/img/logo-no-text-150dpi.png"style="float: left; width: 100px;"/>ProvoViz <small>A Provenance Visualization</small> </h1>
+                    <h1><img src="static/img/logo-no-text-150dpi.png"style="float: left; width: 100px;"/>ProvoViz <small>Visualizing the Train of Thought</small> </h1>
                     <p>Copyright (c) 2013, Rinke Hoekstra, VU University Amsterdam</p>
                 </div>
             </div>
         </div>
+        
         <div class="row">
             <div class="span12">
+                <h4>Explore Graphs</h4>
+                <p>When you select a Named Graph, we will retrieve a list of all activities in that graph.</p>
+                {% include 'graphs.html' %}
+            </div>
+        </div>
+        <div class="row" id="activities-row">
+            <div class="span12">
                 <h4>Explore Activities</h4>
-                <p>When you select an activity from the drop down box, we will render a force-layout graph showing the <strong>activity</strong> itself, associated <strong>entities</strong> and related <strong>activities</strong>.</p>
+                <p>When you select an activity from the drop down box, we will render Sankey diagram showing the <strong>activity</strong> together with causally-related <strong>entities</strong> and <strong>activities</strong>.</p>
                 {% include 'activities.html' %}
             </div>
         </div>
@@ -126,7 +140,7 @@
         <div class="row">
             <div class="span12">
                 <h5>Credits</h5>
-                <p>Thanks go to the most excellent <a href="http://d3js.org/">D3.js</a> library for the force- and chord layouts used on this page.</p>
+                <p>Thanks go to the most excellent <a href="http://d3js.org/">D3.js</a> library for the Sankey diagram used on this page.</p>
             </div>
         </div>
     </div>
@@ -135,6 +149,7 @@
         $(document).ready(function() {
             $("#loading").toggle();
             $("#noresponse").toggle();
+            $("#activities-row").toggle();
         });
     </script>
     <script src="static/js/bootstrap.js"></script>

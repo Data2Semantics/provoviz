@@ -10,6 +10,7 @@ import json
 from rdflib import Graph, Namespace, RDF, RDFS, Literal, URIRef
 from rdflib.serializer import Serializer
 import rdfextras
+from math import log
 
 from app import app
 
@@ -23,28 +24,49 @@ concept_type_color_dict = {'popg': '#9edae5', 'inpo': '#ffbb78', 'elii': '#dbdb8
 
 
 def uri_to_label(uri):
-    return uri
-    #return unquote_plus(uri.encode('utf-8').replace('http://eligibility.data2semantics.org/resource/','')).replace('_',' ').lstrip('-').lstrip(' ').title()
+    return unquote_plus(re.sub("http.*/","",uri.encode('utf-8'))).replace('_',' ').lstrip('-').lstrip(' ').title()
 
 
-def get_activities():
-    q = render_template('activities.q')
+def get_activities(graph_uri):
+    q = render_template('activities.q', graph_uri=graph_uri)
     
     sparql.setQuery(q)
 
     results = sparql.query().convert()
     
+    print q
+    
     activities = []
     
     for result in results["results"]["bindings"]:
         activity_uri = result['activity']['value']
-        activity_id = result['label']['value']
+        
+        if 'label' in result :
+            activity_id = result['label']['value']
+        else :
+            activity_id = uri_to_label(activity_uri)
         
         
-        activities.append({'uri': activity_uri, 'id': activity_id})
+        activities.append({'id': activity_uri, 'text': activity_id})
         
     return activities
+
+
+def get_named_graphs():
+    q = render_template('named_graphs.q')
+    
+    sparql.setQuery(q)
+
+    results = sparql.query().convert()
+
+    graphs = []
+    
+    for result in results["results"]["bindings"]:
+        graph_uri = result['graph']['value']
         
+        graphs.append({'uri': graph_uri, 'id': graph_uri})
+        
+    return graphs    
     
 
 
@@ -55,20 +77,9 @@ def get_activities():
 
 
 def build_graph(G, name, source=None, target=None, query=None, intermediate = None):
-    #print "Building graph for {}.".format(name)
-    
-    print query
-    
     sparql.setQuery(query)
     results = sparql.query().convert()
 
-    import pprint
-    
-    pprint.pprint(results)
-
-    
-    
-    
     for result in results["results"]["bindings"]:
         print result
         
@@ -100,8 +111,6 @@ def build_graph(G, name, source=None, target=None, query=None, intermediate = No
                 target_type = target
             
             
-            print source_type, target_type
-            
             G.add_node(source_binding, label=source_binding, type=source_type, uri=source_uri)
             G.add_node(target_binding, label=target_binding, type=target_type, uri=result[target]["value"])
             G.add_edge(source_binding,target_binding, value=10)
@@ -126,44 +135,115 @@ def build_graph(G, name, source=None, target=None, query=None, intermediate = No
     return G
 
 
-def build_activity_graph(activity_uri, activity_id):
+def build_activity_graph(activity_uri, activity_id, graph_uri):
     G = nx.DiGraph()
     
-    q_activity_to_resource = render_template('activity_to_resource.q', activity_uri = activity_uri)
+    q_activity_to_resource = render_template('activity_to_resource.q', activity_uri = activity_uri, graph_uri=graph_uri)
     
     G = build_graph(G, activity_uri, "activity", "entity", q_activity_to_resource)
     
-    q_resource_to_activity = render_template('resource_to_activity.q', activity_uri = activity_uri)
+    q_resource_to_activity = render_template('resource_to_activity.q', activity_uri = activity_uri, graph_uri=graph_uri)
     
     G = build_graph(G, activity_uri, "entity", "activity", q_resource_to_activity)
     
-    print activity_uri, activity_id
+    
+    origin_node_id = activity_id
+
+    outG = nx.ego_graph(G,origin_node_id,50)
+    inG = nx.ego_graph(G.reverse(),origin_node_id,50)
+    
+    inG = inG.reverse()
+    
+    sG = nx.compose(outG,inG)
+    
     
     # origin_node_id = "{}".format(activity_id.lower())
-    #origin_node_id = activity_id
+    
     #
-    #G.node[origin_node_id]['type'] = 'origin'
+    sG.node[origin_node_id]['type'] = 'origin'
     
     names = {}
-    for n, nd in G.nodes(data=True):
+    for n, nd in sG.nodes(data=True):
         if nd['type'] == 'activity' or nd['type'] == 'origin':
             label = nd['label'].replace('Activity','').upper()            
             names[n] = label
         else :
             names[n] = nd['label']
     
-    nx.set_node_attributes(G,'label', names)
+    nx.set_node_attributes(sG,'label', names)
+    
+     
+    
+    deg = nx.degree(sG)
+    nx.set_node_attributes(sG,'degree',deg)
+    
+
+    assign_weights(sG, [])
+            
+            
+    print sG.edges(data=True)
     
     
     
-    deg = nx.degree(G)
-    nx.set_node_attributes(G,'degree',deg)
+    g_json = json_graph.node_link_data(sG) # node-link format to serialize
+
+    start_nodes = 0
+    for n in sG.nodes():
+        if sG.in_degree(n) == 0 :
+            start_nodes += 1
+            
+        print sG.nodes(n)
+        
     
+    types = len(set(nx.get_node_attributes(sG,'type').values()))
     
-    g_json = json_graph.node_link_data(G) # node-link format to serialize
+    if types > 11:
+        types = 11
+    elif types < 3 :
+        types = 3
+    
+    return g_json, start_nodes, types
 
 
-    return g_json
+def assign_weights(sG, next_nodes = []):
+    weight_dict = {}
+    new_next_nodes = []
+    if next_nodes == []:
+        for (s,t) in sG.edges():
+            if sG.in_degree(s) == 0 :
+                weight_dict[(s,t)] = log(10)
+                next_nodes.append(t)
+        # Loop!
+        nx.set_edge_attributes(sG,'value',weight_dict)
+        assign_weights(sG, next_nodes)
+    else :
+        for node in next_nodes :
+            out_degree = sG.out_degree(node)
+            
+            if out_degree == 0 :
+                print "No more outgoing edges for ", node
+                continue
+            
+            incoming = sG.in_edges([node],data=True)
+            
+            accumulated_weight = 0
+            for (s,t,data) in incoming :
+                accumulated_weight += data['value']
+                
+            out_weight = accumulated_weight/out_degree
+            
+            outgoing = sG.out_edges([node])
+            
+            for (s,t) in outgoing :
+                weight_dict[(s,t)] = out_weight
+                new_next_nodes.append(t)
+        
+        nx.set_edge_attributes(sG,'value',weight_dict)
+        
+        if new_next_nodes != [] :
+            assign_weights(sG, new_next_nodes)
+        else :
+            return
 
 
 

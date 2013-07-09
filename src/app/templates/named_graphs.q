@@ -4,10 +4,8 @@ PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 
-SELECT DISTINCT ?activity ?label WHERE {
-  ?activity a prov:Activity
-  GRAPH <{{ graph_uri }}> {
-    ?activity ?p ?o .
-    OPTIONAL {?activity rdfs:label ?label }
-  }.
-} ORDER BY ?activity
+SELECT DISTINCT ?graph WHERE {
+  GRAPH ?graph {
+    ?s ?p ?o .
+  }
+}
