@@ -6,7 +6,7 @@ function drawDiagramForActivity(uri, id, graph_uri) {
     $.get('/diagram', {'type': 'activities', 'uri': uri, 'id': id, 'graph_uri': graph_uri}, function(data) {
                 $("#loading").hide();
                 if (data.graph.links.length > 0) {
-                        drawSankeyDiagram(data.graph, data.start_nodes, data.types);
+                        drawSankeyDiagram(data.graph, data.start_nodes, data.types, data.diameter);
                 } else {
                         $("#noresponse").show();        
                 }
@@ -16,9 +16,9 @@ function drawDiagramForActivity(uri, id, graph_uri) {
 
 
 
-function drawSankeyDiagram(graph, start_nodes, types) {
+function drawSankeyDiagram(graph, start_nodes, types, diameter) {
 var margin = {top: 1, right: 1, bottom: 6, left: 1},
-    width = 2000 - margin.left - margin.right;
+    width = (200 * diameter) - margin.left - margin.right;
     
     if ((500/start_nodes) > 40) {
         var height = 40*start_nodes - margin.top - margin.bottom;
@@ -27,12 +27,11 @@ var margin = {top: 1, right: 1, bottom: 6, left: 1},
     }
     
 
-var formatNumber = d3.format(",.0f"),
-    format = function(d) { return formatNumber(d) + " TWh"; },
-    
-    color = d3.scale.ordinal()
+var color = d3.scale.ordinal()
+            .domain(["activity","origin","entity"])
+            .range(["#EB6841","#CC333F","#00A0B0"]) // colourlovers.com "Ocean 5"
     //        .domain(["foo", "bar", "baz"])
-            .range(colorbrewer.Paired[types]);
+    //        .range(colorbrewer.Paired[types]);
     
     //color = d3.scale.category20();
 
@@ -44,7 +43,7 @@ var svg = d3.select("#graph").append("svg")
 
 var sankey = d3.sankey()
     .nodeWidth(15)
-    .nodePadding(20)
+    .nodePadding(25)
     .size([width, height]);
 
 var path = sankey.link();
@@ -82,7 +81,7 @@ var path = sankey.link();
       .style("fill", function(d) { return d.color = color(d.type.replace(/ .*/, "")); })
       .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
     .append("title")
-      .text(function(d) { return d.label + "\n" + format(d.type); });
+      .text(function(d) { return d.label + "\n(" + d.type + ")"; });
 
   node.append("text")
       .attr("x", -6)

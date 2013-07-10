@@ -4,6 +4,7 @@
 <head>
     <title>PROV Provenance Visualizer</title>
     <link rel="stylesheet" href="static/css/bootstrap.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/css/bootstrap-responsive.css" />
     <link rel="stylesheet" href="static/css/commit.css" />
     <link rel="stylesheet" href="static/css/select2.css" />
@@ -15,22 +16,19 @@
     <style>
         #graph {
             color: black;
-            
+            padding: 1em;
         }
-        .node {
-          stroke: #fff;
-          stroke-width: 1.5px;
+        
+        body {
+            overflow-x: hidden;
         }
+
         
         .link {
           stroke: #999;
           stroke-opacity: .6;
         }
-        
-        text {
-          font: 1px sans-serif;
-        }
-        
+
         .node:not(:hover) .label {
           display: none;
         }
@@ -50,9 +48,14 @@
           
           .node text {
             pointer-events: none;
-            font: 10px "Open Sans", sans-serif;
+            font: 10px sans-serif;
+            font-weight: 100;
+            font-style: normal;
+            font-variant: normal;
             text-shadow: 0 1px 0 #fff;
-            stroke: #333;
+            stroke: #515151;
+            display: block;
+            color: rgb(51,51,51);
           }
           
           .link {
@@ -67,7 +70,8 @@
               
     
         .graph {
-            overflow: auto;   
+            overflow: auto;
+            padding: 1em;
         }
         
         
@@ -152,8 +156,9 @@
             $("#activities-row").toggle();
         });
     </script>
+
+</body>
     <script src="static/js/bootstrap.js"></script>
     <script src="static/js/select2.js"></script>
     <script src="static/js/vendor/jquery.ui.widget.js"></script> 
-</body>
 </html>

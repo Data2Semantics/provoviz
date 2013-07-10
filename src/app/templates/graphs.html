@@ -1,7 +1,7 @@
 <div class="control-group">
         <div class="controls">
                 <label for="graphs"><i class="icon-search"></i> Select a Named Graph</label>
-                <select id="graphs" style="width: 100%; ">
+                <select id="graphs">
                         <option></option>
                         {% for g in graphs %}
                             <option id="{{ g.id }}" value="{{ g.uri }}">{{ g.uri }}</option>
@@ -13,7 +13,7 @@
 <script type="application/x-javascript" src="static/js/activity_graph.js"></script>
 <script type="application/x-javascript" src="static/js/sankey.js"></script>
 <script>
-    $(document).ready(function() { $("#graphs").select2({ placeholder: "Start typing..." , allowClear: true }); });
+    $(document).ready(function() { $("#graphs").select2({ width: "100%", placeholder: "Start typing..." , allowClear: true }); });
     
     $('#graphs').change(function () {   
         $("#graphs option:selected").each(function (){

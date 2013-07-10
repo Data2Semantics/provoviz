@@ -44,9 +44,9 @@ def diagram():
         if activity_uri == '' :
             return 'Nada'
         else :
-            graph, start_nodes, types = s.build_activity_graph(activity_uri, activity_id, graph_uri)
+            graph, start_nodes, types, diameter = s.build_activity_graph(activity_uri, activity_id, graph_uri)
         
-        return jsonify(graph = graph, start_nodes = start_nodes, types= types)
+        return jsonify(graph = graph, start_nodes = start_nodes, types= types, diameter=diameter)
         
     
     return "Nothing! Oops"

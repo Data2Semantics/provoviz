@@ -193,7 +193,15 @@ def build_activity_graph(activity_uri, activity_id, graph_uri):
             start_nodes += 1
             
         print sG.nodes(n)
-        
+    
+    try:
+        diameter = nx.diameter(sG.to_undirected())
+    except Exception:
+        print "Infinite path length, graph not connected. Setting diameter to 25"
+        diameter = 25
+    
+    print "Diameter: ", diameter
+    
     
     types = len(set(nx.get_node_attributes(sG,'type').values()))
     
@@ -202,7 +210,7 @@ def build_activity_graph(activity_uri, activity_id, graph_uri):
     elif types < 3 :
         types = 3
     
-    return g_json, start_nodes, types
+    return g_json, start_nodes, types, diameter
 
 
 def assign_weights(sG, next_nodes = []):
