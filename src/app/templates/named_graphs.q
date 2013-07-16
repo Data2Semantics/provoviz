@@ -6,6 +6,7 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 SELECT DISTINCT ?graph WHERE {
   GRAPH ?graph {
-    ?s ?p ?o .
+    ?s ?p ?o.
   }
+  ?s a prov:Activity .
 }

@@ -53,15 +53,15 @@
             font-style: normal;
             font-variant: normal;
             text-shadow: 0 1px 0 #fff;
-            stroke: #515151;
+            stroke: #414141;
             display: block;
-            color: rgb(51,51,51);
+            color: rgb(41,41,41);
           }
           
           .link {
             fill: none;
             stroke: #000;
-            stroke-opacity: .2;
+            stroke-opacity: .1;
           }
           
           .link:hover {
@@ -119,8 +119,17 @@
         
         <div class="row">
             <div class="span12">
+                <h4>SPARQL Endpoint</h4>
+                <p>Give the URL of your SPARQL endpoint</p>
+                <div class="input-append">
+                    <input type="text" class="span6" id="endpoint" name="endpoint" placeholder="Start typing..." width="100%" value="http://localhost:8080/openrdf-sesame/repositories/prov"></input><button type="button" id="endpointSubmit" value="go" class="btn btn-primary">Go</input>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="explore-row">
+            <div class="span12">
                 <h4>Explore Graphs</h4>
-                <p>When you select a Named Graph, we will retrieve a list of all activities in that graph.</p>
+                <p>When you select a Named Graph, we will retrieve a list of all activities in that graph. Only graphs with activities are shown here.</p>
                 {% include 'graphs.html' %}
             </div>
         </div>
@@ -151,10 +160,34 @@
 
     <script type="application/x-javascript">
         $(document).ready(function() {
-            $("#loading").toggle();
-            $("#noresponse").toggle();
-            $("#activities-row").toggle();
+            $("#loading").hide();
+            $("#noresponse").hide();
+            $("#explore-row").hide();
+            $("#activities-row").hide();
+            
+            $('#endpointSubmit').on('click',function(e){
+                var endpoint_uri = $('#endpoint').val();
+                
+                $("#loading").show();
+                $("#noresponse").hide();
+                $("#noselection").hide();
+                $("#explore-row").hide();
+                $("#activities-row").hide();
+                
+                $.localStorage('endpoint_uri',endpoint_uri);
+                
+                $.getJSON('/graphs', {endpoint_uri: endpoint_uri }).done(function(data){
+                    console.log(data);
+                    
+                    $("#graphs").select2({ placeholder: "Start typing..." , allowClear: true, data: data.graphs });
+                    $("#loading").hide();
+                    $("#explore-row").show();
+                    
+                });
+            });
         });
+        
+         
     </script>
 
 </body>

@@ -1,38 +1,36 @@
 <div class="control-group">
         <div class="controls">
                 <label for="graphs"><i class="icon-search"></i> Select a Named Graph</label>
-                <select id="graphs">
-                        <option></option>
-                        {% for g in graphs %}
-                            <option id="{{ g.id }}" value="{{ g.uri }}">{{ g.uri }}</option>
-                        {% endfor %}
-                </select>
+                <input type="hidden" id="graphs" style="width: 100%; "></input>
         </div>
 </div>
 
 <script type="application/x-javascript" src="static/js/activity_graph.js"></script>
 <script type="application/x-javascript" src="static/js/sankey.js"></script>
 <script>
-    $(document).ready(function() { $("#graphs").select2({ width: "100%", placeholder: "Start typing..." , allowClear: true }); });
     
-    $('#graphs').change(function () {   
-        $("#graphs option:selected").each(function (){
-            if ($(this).is(":empty")) {
-                return;
-            }
-            $("#graph").empty();
-            
-            $("#noselection").hide();
-            $("#noresponse").hide();
-            $("#activities-row").hide();
-            $("#loading").show();
-            
-            
-            var graph_uri = $(this).attr('value');
-            
-            $.localStorage('graph_uri',graph_uri);
-            
-            $.getJSON('/activities', {graph_uri: graph_uri }).done(function(data){
+    $('#graphs').change(function(e) {
+        console.log(e);
+        console.log("Dit is de waarde "+ e.val);
+       
+        if (e.val == []) {
+            $('#noselection').show()
+            return;
+        }
+        $("#graph").empty();
+        
+        $("#noselection").hide();
+        $("#noresponse").hide();
+        
+        $("#loading").show();
+        $("#activities-row").hide();
+        
+        
+        var graph_uri = e.val;
+        $.localStorage('graph_uri',graph_uri);
+        var endpoint_uri = $.localStorage('endpoint_uri');
+        
+        $.getJSON('/activities', {graph_uri: graph_uri, endpoint_uri: endpoint_uri }).done(function(data){
                 console.log(data);
                 
                 for(var i=0;i<data.activities.length;i++) {
@@ -46,11 +44,9 @@
                 $("#loading").hide();
                 $("#activities-row").show();
                 
-            });
-            
-            
-
         });
-        
+
     });
+    
+
 </script>

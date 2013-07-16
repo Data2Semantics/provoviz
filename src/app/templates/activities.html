@@ -22,12 +22,13 @@
         $("#noresponse").hide();
         $("#loading").show();
         
+        var endpoint_uri = $.localStorage('endpoint_uri');
         
         var activity_id = $.localStorage(e.val);
         var activity_uri = e.val;
         var graph_uri = $.localStorage('graph_uri');
         
-        drawDiagramForActivity(activity_uri, activity_id, graph_uri);
+        drawDiagramForActivity(activity_uri, activity_id, graph_uri, endpoint_uri);
 
     });
         
