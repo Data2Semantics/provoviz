@@ -92,7 +92,8 @@ def build_graph(G, name, source=None, target=None, query=None, intermediate = No
                     source_binding = result[source+"_label"]["value"]
                 else :
                     source_binding = uri_to_label(result[source]["value"]).replace("'","")
-                source_uri = result[source]["value"]
+            
+            source_uri = result[source]["value"]
                 
             if target+"_label" in result:
                 target_binding = result[target+"_label"]["value"]
@@ -114,6 +115,9 @@ def build_graph(G, name, source=None, target=None, query=None, intermediate = No
             G.add_node(source_binding, label=source_binding, type=source_type, uri=source_uri)
             G.add_node(target_binding, label=target_binding, type=target_type, uri=result[target]["value"])
             G.add_edge(source_binding,target_binding, value=10)
+            G.add_node(source_uri, label=source_binding, type=source_type, uri=source_uri)
+            G.add_node(target_uri, label=target_binding, type=target_type, uri=result[target]["value"])
+            G.add_edge(source_uri, target_uri, value=10)
             
             
             
@@ -126,9 +130,14 @@ def build_graph(G, name, source=None, target=None, query=None, intermediate = No
             G.add_node(source_binding, label=source_binding, type=source, uri=result[source]["value"])
             G.add_node(intermediate_binding, label=intermediate_binding, type=intermediate, uri=result[intermediate]["value"])
             G.add_node(target_binding, label=target_binding, type=target, uri=result[target]["value"])
+            G.add_node(result[source]["value"], label=source_binding, type=source, uri=result[source]["value"])
+            G.add_node(result[intermediate]["value"], label=intermediate_binding, type=intermediate, uri=result[intermediate]["value"])
+            G.add_node(result[target]["value"], label=target_binding, type=target, uri=result[target]["value"])
             
             G.add_edge(source_binding, intermediate_binding, value=10)
             G.add_edge(intermediate_binding, target_binding, value=10)
+            G.add_edge(result[source]["value"], result[intermediate]["value"], value=10)
+            G.add_edge(result[intermediate]["value"], result[target]["value"], value=10)
 
     #print "Done"
 

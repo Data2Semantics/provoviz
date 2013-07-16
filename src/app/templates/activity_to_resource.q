@@ -13,7 +13,7 @@ SELECT DISTINCT ?activity ?activity_type ?activity_label ?entity ?entity_type ?e
       OPTIONAL { ?activity rdfs:label ?activity_label .}
       OPTIONAL { ?entity rdfs:label ?entity_label . }
       OPTIONAL { ?entity rdf:type ?entity_type .
-                 ?activity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+                 ?entity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
                  FILTER(!isBlank(?entity_type))}
     }
 } 

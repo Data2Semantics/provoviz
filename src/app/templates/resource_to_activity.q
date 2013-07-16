@@ -4,7 +4,7 @@ PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 
-SELECT DISTINCT ?entity ?entity_type ?activity ?activity_type WHERE {
+SELECT DISTINCT ?entity ?entity_type ?entity_label ?activity ?activity_type ?activity_label WHERE {
     GRAPH <{{graph_uri}}> {
         ?activity prov:used ?entity .
         OPTIONAL { ?activity rdf:type ?activity_type .
