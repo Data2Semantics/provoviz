@@ -20,17 +20,23 @@ function drawSankeyDiagram(graph, tree_width, types, diameter) {
 var margin = {top: 1, right: 1, bottom: 6, left: 1},
     width = (200 * diameter) - margin.left - margin.right;
     
-    if ((500/tree_width) > 40) {
-        console.log("Over 40");
-        var height = 40*tree_width - margin.top - margin.bottom;
-        
-        if (height < 500 ) {
-            height = 300;
-        }
+    if (tree_width * 10 < 500) {
+        var height = 500;
     } else {
-        console.log("Under 40");
-        var height = 500 - margin.top - margin.bottom;
+        var height = tree_width * 10;
     }
+    
+    //if ((500/tree_width) > 40) {
+    //    console.log("Over 40");
+    //    var height = 40*tree_width - margin.top - margin.bottom;
+    //    
+    //    if (height < 500 ) {
+    //        height = 500;
+    //    }
+    //} else {
+    //    console.log("Under 40");
+    //    var height = 500 - margin.top - margin.bottom;
+    //}
     
 
 var color = d3.scale.ordinal()

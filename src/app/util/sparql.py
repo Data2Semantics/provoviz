@@ -83,7 +83,10 @@ def build_graph(G, endpoint_uri, name, source=None, target=None, query=None, int
     
     results = sparql.query().convert()
 
+    app.logger.debug(u"Query:\n{}".format(query))
+
     for result in results["results"]["bindings"]:
+        app.logger.debug(u"Result:\n{}".format(result))
         
         if not intermediate :
             if not source :
@@ -141,6 +144,8 @@ def build_graph(G, endpoint_uri, name, source=None, target=None, query=None, int
 
 
 def build_activity_graph(activity_uri, activity_id, graph_uri, endpoint_uri):
+    app.logger.debug(u"Building graph for {} ({})".format(activity_uri, activity_id))
+    
     G = nx.DiGraph()
     
     q_activity_to_resource = render_template('activity_to_resource.q', activity_uri = activity_uri, graph_uri=graph_uri)
@@ -192,16 +197,27 @@ def build_activity_graph(activity_uri, activity_id, graph_uri, endpoint_uri):
 
     start_nodes = 0
     end_nodes = 0
+    max_degree = 1
     for n in sG.nodes():
         if sG.in_degree(n) == 0 :
             start_nodes += 1
         elif sG.out_degree(n) == 0 :
             end_nodes += 1
             
+        if sG.in_degree(n) > max_degree :
+            max_degree = sG.in_degree(n)
+        if sG.out_degree(n) > max_degree :
+            max_degree = sG.out_degree(n)
+            
+    # Initially set width to largest: number of start nodes vs. end nodes        
     if end_nodes > start_nodes :
         width = end_nodes
     else :
         width = start_nodes
+        
+    # But if the maximum degree exceeds that width, set the width to the max_degree
+    if max_degree > width :
+        width = max_degree
             
         # print sG.nodes(n)
     
