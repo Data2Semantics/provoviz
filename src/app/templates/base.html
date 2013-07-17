@@ -176,7 +176,7 @@
                 
                 $.localStorage('endpoint_uri',endpoint_uri);
                 
-                $.getJSON('/graphs', {endpoint_uri: endpoint_uri }).done(function(data){
+                $.getJSON('{{ url_for("graphs") }}', {endpoint_uri: endpoint_uri }).done(function(data){
                     console.log(data);
                     
                     $("#graphs").select2({ placeholder: "Start typing..." , allowClear: true, data: data.graphs });
