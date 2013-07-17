@@ -6,15 +6,18 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 SELECT DISTINCT ?entity ?entity_type ?entity_label ?activity ?activity_type ?activity_label WHERE {
     GRAPH <{{graph_uri}}> {
-        ?activity prov:used ?entity .
-        OPTIONAL { ?activity rdf:type ?activity_type .
-                 ?activity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
-                 FILTER(!isBlank(?activity_type)) }
-        OPTIONAL { ?activity rdfs:label ?activity_label . }
-        OPTIONAL { ?entity rdf:type ?entity_type .
-                 ?entity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
-                 FILTER(!isBlank(?entity_type)) }
-        OPTIONAL { ?entity rdfs:label ?entity_label .  }
+        { ?activity prov:used ?entity . }
+        UNION
+        { ?entity prov:wasUsedBy ?activity . }
     }
+    OPTIONAL { ?activity rdf:type ?activity_type .
+             ?activity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+             FILTER(!isBlank(?activity_type)) }
+    OPTIONAL { ?activity rdfs:label ?activity_label . }
+    OPTIONAL { ?entity rdf:type ?entity_type .
+             ?entity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+             FILTER(!isBlank(?entity_type)) }
+    OPTIONAL { ?entity rdfs:label ?entity_label .  }
+
     
 } 
