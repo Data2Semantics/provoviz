@@ -28,7 +28,7 @@
         var activity_uri = e.val;
         var graph_uri = $.localStorage('graph_uri');
         
-        drawDiagramForActivity(activity_uri, activity_id, graph_uri, endpoint_uri);
+        drawDiagramForActivity('{{ url_for("diagram") }}', activity_uri, activity_id, graph_uri, endpoint_uri);
 
     });
         

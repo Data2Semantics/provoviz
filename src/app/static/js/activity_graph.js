@@ -1,9 +1,9 @@
-function drawDiagramForActivity(uri, id, graph_uri, endpoint_uri) {
+function drawDiagramForActivity(diagram_service_url, uri, id, graph_uri, endpoint_uri) {
     $("#graph").empty();
     $("#loading").show();
     
     
-    $.get('{{ url_for("diagram") }}', {'type': 'activities', 'uri': uri, 'id': id, 'graph_uri': graph_uri, 'endpoint_uri': endpoint_uri}, function(data) {
+    $.get(diagram_service_url, {'type': 'activities', 'uri': uri, 'id': id, 'graph_uri': graph_uri, 'endpoint_uri': endpoint_uri}, function(data) {
                 $("#loading").hide();
                 if (data.graph.links.length > 0) {
                         drawSankeyDiagram(data.graph, data.width, data.types, data.diameter);
