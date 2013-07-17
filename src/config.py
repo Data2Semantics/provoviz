@@ -3,4 +3,5 @@
 
 # Nothing to see here
 
-STATIC_URL_PATH = '/static'
+#APPLICATION_ROOT = '/provoviz'
+#SERVER_NAME = 'semweb.cs.vu.nl'
