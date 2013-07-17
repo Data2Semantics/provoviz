@@ -3,15 +3,15 @@
 <html>
 <head>
     <title>PROV Provenance Visualizer</title>
-    <link rel="stylesheet" href="static/css/bootstrap.css" />
+    <link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap.css') }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/css/bootstrap-responsive.css" />
-    <link rel="stylesheet" href="static/css/commit.css" />
-    <link rel="stylesheet" href="static/css/select2.css" />
-    <link rel="stylesheet" href="static/css/select2-bootstrap.css" />
+    <link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap-responsive.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('.static',filename='css/commit.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2-bootstrap.css') }}" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="static/js/jquery.storage.js"></script>
-    <script src="static/js/d3.v3.js"></script>
+    <script src="{{ url_for('.static',filename='js/jquery.storage.js') }}"></script>
+    <script src="{{ url_for('.static',filename='js/d3.v3.js') }}"></script>
 
     <style>
         #graph {
@@ -111,7 +111,7 @@
         <div class="row">
             <div class="span12">
                 <div class="page-header">
-                    <h1><img src="static/img/logo-no-text-150dpi.png"style="float: left; width: 100px;"/>ProvoViz <small>Visualizing the Train of Thought</small> </h1>
+                    <h1><img src="{{ url_for('.static',filename='img/logo-no-text-150dpi.png') }}"style="float: left; width: 100px;"/>PROV-O-Viz <small>Visualizing the Train of Thought</small> </h1>
                     <p>Copyright (c) 2013, Rinke Hoekstra, VU University Amsterdam</p>
                 </div>
             </div>
@@ -191,7 +191,7 @@
     </script>
 
 </body>
-    <script src="static/js/bootstrap.js"></script>
-    <script src="static/js/select2.js"></script>
-    <script src="static/js/vendor/jquery.ui.widget.js"></script> 
+    <script src="{{ url_for('.static',filename='js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('.static',filename='js/select2.js') }}"></script>
+    <script src="{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js') }}"></script> 
 </html>

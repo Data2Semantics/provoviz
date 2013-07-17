@@ -30,7 +30,7 @@
         $.localStorage('graph_uri',graph_uri);
         var endpoint_uri = $.localStorage('endpoint_uri');
         
-        $.getJSON('/activities', {graph_uri: graph_uri, endpoint_uri: endpoint_uri }).done(function(data){
+        $.getJSON('{{ url_for("activities") }}', {graph_uri: graph_uri, endpoint_uri: endpoint_uri }).done(function(data){
                 console.log(data);
                 
                 for(var i=0;i<data.activities.length;i++) {
