@@ -35,8 +35,6 @@ def get_activities(graph_uri, endpoint_uri):
 
     results = sparql.query().convert()
     
-    print q
-    
     activities = []
     
     for result in results["results"]["bindings"]:
@@ -85,13 +83,10 @@ def build_graph(G, endpoint_uri, name, source=None, target=None, query=None, int
     
     results = sparql.query().convert()
 
-    print query
-    
     for result in results["results"]["bindings"]:
         
         if not intermediate :
             if not source :
-                print "Not Source!"
                 source_binding = uri_to_label(name).replace("'","");
                 source_uri = name
             else :
@@ -156,8 +151,6 @@ def build_activity_graph(activity_uri, activity_id, graph_uri, endpoint_uri):
     
     G = build_graph(G, endpoint_uri, activity_uri, "entity", "activity", q_resource_to_activity)
     
-    print activity_uri, activity_id, graph_uri
-    print G.nodes()
     origin_node_id = activity_uri
 
     outG = nx.ego_graph(G,origin_node_id,50)
@@ -166,11 +159,6 @@ def build_activity_graph(activity_uri, activity_id, graph_uri, endpoint_uri):
     inG = inG.reverse()
     
     sG = nx.compose(outG,inG)
-
-    print "===\nALL\n==="
-    print G.edges()
-    print "===\nEGO\n==="
-    print sG.edges()
     
     # origin_node_id = "{}".format(activity_id.lower())
     
@@ -220,11 +208,7 @@ def build_activity_graph(activity_uri, activity_id, graph_uri, endpoint_uri):
     try:
         diameter = nx.diameter(sG.to_undirected())
     except Exception:
-        print "Infinite path length, graph not connected. Setting diameter to 25"
         diameter = 25
-    
-    print "Diameter: ", diameter
-    
     
     types = len(set(nx.get_node_attributes(sG,'type').values()))
     
@@ -252,7 +236,6 @@ def assign_weights(sG, next_nodes = []):
             out_degree = sG.out_degree(node)
             
             if out_degree == 0 :
-                print "No more outgoing edges for ", node
                 continue
             
             incoming = sG.in_edges([node],data=True)
