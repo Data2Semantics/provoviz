@@ -5,9 +5,9 @@
         </div>
 </div>
 
-<script type="application/x-javascript" src="static/js/activity_graph.js"></script>
-<script type="application/x-javascript" src="static/js/sankey.js"></script>
-<script type="application/x-javascript" src="static/js/colorbrewer.js"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/activity_graph.js')}}"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/sankey.js')}}"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/colorbrewer.js')}}"></script>
 <script>
     $('#activities').change(function(e) {
         console.log(e);
