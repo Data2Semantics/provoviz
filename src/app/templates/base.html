@@ -117,7 +117,7 @@
             </div>
         </div>
         
-        <div class="row">
+        <div class="row" id="endpoint-row">
             <div class="span12">
                 <h4>SPARQL Endpoint</h4>
                 <p>Give the URL of your SPARQL endpoint</p>
@@ -159,33 +159,50 @@
     </div>
 
     <script type="application/x-javascript">
+	    $.urlParam = function(name){
+	        var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	        if (results==null){
+	           return null;
+	        }
+	        else{
+	           return results[1] || 0;
+	        }
+	    }
+	    if ($.urlParam('endpoint_uri') != null) {
+	    	$("#endpoint-row").hide();
+	    	console.log(decodeURIComponent($.urlParam('endpoint_uri')));
+	    	endpointSubmit(decodeURIComponent($.urlParam('endpoint_uri')));
+	    } else {
+	    	console.log("no endpoint uri in param");
+	    }
         $(document).ready(function() {
             $("#loading").hide();
             $("#noresponse").hide();
             $("#explore-row").hide();
             $("#activities-row").hide();
             
-            $('#endpointSubmit').on('click',function(e){
-                var endpoint_uri = $('#endpoint').val();
-                
-                $("#loading").show();
-                $("#noresponse").hide();
-                $("#noselection").hide();
-                $("#explore-row").hide();
-                $("#activities-row").hide();
-                
-                $.localStorage('endpoint_uri',endpoint_uri);
-                
-                $.getJSON('{{ url_for("graphs") }}', {endpoint_uri: endpoint_uri }).done(function(data){
-                    console.log(data);
-                    
-                    $("#graphs").select2({ placeholder: "Start typing..." , allowClear: true, data: data.graphs });
-                    $("#loading").hide();
-                    $("#explore-row").show();
-                    
-                });
+            $('#endpointSubmit').on('click',function(){
+            	endpointSubmit($('#endpoint').val());
             });
         });
+        function endpointSubmit(endpoint_uri) {
+        	$("#loading").show();
+            $("#noresponse").hide();
+            $("#noselection").hide();
+            $("#explore-row").hide();
+            $("#activities-row").hide();
+            
+            $.localStorage('endpoint_uri',endpoint_uri);
+            
+            $.getJSON('{{ url_for("graphs") }}', {endpoint_uri: endpoint_uri }).done(function(data){
+                console.log(data);
+                
+                $("#graphs").select2({ placeholder: "Start typing..." , allowClear: true, data: data.graphs });
+                $("#loading").hide();
+                $("#explore-row").show();
+                
+            });
+        }
         
          
     </script>
