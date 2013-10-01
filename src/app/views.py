@@ -67,7 +67,9 @@ def diagram():
     return "Nothing! Oops"
 
 
-
+@app.route('/service', methods=['POST'])
+def service():
+    pass
 
 
 
