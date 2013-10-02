@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2-bootstrap.css') }}" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="{{ url_for('.static',filename='js/jquery.storage.js') }}"></script>
-    <script src="{{ url_for('.static',filename='js/d3.v3.js') }}"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
 
     <style>
         #graph {
@@ -116,16 +116,61 @@
                 </div>
             </div>
         </div>
-        
-        <div class="row" id="endpoint-row">
-            <div class="span12">
+		
+		<div class="row">
+			<div class="span6">				
+				<h4>About PROV-O-Viz</h4>
+				<p>With PROV-O-Viz you can visualize <em>any</em> provenance graph expressed using the <a href="http://www.w3.org/TR/prov-o/" target="_blank">W3C PROV-O vocabulary</a> as an intuitive <a href="http://bost.ocks.org/mike/sankey/" target="_blank">Sankey diagram</a>. Really neat.</p>
+				<p>PROV-O-Viz was developed by the <a href="http://www.data2semantics.org" target="_blank">Data2Semantics</a> project, funded under the <a href="http://www.commit-nl.nl" target="_blank">COMMIT/ programme</a>.</p>
+				
+			</div>
+			<div class="span6">
+				<h4>How to use it</h4>
+				<p>To see what it does, you can point PROV-O-Viz to your own SPARQL endpoint, containing Named Graphs with PROV-O activities and entities in it.</p>
+				<p>Alternatively, you can simply copy and paste some of PROV-O in Turtle format in the Paste-And-Go form.</p>
+
+				<p>Finally, you can POST PROV-O in Turtle format to the PROV-O-Viz service, and we'll return a self-contained HTML snippet for you to include in your website.</p>
+				<ul>
+					<li>The service lives at <code>http://semweb.cs.vu.nl/provoviz/service</code>, and</li>
+					<li>expects a POST with a <code>graph_uri</code> parameter (a URI that identifies your provenance graph), and</li>
+				 	<li>a <code>data</code>	parameter that contains a Turtle serialization of a PROV-O graph</li>
+				</ul>
+			</div>
+		</div>
+		<div class="">
+		<div class="row">
+			<div class="span6">
                 <h4>SPARQL Endpoint</h4>
                 <p>Give the URL of your SPARQL endpoint</p>
                 <div class="input-append">
-                    <input type="text" class="span6" id="endpoint" name="endpoint" placeholder="Start typing..." width="100%"></input><button type="button" id="endpointSubmit" value="go" class="btn btn-primary">Go</input>
+                    <input type="text" class="span5" id="endpoint" name="endpoint" placeholder="Start typing..." width="100%"></input><button type="button" id="endpointSubmit" value="go" class="btn btn-primary">Go</input>
                 </div>
-            </div>
-        </div>
+			</div>
+			<div class="span6">
+				<h4>Paste-And-Go form</h4>
+				<p>Paste a Turtle serialization of a PROV-O graph in the text area below.</p>
+				<div class="input-append">
+					<textarea id="provodata" class="span5" name="data" rows="4" placeholder="PROV-O input"></textarea>
+					<button id="provoSubmit" class="btn btn-primary" value="go" type="button">Go</button>
+				</div>
+			</div>
+			<div class="span6">
+
+				<div class="alert alert-info"><strong>Example</strong>
+					<p>Our own experimental endpoint at <code>http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/goldendemo</code> usually contains some PROV-O for you to explore)
+					</p>
+				</div>
+			</div>
+			<div class="span6">
+				<div class="alert alert-info"><strong>Example</strong>
+					<p>Use the most excellent <a href="http://git2prov.org">Git2PROV</a> we developed together with the University of Ghent to generate PROV-O from your favorite Git repository. The output of Git2PROV can simply be copied to the text area.
+					</p>
+				</div>
+			</div>		
+		</div>		
+        
+
+
         <div class="row" id="explore-row">
             <div class="span12">
                 <h4>Explore Graphs</h4>
@@ -139,6 +184,8 @@
                 <p>When you select an activity from the drop down box, we will render Sankey diagram showing the <strong>activity</strong> together with causally-related <strong>entities</strong> and <strong>activities</strong>.</p>
                 {% include 'activities.html' %}
             </div>
+        </div>
+        <div class="row" id="serviceactivities">
         </div>
         {% include 'nothing_selected.html' %}
         {% include 'loading.html' %}
@@ -165,17 +212,24 @@
             $("#noresponse").hide();
             $("#explore-row").hide();
             $("#activities-row").hide();
+			$("#serviceactivities").hide();	
             
             $('#endpointSubmit').on('click',function(){
             	endpointSubmit($('#endpoint').val());
             });
+
+			$('#provoSubmit').on('click', function(){
+				provoSubmit($('#provodata').val());
+			});
         });
+
         function endpointSubmit(endpoint_uri) {
         	$("#loading").show();
             $("#noresponse").hide();
             $("#noselection").hide();
             $("#explore-row").hide();
             $("#activities-row").hide();
+			$("#serviceactivities").hide();	
             
             $.localStorage('endpoint_uri',endpoint_uri);
             
@@ -188,6 +242,34 @@
                 
             });
         }
+
+		function provoSubmit(provodata) {
+			$("#loading").show();
+            $("#noresponse").hide();
+            $("#noselection").hide();
+            $("#explore-row").hide();
+            $("#activities-row").hide();
+			$("#serviceactivities").hide();	
+
+			var hash=CryptoJS.SHA1(provodata);
+			
+			var graph_uri = "http://prov.data2semantics.org/resource/"+hash;
+			
+			console.log(graph_uri);
+			
+			var post_data = { data: provodata, graph_uri: graph_uri };
+			
+			$.post('{{ url_for("service") }}', post_data, function(data){
+				var div = $('<div></div>');
+				div.addClass('span12');
+				div.html(data);
+				$("#serviceactivities").empty();
+				$("#serviceactivities").append(div);
+				$("#loading").hide();
+				$("#serviceactivities").show();	
+			})
+		}
+
         
          
     </script>
