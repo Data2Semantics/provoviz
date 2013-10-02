@@ -76,7 +76,7 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
     node.append("rect")
         .attr("height", function(d) { return d.dy; })
         .attr("width", sankey.nodeWidth())
-        .style("fill", function(d) { return d.color = color(d.type.replace(/ .*/, "")); })
+        .style("fill", function(d) { return d.color = color(d.type); })
         .style("stroke", function(d) { return d3.rgb(d.color).darker(1); })
         .append("title")
         .text(function(d) { return d.label + "\n(" + d.type + ")"; });
