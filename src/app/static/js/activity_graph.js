@@ -6,7 +6,7 @@ function drawDiagramForActivity(diagram_service_url, uri, id, graph_uri, endpoin
     $.get(diagram_service_url, {'type': 'activities', 'uri': uri, 'id': id, 'graph_uri': graph_uri, 'endpoint_uri': endpoint_uri}, function(data) {
                 $("#loading").hide();
                 if (data.graph.links.length > 0) {
-                        drawSankeyDiagram(data.graph, data.width, data.types, data.diameter);
+                        drawSankeyDiagram('#graph', data.graph, data.width, data.types, data.diameter);
                 } else {
                         $("#noresponse").show();        
                 }
@@ -16,7 +16,7 @@ function drawDiagramForActivity(diagram_service_url, uri, id, graph_uri, endpoin
 
 
 
-function drawSankeyDiagram(graph, tree_width, types, diameter) {
+function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
     var margin = {top: 1, right: 1, bottom: 6, left: 1},
         width = (200 * diameter) - margin.left - margin.right;
     
@@ -34,7 +34,7 @@ function drawSankeyDiagram(graph, tree_width, types, diameter) {
                 .domain(["activity","origin","entity"])
                 .range(["#556270","#4ECDC4","#C7F464"]);
 
-    var svg = d3.select("#graph").append("svg")
+    var svg = d3.select(graph_div).append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
