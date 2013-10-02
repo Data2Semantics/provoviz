@@ -159,22 +159,7 @@
     </div>
 
     <script type="application/x-javascript">
-	    $.urlParam = function(name){
-	        var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-	        if (results==null){
-	           return null;
-	        }
-	        else{
-	           return results[1] || 0;
-	        }
-	    }
-	    if ($.urlParam('endpoint_uri') != null) {
-	    	$("#endpoint-row").hide();
-	    	console.log(decodeURIComponent($.urlParam('endpoint_uri')));
-	    	endpointSubmit(decodeURIComponent($.urlParam('endpoint_uri')));
-	    } else {
-	    	console.log("no endpoint uri in param");
-	    }
+
         $(document).ready(function() {
             $("#loading").hide();
             $("#noresponse").hide();
