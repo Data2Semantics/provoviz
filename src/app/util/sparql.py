@@ -84,7 +84,7 @@ def get_named_graphs(endpoint_uri):
 
 
 
-def build_graph(G, endpoint_uri, name, source=None, target=None, query=None, intermediate = None):
+def build_graph(G, endpoint_uri, name=None, source=None, target=None, query=None, intermediate = None):
 	sparql = SPARQLWrapper(endpoint_uri)
 	sparql.setReturnFormat(JSON)
 	sparql.setQuery(query)
@@ -97,9 +97,12 @@ def build_graph(G, endpoint_uri, name, source=None, target=None, query=None, int
 		app.logger.debug(u"Result:\n{}".format(result))
 		
 		if not intermediate :
-			if not source :
+			if name and not source:
 				source_binding = uri_to_label(name).replace("'","");
 				source_uri = name
+			elif not source :
+				source_binding = "example"
+				source_uri = "http://prov.data2semantics.org/resource/example"
 			else :
 				if source+"_label" in result:
 					source_binding = result[source+"_label"]["value"]
@@ -151,18 +154,27 @@ def build_graph(G, endpoint_uri, name, source=None, target=None, query=None, int
 	return G
 
 
-def build_activity_graph(activity_uri, activity_id, graph_uri, endpoint_uri):
-	app.logger.debug(u"Building graph for {} ({})".format(activity_uri, activity_id))
+def build_full_graph(graph_uri, endpoint_uri):
+	app.logger.debug(u"Building full graph")
 	
 	G = nx.DiGraph()
 	
-	q_activity_to_resource = render_template('activity_to_resource.q', activity_uri = activity_uri, graph_uri=graph_uri)
+	q_activity_to_resource = render_template('activity_to_resource.q', graph_uri=graph_uri)
 	app.logger.debug("Running activity_to_resource")
-	G = build_graph(G, endpoint_uri, activity_uri, "activity", "entity", q_activity_to_resource)
+	G = build_graph(G, endpoint_uri, source="activity", target="entity", query=q_activity_to_resource)
 	
-	q_resource_to_activity = render_template('resource_to_activity.q', activity_uri = activity_uri, graph_uri=graph_uri)
+	q_resource_to_activity = render_template('resource_to_activity.q', graph_uri=graph_uri)
 	app.logger.debug("Running resource to activity")
-	G = build_graph(G, endpoint_uri, activity_uri, "entity", "activity", q_resource_to_activity)
+	G = build_graph(G, endpoint_uri, source="entity", target="activity", query=q_resource_to_activity)
+	
+	q_derived_from = render_template('derived_from.q', graph_uri = graph_uri)
+	app.logger.debug("Running derived from")
+	G = build_graph(G, endpoint_uri, source="entity1", target="entity2", query=q_derived_from)
+	
+	return G
+	
+def extract_activity_graph(G, activity_uri, activity_id):
+	app.logger.debug(u"Extracting graph for {} ({})".format(activity_uri, activity_id))
 	
 	origin_node_id = activity_uri
 

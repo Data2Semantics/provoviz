@@ -31,8 +31,8 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
     //             .range(["#EB6841","#CC333F","#00A0B0"]);
             
     var color = d3.scale.ordinal()
-                .domain(["activity","origin","entity"])
-                .range(["#556270","#4ECDC4","#C7F464"]);
+                .domain(["activity","origin","entity","entity1","entity2"])
+                .range(["#556270","#4ECDC4","#C7F464","#C7F464","#C7F464"]);
 
     var svg = d3.select(graph_div).append("svg")
         .attr("width", width + margin.left + margin.right)

@@ -4,9 +4,8 @@
                 <input type="hidden" id="graphs" style="width: 100%; "></input>
         </div>
 </div>
-
-<script type="application/x-javascript" src="{{ url_for('.static',filename='js/activity_graph.js')}}"></script>
-<script type="application/x-javascript" src="{{ url_for('.static',filename='js/sankey.js')}}"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/activity_graph.js',_external=True)}}"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/d3.v3.js',_external=True) }}"></script>
 <script>
     
     $('#graphs').change(function(e) {
@@ -17,33 +16,24 @@
             $('#noselection').show()
             return;
         }
-        $("#graph").empty();
         
         $("#noselection").hide();
         $("#noresponse").hide();
-        
         $("#loading").show();
         $("#activities-row").hide();
+		$("#serviceactivities").hide();	
         
         
         var graph_uri = e.val;
         $.localStorage('graph_uri',graph_uri);
         var endpoint_uri = $.localStorage('endpoint_uri');
         
-        $.getJSON('{{ url_for("activities") }}', {graph_uri: graph_uri, endpoint_uri: endpoint_uri }).done(function(data){
-                console.log(data);
-                
-                for(var i=0;i<data.activities.length;i++) {
-                    
-                    var activity = data.activities[i];
-                    
-                    $.localStorage(activity['id'],activity['text']);
-                }
-                
-                $("#activities").select2({ placeholder: "Start typing..." , allowClear: true, data: data.activities });
-                $("#loading").hide();
-                $("#activities-row").show();
-                
+        $.get('{{ url_for("activities") }}', {graph_uri: graph_uri, endpoint_uri: endpoint_uri }).done(function(data){
+				$("#serviceactivities").empty();
+				$("#serviceactivities").html(data);
+				$("#loading").hide();
+				$("#activities-row").show();
+				$("#serviceactivities").show();	    
         });
 
     });

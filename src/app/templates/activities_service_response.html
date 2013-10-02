@@ -1,12 +1,7 @@
 <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2.css',_external=True) }}" />
 <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2-bootstrap.css',_external=True) }}" />
-<script type="application/x-javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="application/x-javascript" src="{{ url_for('.static',filename='js/jquery.storage.js',_external=True) }}"></script>
-<script type="application/x-javascript" src="{{ url_for('.static',filename='js/d3.v3.js',_external=True) }}"></script>
-<script type="application/x-javascript" src="{{ url_for('.static',filename='js/activity_graph.js',_external=True)}}"></script>
-<script type="application/x-javascript" src="{{ url_for('.static',filename='js/sankey.js',_external=True)}}"></script>
-<script type="application/x-javascript" src="{{ url_for('.static',filename='js/colorbrewer.js',_external=True)}}"></script>
 
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/activity_graph.js',_external=True)}}"></script>
 <style>
 	.graph {
 		color: black;
@@ -100,6 +95,12 @@
     }); 
 </script>
 
+<script type="application/x-javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/jquery.storage.js',_external=True) }}"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/d3.v3.js',_external=True) }}"></script>
+
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/sankey.js',_external=True)}}"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/colorbrewer.js',_external=True)}}"></script>
 <script src="{{ url_for('.static',filename='js/bootstrap.js', _external=True) }}"></script>
 <script src="{{ url_for('.static',filename='js/select2.js', _external=True) }}"></script>
 <script src="{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js', _external=True) }}"></script> 

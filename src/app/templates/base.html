@@ -182,11 +182,11 @@
             <div class="span12">
                 <h4>Explore Activities</h4>
                 <p>When you select an activity from the drop down box, we will render Sankey diagram showing the <strong>activity</strong> together with causally-related <strong>entities</strong> and <strong>activities</strong>.</p>
-                {% include 'activities.html' %}
+				<div id="serviceactivities">
+				</div>
             </div>
         </div>
-        <div class="row" id="serviceactivities">
-        </div>
+
         {% include 'nothing_selected.html' %}
         {% include 'loading.html' %}
         {% include 'nothing_returned.html' %}
@@ -234,11 +234,12 @@
             $.localStorage('endpoint_uri',endpoint_uri);
             
             $.getJSON('{{ url_for("graphs") }}', {endpoint_uri: endpoint_uri }).done(function(data){
-                console.log(data);
+                
                 
                 $("#graphs").select2({ placeholder: "Start typing..." , allowClear: true, data: data.graphs });
                 $("#loading").hide();
                 $("#explore-row").show();
+				$.scrollTo( '#explore-row', 800);
                 
             });
         }
@@ -260,13 +261,12 @@
 			var post_data = { data: provodata, graph_uri: graph_uri };
 			
 			$.post('{{ url_for("service") }}', post_data, function(data){
-				var div = $('<div></div>');
-				div.addClass('span12');
-				div.html(data);
 				$("#serviceactivities").empty();
-				$("#serviceactivities").append(div);
+				$("#serviceactivities").html(data);
 				$("#loading").hide();
+				$("#activities-row").show();
 				$("#serviceactivities").show();	
+				$.scrollTo( '#activities-row', 800);
 			})
 		}
 
@@ -275,7 +275,11 @@
     </script>
 
 </body>
-    <script src="{{ url_for('.static',filename='js/bootstrap.js') }}"></script>
-    <script src="{{ url_for('.static',filename='js/select2.js') }}"></script>
-    <script src="{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js') }}"></script> 
+<script src="{{ url_for('.static',filename='js/bootstrap.js') }}"></script>
+<script src="{{ url_for('.static',filename='js/select2.js') }}"></script>
+<script src="{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js') }}"></script> 
+<script src="{{ url_for('.static',filename='js/jquery.scrollTo-1.4.3.1-min.js') }}"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/d3.v3.js',_external=True) }}"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/sankey.js',_external=True)}}"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/colorbrewer.js',_external=True)}}"></script>
 </html>

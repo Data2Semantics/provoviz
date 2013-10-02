@@ -43,33 +43,37 @@ def activities():
 	
 	if graph_uri != '' and endpoint_uri != '':
 		activities = s.get_activities(graph_uri, endpoint_uri)
-	
-		return jsonify(activities = activities)
+		
+		response = generate_graphs(graph_uri, endpoint_uri)
+		
+		response = json.dumps(response)
+		
+		return render_template('activities_service_response.html', response=response, data_hash='default')
 
 	return "Nothing! Oops"
 
 
-@app.route('/diagram', methods= ['GET'])
-def diagram():
-	graph_type = request.args.get('type','')
-	
-	
-	if graph_type == 'activities':
-		activity_uri = request.args.get('uri','')
-		activity_id = request.args.get('id','')
-		graph_uri = request.args.get('graph_uri','')
-		endpoint_uri = request.args.get('endpoint_uri','')
-		
-		
-		if activity_uri == '' :
-			return 'Nada'
-		else :
-			graph, width, types, diameter = s.build_activity_graph(activity_uri, activity_id, graph_uri, endpoint_uri)
-		
-		return jsonify(graph = graph, width = width, types= types, diameter=diameter)
-		
-	
-	return "Nothing! Oops"
+# @app.route('/diagram', methods= ['GET'])
+# def diagram():
+# 	graph_type = request.args.get('type','')
+# 	
+# 	
+# 	if graph_type == 'activities':
+# 		activity_uri = request.args.get('uri','')
+# 		activity_id = request.args.get('id','')
+# 		graph_uri = request.args.get('graph_uri','')
+# 		endpoint_uri = request.args.get('endpoint_uri','')
+# 		
+# 		
+# 		if activity_uri == '' :
+# 			return 'Nada'
+# 		else :
+# 			graph, width, types, diameter = s.build_activity_graph(activity_uri, activity_id, graph_uri, endpoint_uri)
+# 		
+# 		return jsonify(graph = graph, width = width, types= types, diameter=diameter)
+# 		
+# 	
+# 	return "Nothing! Oops"
 
 
 @app.route('/service', methods=['POST'])
@@ -99,32 +103,7 @@ def service(prov_data, graph_uri):
 					 headers = headers)
 	
 	if r.ok :
-		## It seems we're good to go!
-		activities = s.get_activities(graph_uri, DEFAULT_SPARQL_ENDPOINT_URL)
-		
-		response = []
-		for a in activities:
-			
-			activity_uri = a['id']
-			activity_id = a['text']
-			
-			
-			try:
-				graph, width, types, diameter = s.build_activity_graph(activity_uri, activity_id, graph_uri, DEFAULT_SPARQL_ENDPOINT_URL)
-			except Exception as e:
-				app.logger.debug(e)
-				app.logger.debug("Continuing as if nothing happened...")
-				continue
-				
-			activity = {}
-			activity['id'] = activity_uri
-			activity['text'] = activity_id
-			activity['graph'] = graph
-			activity['width'] = width
-			activity['types'] = types
-			activity['diameter'] = diameter
-		
-			response.append(activity)
+		response = generate_graphs(graph_uri, DEFAULT_SPARQL_ENDPOINT_URL)
 		
 		response = json.dumps(response)
 		return render_template('activities_service_response.html', response=response, data_hash=data_hash)
@@ -152,7 +131,37 @@ def service_test():
 
 	
 
-
+def generate_graphs(graph_uri, endpoint_uri):
+	## It seems we're good to go!
+	G = s.build_full_graph(graph_uri, endpoint_uri)
+	
+	activities = s.get_activities(graph_uri, endpoint_uri)
+	
+	response = []
+	for a in activities:
+		
+		activity_uri = a['id']
+		activity_id = a['text']
+		
+		
+		try:
+			graph, width, types, diameter = s.extract_activity_graph(G, activity_uri, activity_id)
+		except Exception as e:
+			app.logger.debug(e)
+			app.logger.debug("Continuing as if nothing happened...")
+			continue
+			
+		activity = {}
+		activity['id'] = activity_uri
+		activity['text'] = activity_id
+		activity['graph'] = graph
+		activity['width'] = width
+		activity['types'] = types
+		activity['diameter'] = diameter
+	
+		response.append(activity)
+		
+	return response
 
 
 
