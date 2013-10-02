@@ -157,11 +157,11 @@ def build_activity_graph(activity_uri, activity_id, graph_uri, endpoint_uri):
 	G = nx.DiGraph()
 	
 	q_activity_to_resource = render_template('activity_to_resource.q', activity_uri = activity_uri, graph_uri=graph_uri)
-	
+	app.logger.debug("Running activity_to_resource")
 	G = build_graph(G, endpoint_uri, activity_uri, "activity", "entity", q_activity_to_resource)
 	
 	q_resource_to_activity = render_template('resource_to_activity.q', activity_uri = activity_uri, graph_uri=graph_uri)
-	
+	app.logger.debug("Running resource to activity")
 	G = build_graph(G, endpoint_uri, activity_uri, "entity", "activity", q_resource_to_activity)
 	
 	origin_node_id = activity_uri
