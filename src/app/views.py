@@ -83,8 +83,9 @@ def activities():
 
 @app.route('/service', methods=['POST','OPTIONS'])
 def service():
-	prov_data = request.form['data']
-	graph_uri = request.form['graph_uri']
+	result = request.get_json()
+	prov_data = result['data']
+	graph_uri = result['graph_uri']
 	return service(prov_data, graph_uri)
 	
 
