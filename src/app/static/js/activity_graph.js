@@ -20,10 +20,12 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
     var margin = {top: 1, right: 1, bottom: 6, left: 1},
         width = (200 * diameter) - margin.left - margin.right;
     
-        if (tree_width * 10 < 500) {
+        if (tree_width * 15 < 500) {
+			console.log("Set height to 500");
             var height = 500;
         } else {
-            var height = tree_width * 10;
+            var height = tree_width * 30;
+			console.log("Set height ")
         }
 
     // var color = d3.scale.ordinal()

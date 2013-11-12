@@ -81,16 +81,19 @@ def activities():
 # 	return "Nothing! Oops"
 
 
-@app.route('/service', methods=['POST','OPTIONS'])
+@app.route('/service', methods=['POST'])
 def service():
-	result = request.get_json()
-	prov_data = result['data']
-	graph_uri = result['graph_uri']
-	return service(prov_data, graph_uri)
+	prov_data = request.form['data']
+	graph_uri = request.form['graph_uri']
+	if 'client' in request.form:
+		client = request.form['client']
+	else :
+		client = None
+	return service(prov_data, graph_uri, client)
 	
 
-def service(prov_data, graph_uri):
-	
+def service(prov_data, graph_uri, client=None):
+	app.logger.debug("Starting service for {}".format(graph_uri))
 	if graph_uri.startswith('<') :
 		context = graph_uri
 	else :
@@ -112,9 +115,15 @@ def service(prov_data, graph_uri):
 		response = generate_graphs(graph_uri, DEFAULT_SPARQL_ENDPOINT_URL)
 		
 		response = json.dumps(response)
-		return render_template('activities_service_response.html', response=response, data_hash=data_hash)
+		app.logger.debug("Done")
+		
+		if client == 'linkitup':
+			return render_template('activities_service_response_linkitup.html', response=response, data_hash=data_hash)
+		else :
+			return render_template('activities_service_response.html', response=response, data_hash=data_hash)
 		
 	else :
+		app.logger.debug("Something went wrong")
 		return make_response(r.content, 500)
 	
 	
