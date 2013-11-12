@@ -4,7 +4,7 @@
 <script src="{{ url_for('.static',filename='js/colorbrewer.js',_external=True)}}"></script>
 <script src="{{ url_for('.static',filename='js/activity_graph.js',_external=True)}}"></script>
 <script src="{{ url_for('.static',filename='js/d3.v3.js',_external=True) }}"></script>
-<script src="{{ url_for('.static',filename='js/sankey.js',_external=True)}}"></script>
+
 
 <style>
 	.graph {
@@ -69,6 +69,8 @@
 
 	$(function(){
 		$("#id{{ data_hash }}_activities").select2({ placeholder: "Start typing..." , allowClear: true, data: activities });
+		
+		$.getScript("{{ url_for('.static',filename='js/sankey.js',_external=True)}}");
 	});
 
     $('#id{{ data_hash }}_activities').change(function(e) {
