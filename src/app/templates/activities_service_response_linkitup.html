@@ -70,7 +70,7 @@
 	$(function(){
 		$("#id{{ data_hash }}_activities").select2({ placeholder: "Start typing..." , allowClear: true, data: activities });
 		console.log("Loading d3js");
-		$.getScript("{{ url_for('.static',filename='js/d3.v3.js',_external=True) }}").done(function(script, textStatus){
+		$.getScript("http://d3js.org/d3.v3.min.js").done(function(script, textStatus){
 			console.log("Loading sankey.js");
 			$.getScript("{{ url_for('.static',filename='js/sankey.js',_external=True)}}");
 		});
