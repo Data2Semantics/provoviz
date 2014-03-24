@@ -85,6 +85,10 @@ def activities():
 def service():
     prov_data = request.form['data']
     graph_uri = request.form['graph_uri']
+    
+    prov_data = unicode(prov_data).encode('utf-8')
+    graph_uri = unicode(graph_uri).encode('utf-8')
+    
     if 'client' in request.form:
         client = request.form['client']
     else :
@@ -93,8 +97,6 @@ def service():
     
 
 def service(prov_data, graph_uri, client=None):
-    prov_data = unicode(prov_data).encode('utf-8')
-    
     app.logger.debug("Starting service for {}".format(graph_uri))
     if graph_uri.startswith('<') :
         context = graph_uri
