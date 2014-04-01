@@ -19,22 +19,21 @@ function drawDiagramForActivity(diagram_service_url, uri, id, graph_uri, endpoin
 function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
     var margin = {top: 1, right: 1, bottom: 6, left: 1},
         width = (200 * diameter) - margin.left - margin.right;
-    
-        if (tree_width * 15 < 500) {
+    	
+		console.log("Tree width = "+tree_width);
+		
+		// We will use a minimum height of 500 pixels
+        if (tree_width * 30 < 500) {
 			console.log("Set height to 500");
             var height = 500;
         } else {
             var height = tree_width * 30;
-			console.log("Set height ")
+			console.log("Set height to "+height);
         }
 
-    // var color = d3.scale.ordinal()
-    //             .domain(["activity","origin","entity"])
-    //             .range(["#EB6841","#CC333F","#00A0B0"]);
-            
     var color = d3.scale.ordinal()
-                .domain(["activity","origin","entity","entity1","entity2"])
-                .range(["#556270","#4ECDC4","#C7F464","#C7F464","#C7F464"]);
+                .domain(["activity","origin","entity","entity1","entity2","activity1","activity2"])
+                .range(["#556270","#4ECDC4","#C7F464","#C7F464","#C7F464","#556270","#556270"]);
 
     var svg = d3.select(graph_div).append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -93,6 +92,17 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
         .filter(function(d) { return d.x < width / 2; })
         .attr("x", 6 + sankey.nodeWidth())
         .attr("text-anchor", "start");
+
+    node.append("text")
+        .attr("x", -6)
+        .attr("y", function(d) { return d.dy / 2 + 12; })
+        .attr("dy", ".35em")
+        .attr("text-anchor", "end")
+        .attr("transform", null)
+        .filter(function(d) { return d.x < width / 2; })
+        .attr("x", 6 + sankey.nodeWidth())
+        .attr("text-anchor", "start")
+		.text(function(d) { return "(" + d.type + ")"; });
 
     function dragmove(d) {
         d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
