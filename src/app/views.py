@@ -43,10 +43,10 @@ def graphs():
 
 @app.route('/activities', methods=['GET'])
 def activities():
-    graph_uri = request.args.get('graph_uri','')
-    endpoint_uri = request.args.get('endpoint_uri','')
+    graph_uri = request.args.get('graph_uri',None)
+    endpoint_uri = request.args.get('endpoint_uri',None)
     
-    if graph_uri != '' and endpoint_uri != '':
+    if graph_uri and endpoint_uri:
         activities = s.get_activities(graph_uri, endpoint_uri)
         
         response = generate_graphs(graph_uri, endpoint_uri)
