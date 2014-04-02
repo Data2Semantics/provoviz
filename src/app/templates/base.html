@@ -5,19 +5,84 @@
     <title>PROV Provenance Visualizer</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap.min.css') }}" />
-	<link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap-theme.min.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap-theme.min.css') }}" /> -->
 	<link rel="stylesheet" href="{{ url_for('.static',filename='css/provoviz.css') }}" />
     <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2.css') }}" />
     <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2-bootstrap.css') }}" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="{{ url_for('.static',filename='js/jquery.storage.js') }}"></script>
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
-
-
+    
 </head>
 
 <body>
+    
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            
+            <a class="navbar-brand" href="#"><img src="{{ url_for('.static',filename='img/logo-no-text-150dpi.png') }}" style="width: 100px; margin-top: -15px; margin-left: -110px; "/></a>
+            <a class="navbar-brand">PROV-O-Viz</a>
+          </div>
+          <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload <b class="caret"></b></a>
+                <ul class="dropdown-menu" id="provenance-upload-menu">
+					<div style="margin: 10px;" class="form-group">
+                        <label for="provenance-data">Upload Provenance</label>
+						<textarea style="height: 131px; width: 455px;" id="provenance-data" class="col-xs-12" name="data" rows="4" placeholder="PROV-O input"></textarea>
+                        <span class="help-block">Copy and paste a Turtle serialization of a PROV-O graph in the text area above.</span>
+						<button id="submit-provenance-data" class="btn btn-primary  btn-block" value="go" type="button">Submit</button>
+					</div>                  
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Endpoint <b class="caret"></b></a>
+                <ul class="dropdown-menu" id="sparql-endpoint-menu">
+					<div style="margin: 10px;" class="form-group">
+                        <label for="endpoint">SPARQL Endpoint URI</label>
+		                <div class="form-group">
+		                    <input style="width: 455px;" type="text" class="form-control input" id="provenance-endpoint" name="provenance-endpoint" placeholder="http://semweb.cs.vu.nl:8080/openrdf-sesame/provoviz" width="100%"></input>
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" id="ignore-named-graphs" name="ignore-named-graphs"/> Ignore Named Graphs
+                              </label>
+                            </div> 
+                            <span class="help-block">Specify the URI of your SPARQL endpoint above. Typically provenance graphs are stored as separate named graphs. If you experience performance problems, or have provenance graphs spanning multiple Named Graphs, check the box.</span>
+		                </div>
+                        <button type="button" id="submit-provenance-endpoint" value="go" class="btn btn-primary btn-block">Submit</button>
+                        <!-- <div id="explore-row">
+                            <h4>Select Provenance Graph</h4>
+                            <p>When you select a Named Graph, we will retrieve a list of all activities in that graph. Only graphs with activities are shown here.</p>
 
+                        </div> -->
+					</div>                  
+                </ul>
+              </li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Named Graphs <b class="caret"></b></a>
+                  <ul class="dropdown-menu" id="named-graphs-menu">
+                  </ul>
+              </li>
+            </ul>
+            <!-- <form class="navbar-form navbar-left" id="explore-row">
+                    <input class="form-control" type="hidden" id="graphs"></input>
+            </form> -->
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">API</a></li>
+              <li><a href="http://www.data2semantics.org">Data2Semantics</a></li>
+            </ul>
+          </div>
+        </div>
+    </div>
+    
+    
     <div class="container" id="#contents">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -44,54 +109,62 @@
 				 	<li>a <code>data</code>	parameter that contains a Turtle serialization of a PROV-O graph</li>
 				</ul>
 			</div>
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						Go on, give us some PROV!
-					</div>
-					<div class="panel-body">
-						<ul class="nav nav-tabs" id="options_tab">
-							<li class="active"><a href="#paste">Paste-And-Go</a></li>
-							<li><a href="#sparql">SPARQL Endpoint</a></li>
-						</ul>
-						<div class="tab-content">
-							<div class="tab-pane active" id="paste">
-								<h4>Paste-And-Go form</h4>
-								<p>Paste a Turtle serialization of a PROV-O graph in the text area below.</p>
-								<div class="input-append">
-									<textarea id="provodata" class="col-xs-12" name="data" rows="4" placeholder="PROV-O input"></textarea>
-									<button id="provoSubmit" class="btn btn-primary btn-block" value="go" type="button">Go</button>
-								</div>
-								<div class="alert alert-info" style="margin-top: 1em;"><strong>Example</strong>
-									<p>Use the most excellent <a href="http://git2prov.org">Git2PROV</a> we developed together with the University of Ghent to generate PROV-O from your favorite Git repository. The output of Git2PROV can simply be copied to the text area.
-									</p>
-								</div>
-							</div>
-							<div class="tab-pane" id="sparql">
-				                <h4>SPARQL Endpoint</h4>
-				                <p>Give the URL of your SPARQL endpoint</p>
-				                <div class="input-append">
-				                    <input type="text" class="col-xs-12" id="endpoint" name="endpoint" placeholder="Start typing..." width="100%"></input><button type="button" id="endpointSubmit" value="go" class="btn btn-primary btn-block">Go</input>
-				                </div>
-								<div class="alert alert-info" style="margin-top: 1em;"><strong>Example</strong>
-									<p>Our own <a id="endpointLink">experimental endpoint</a> usually contains some PROV-O for you to explore.
-									</p>
-								</div>
-								<div id="explore-row">
-					                <h4>Select Provenance Graph</h4>
-					                <p>When you select a Named Graph, we will retrieve a list of all activities in that graph. Only graphs with activities are shown here.</p>
-									<div class="control-group">
-									        <div class="controls">
-									                <label for="graphs"><i class="icon-search"></i> Select a Named Graph</label>
-									                <input type="hidden" id="graphs" style="width: 100%; "></input>
-									        </div>
-									</div>
-								</div>				
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			
+            <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Go on, give us some PROV!
+                    </div>
+                    <div class="panel-body">
+                        <ul class="nav nav-tabs" id="options_tab">
+                            <li class="active"><a>Paste-And-Go</a></li>
+                            <li><a>SPARQL Endpoint</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="paste">
+                                <h4>Paste-And-Go form</h4>
+                                <p>Paste a Turtle serialization of a PROV-O graph in the text area below.</p>
+                                <div class="input-append">
+                                    <textarea id="provodata" class="col-xs-12" name="data" rows="4" placeholder="PROV-O input"></textarea>
+                                    <button id="provoSubmit" class="btn btn-primary btn-block" value="go" type="button">Go</button>
+                                </div>
+                                <div class="alert alert-info" style="margin-top: 1em;"><strong>Example</strong>
+                                    <p>Use the most excellent <a href="http://git2prov.org">Git2PROV</a> we developed together with the University of Ghent to generate PROV-O from your favorite Git repository. The output of Git2PROV can simply be copied to the text area.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="sparql">
+                                <h4>SPARQL Endpoint</h4>
+                                <p>Give the URL of your SPARQL endpoint</p>
+                                <div class="input-append">
+                                    <input type="text" class="col-xs-12" id="endpoint" name="endpoint" placeholder="Start typing..." width="100%"></input>
+                                    <div class="checkbox">
+                                      <label>
+                                        <input type="checkbox" id="ignoregraphs" name="ignoregraphs"/> Ignore Named Graphs
+                                      </label>
+                                    </div>
+                                    
+                                    <button type="button" id="endpointSubmit" value="go" class="btn btn-primary btn-block">Go</input>
+                                </div>
+                                <div class="alert alert-info" style="margin-top: 1em;"><strong>Example</strong>
+                                    <p>Our own <a id="endpointLink">experimental endpoint</a> usually contains some PROV-O for you to explore.
+                                    </p>
+                                </div>
+                                <div id="explore-row">
+                                    <h4>Select Provenance Graph</h4>
+                                    <p>When you select a Named Graph, we will retrieve a list of all activities in that graph. Only graphs with activities are shown here.</p>
+                                    <div class="control-group">
+                                            <div class="controls">
+                                                    <label for="graphs"><i class="icon-search"></i> Select a Named Graph</label>
+                                                    <input type="hidden" id="graphs" style="width: 100%; "></input>
+                                            </div>
+                                    </div>
+                                </div>                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
 		</div>
 
 
@@ -166,10 +239,14 @@
 
     <script type="application/x-javascript">
 
-		$('#options_tab a').click(function (e) {
-			e.preventDefault()
-			$(this).tab('show')
-		})
+        $(document).ready(function() {
+            $("#provenance-upload-menu").click(function(e) {
+               e.stopPropagation();
+            });
+            $("#sparql-endpoint-menu").click(function(e) {
+               e.stopPropagation();
+            });
+        });
 
         $(document).ready(function() {
             $("#loading").hide();
@@ -180,17 +257,17 @@
 			$("#serviceactivities").hide();	
 			$("#serviceactivities").empty();
             
-            $('#endpointSubmit').on('click',function(){
-            	endpointSubmit($('#endpoint').val());
+            $('#submit-provenance-endpoint').on('click',function(){
+            	endpointSubmit($('#provenance-endpoint').val());
             });
 
-			$('#provoSubmit').on('click', function(){
-				provoSubmit($('#provodata').val());
+			$('#submit-provenance-data').on('click', function(){
+				provoSubmit($('#provenance-data').val());
 			});
 			
-			$('#endpointLink').on('click', function(){
-				endpointSubmit('http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz');
-			});
+            // $('#endpointLink').on('click', function(){
+            //     endpointSubmit('http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz');
+            // });
 			
 			$('#source').on('click', function(){
 				if ($( "#source" ).hasClass( "btn-default" )) {
@@ -222,8 +299,35 @@
             
             $.getJSON('{{ url_for("graphs") }}', {endpoint_uri: endpoint_uri }).done(function(data){
                 
-                
-                $("#graphs").select2({ placeholder: "Start typing..." , allowClear: false, data: data.graphs });
+                $.each(data.graphs, function(k,v){
+                    var li = $('<li></li>');
+                    var a = $('<a></a>');
+                    
+                    a.attr('id',v.id);
+                    
+                    a.on('click',function(e){
+            		    var graph_uri = e.target.id;
+            		    $.localStorage('graph_uri',graph_uri);
+            		    var endpoint_uri = $.localStorage('endpoint_uri');
+    
+            		    $.get('{{ url_for("activities") }}', {graph_uri: graph_uri, endpoint_uri: endpoint_uri }).done(function(data){
+            				$("#serviceactivities").empty();
+            				$("#serviceactivities").html(data);
+            				$("#loading").hide();
+            				$("#source").removeClass('btn-disabled');
+            				$("#source").addClass('btn-default');
+            				$("#activities-row").show();
+            				$("#serviceactivities").show();	    
+            		    });
+                    });
+                    
+                    a.append(v.text);
+                    li.append(a);
+                    
+                    
+                    $('#named-graphs-menu').append(li);
+                })
+                $("#graphs").select2({ placeholder: "Start typing..." , allowClear: false, data: data.graphs, width: '256px' });
                 $("#loading").hide();
                 $("#explore-row").show();
 				$("#selectgraph").show();
