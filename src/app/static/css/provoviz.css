@@ -1,17 +1,19 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,800,300);
+/*@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,800,300);
 
 body {
-	font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
 }
 
 h1, h2, h3, h4, h5 {
-	font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
-	font-weight: 600;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: 600;
 }
 
 h1 {
-	font-weight: 700;
-}
+    font-weight: 700;
+}*/
+
+
 
 .popout {
 	border-left: 2px solid grey;
