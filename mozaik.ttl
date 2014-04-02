@@ -1,0 +1,471 @@
+@prefix fullResult: <http://git2prov.org/git2prov?giturl=https%3A%2F%2Fgithub.com%2Ftdn%2FSMIF-Mozaiek.git&serialization=PROV-O#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix result: <http://git2prov.org/git2prov?giturl=https%3A%2F%2Fgithub.com%2Ftdn%2FSMIF-Mozaiek.git&serialization=PROV-O#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+result:1a3c3731b4db009f6788bd597c482956f535b4c7	a	prov:Activity ;
+		prov:endedAtTime	"2011-10-19T12:55:50.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:Tom-De-Nies ; prov:hadRole "author, committer"@en ] ;
+		prov:qualifiedUsage	[ a prov:Usage ; prov:entity result:poc-mozaiek--gitignore_78bea491ea1d892a2865a3dd37a8842218bc1471 ; prov:atTime "2011-10-19T12:55:50.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-index-html_78bea491ea1d892a2865a3dd37a8842218bc1471 ; prov:atTime "2011-10-19T12:55:50.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-css_78bea491ea1d892a2865a3dd37a8842218bc1471 ; prov:atTime "2011-10-19T12:55:50.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-js_78bea491ea1d892a2865a3dd37a8842218bc1471 ; prov:atTime "2011-10-19T12:55:50.000Z"^^xsd:dateTime ] ;
+		prov:startedAtTime	"2011-10-19T12:55:50.000Z"^^xsd:dateTime ;
+		prov:used	result:poc-mozaiek--gitignore_78bea491ea1d892a2865a3dd37a8842218bc1471 ,
+				result:poc-mozaiek-src-main-webapp-index-html_78bea491ea1d892a2865a3dd37a8842218bc1471 ,
+				result:poc-mozaiek-src-main-webapp-mozaiek-css_78bea491ea1d892a2865a3dd37a8842218bc1471 ,
+				result:poc-mozaiek-src-main-webapp-mozaiek-js_78bea491ea1d892a2865a3dd37a8842218bc1471 ;
+		prov:wasAssociatedWith	result:Tom-De-Nies ;
+		prov:wasInformedBy	result:78bea491ea1d892a2865a3dd37a8842218bc1471 ;
+		rdfs:label	"Mockup +/- ready"@en .
+result:2578e4a7d2f5545d115c889a1f8cf0ff24186232	a	prov:Activity ;
+		prov:endedAtTime	"2011-10-17T16:07:01.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:Tom-De-Nies ; prov:hadRole "author, committer"@en ] ;
+		prov:qualifiedUsage	[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-index-html_907dadec4bc09a6e6bab12be1be1c8bce211dfe7 ; prov:atTime "2011-10-17T16:07:01.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-css_907dadec4bc09a6e6bab12be1be1c8bce211dfe7 ; prov:atTime "2011-10-17T16:07:01.000Z"^^xsd:dateTime ] ;
+		prov:startedAtTime	"2011-10-17T16:07:01.000Z"^^xsd:dateTime ;
+		prov:used	result:poc-mozaiek-src-main-webapp-index-html_907dadec4bc09a6e6bab12be1be1c8bce211dfe7 ,
+				result:poc-mozaiek-src-main-webapp-mozaiek-css_907dadec4bc09a6e6bab12be1be1c8bce211dfe7 ;
+		prov:wasAssociatedWith	result:Tom-De-Nies ;
+		prov:wasInformedBy	result:907dadec4bc09a6e6bab12be1be1c8bce211dfe7 ;
+		rdfs:label	"More layout"@en .
+result:2ad6172287069c569d9e93f98befc9569ab1b7d7	a	prov:Activity ;
+		prov:endedAtTime	"2011-10-17T08:56:36.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:Tom-De-Nies ; prov:hadRole "author, committer"@en ] ;
+		prov:startedAtTime	"2011-10-17T08:56:36.000Z"^^xsd:dateTime ;
+		prov:wasAssociatedWith	result:Tom-De-Nies ;
+		rdfs:label	"gitignore eclipse project files"@en .
+result:2c705b392e8de9350ca5b79bebc4cdb476cfd9d7	a	prov:Activity ;
+		prov:endedAtTime	"2013-07-08T15:28:59.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:tdn ; prov:hadRole "author, committer"@en ] ;
+		prov:startedAtTime	"2013-07-08T15:28:59.000Z"^^xsd:dateTime ;
+		prov:wasAssociatedWith	result:tdn ;
+		rdfs:label	"Deleted test"@en .
+result:4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014	a	prov:Activity ;
+		prov:endedAtTime	"2013-07-05T18:03:33.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:tdn ; prov:hadRole "author, committer"@en ] ;
+		prov:qualifiedUsage	[ a prov:Usage ; prov:entity result:test-txt_4eece08690189312ea5709a8b901b2238856310e ; prov:atTime "2013-07-05T18:03:33.000Z"^^xsd:dateTime ] ;
+		prov:startedAtTime	"2013-07-05T18:03:33.000Z"^^xsd:dateTime ;
+		prov:used	result:test-txt_4eece08690189312ea5709a8b901b2238856310e ;
+		prov:wasAssociatedWith	result:tdn ;
+		prov:wasInformedBy	result:4eece08690189312ea5709a8b901b2238856310e ;
+		rdfs:label	"test3"@en .
+result:4eece08690189312ea5709a8b901b2238856310e	a	prov:Activity ;
+		prov:endedAtTime	"2013-07-05T17:57:55.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:tdn ; prov:hadRole "author, committer"@en ] ;
+		prov:qualifiedUsage	[ a prov:Usage ; prov:entity result:test-txt_c1b14bb613474c5f1ec6a974d230396afe2e031c ; prov:atTime "2013-07-05T17:57:55.000Z"^^xsd:dateTime ] ;
+		prov:startedAtTime	"2013-07-05T17:57:55.000Z"^^xsd:dateTime ;
+		prov:used	result:test-txt_c1b14bb613474c5f1ec6a974d230396afe2e031c ;
+		prov:wasAssociatedWith	result:tdn ;
+		prov:wasInformedBy	result:c1b14bb613474c5f1ec6a974d230396afe2e031c ;
+		rdfs:label	"test2"@en .
+result:78bea491ea1d892a2865a3dd37a8842218bc1471	a	prov:Activity ;
+		prov:endedAtTime	"2011-10-18T15:07:34.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:Tom-De-Nies ; prov:hadRole "author, committer"@en ] ;
+		prov:qualifiedUsage	[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-index-html_f149b5dfd9bea1a1b94283bd3cc9b984c139424c ; prov:atTime "2011-10-18T15:07:34.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-css_f149b5dfd9bea1a1b94283bd3cc9b984c139424c ; prov:atTime "2011-10-18T15:07:34.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-js_f149b5dfd9bea1a1b94283bd3cc9b984c139424c ; prov:atTime "2011-10-18T15:07:34.000Z"^^xsd:dateTime ] ;
+		prov:startedAtTime	"2011-10-18T15:07:34.000Z"^^xsd:dateTime ;
+		prov:used	result:poc-mozaiek-src-main-webapp-index-html_f149b5dfd9bea1a1b94283bd3cc9b984c139424c ,
+				result:poc-mozaiek-src-main-webapp-mozaiek-css_f149b5dfd9bea1a1b94283bd3cc9b984c139424c ,
+				result:poc-mozaiek-src-main-webapp-mozaiek-js_f149b5dfd9bea1a1b94283bd3cc9b984c139424c ;
+		prov:wasAssociatedWith	result:Tom-De-Nies ;
+		prov:wasInformedBy	result:f149b5dfd9bea1a1b94283bd3cc9b984c139424c ;
+		rdfs:label	"More Mockup"@en .
+result:907dadec4bc09a6e6bab12be1be1c8bce211dfe7	a	prov:Activity ;
+		prov:endedAtTime	"2011-10-17T13:07:57.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:Tom-De-Nies ; prov:hadRole "author, committer"@en ] ;
+		prov:startedAtTime	"2011-10-17T13:07:57.000Z"^^xsd:dateTime ;
+		prov:wasAssociatedWith	result:Tom-De-Nies ;
+		rdfs:label	"1st layout design"@en .
+result:90cb1e03d7c28dd096dafbc58d411e0982998f79	a	prov:Activity ;
+		prov:endedAtTime	"2011-10-24T10:43:33.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:Tom-De-Nies ; prov:hadRole "author, committer"@en ] ;
+		prov:qualifiedUsage	[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-images-like-icon-png_1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:atTime "2011-10-24T10:43:33.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-index-html_1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:atTime "2011-10-24T10:43:33.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-css_1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:atTime "2011-10-24T10:43:33.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-js_1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:atTime "2011-10-24T10:43:33.000Z"^^xsd:dateTime ] ;
+		prov:startedAtTime	"2011-10-24T10:43:33.000Z"^^xsd:dateTime ;
+		prov:used	result:poc-mozaiek-src-main-webapp-images-like-icon-png_1a3c3731b4db009f6788bd597c482956f535b4c7 ,
+				result:poc-mozaiek-src-main-webapp-index-html_1a3c3731b4db009f6788bd597c482956f535b4c7 ,
+				result:poc-mozaiek-src-main-webapp-mozaiek-css_1a3c3731b4db009f6788bd597c482956f535b4c7 ,
+				result:poc-mozaiek-src-main-webapp-mozaiek-js_1a3c3731b4db009f6788bd597c482956f535b4c7 ;
+		prov:wasAssociatedWith	result:Tom-De-Nies ;
+		prov:wasInformedBy	result:1a3c3731b4db009f6788bd597c482956f535b4c7 ;
+		rdfs:label	"More POC styling"@en .
+result:a5168fa535b34d4986ff2b3dc617e44f7acbb8b4	a	prov:Activity ;
+		prov:endedAtTime	"2011-10-17T08:30:57.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:Tom-De-Nies ; prov:hadRole "author, committer"@en ] ;
+		prov:startedAtTime	"2011-10-17T08:30:57.000Z"^^xsd:dateTime ;
+		prov:wasAssociatedWith	result:Tom-De-Nies ;
+		rdfs:label	"first commit"@en .
+result:c1b14bb613474c5f1ec6a974d230396afe2e031c	a	prov:Activity ;
+		prov:endedAtTime	"2013-07-05T17:57:46.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:tdn ; prov:hadRole "author, committer"@en ] ;
+		prov:startedAtTime	"2013-07-05T17:57:46.000Z"^^xsd:dateTime ;
+		prov:wasAssociatedWith	result:tdn ;
+		rdfs:label	"test"@en .
+result:d681dc5c96ea530eaf110706e5be48c160ce93be	a	prov:Activity ;
+		prov:endedAtTime	"2011-10-17T08:46:05.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:Tom-De-Nies ; prov:hadRole "author, committer"@en ] ;
+		prov:startedAtTime	"2011-10-17T08:46:05.000Z"^^xsd:dateTime ;
+		prov:wasAssociatedWith	result:Tom-De-Nies ;
+		rdfs:label	"1st code commit"@en .
+result:e6cdc91544867bc282ea7f34ea2e4b54811a9054	a	prov:Activity ;
+		prov:endedAtTime	"2013-07-08T08:16:13.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:tdn ; prov:hadRole "author, committer"@en ] ;
+		prov:qualifiedUsage	[ a prov:Usage ; prov:entity result:test-txt_c499565a06a554a49446c4e5c966871e2447e392 ; prov:atTime "2013-07-08T08:16:13.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:test-txt_f5432f7fdc7fe42fae669fd56336572fd6f1bb9a ; prov:atTime "2013-07-08T08:16:13.000Z"^^xsd:dateTime ] ;
+		prov:startedAtTime	"2013-07-08T08:16:13.000Z"^^xsd:dateTime ;
+		prov:used	result:test-txt_c499565a06a554a49446c4e5c966871e2447e392 ,
+				result:test-txt_f5432f7fdc7fe42fae669fd56336572fd6f1bb9a ;
+		prov:wasAssociatedWith	result:tdn ;
+		prov:wasInformedBy	result:c499565a06a554a49446c4e5c966871e2447e392 ,
+				result:f5432f7fdc7fe42fae669fd56336572fd6f1bb9a ;
+		rdfs:label	"Merge branch 'master' of https://github.com/tdn/SMIF-Mozaiek"@en .
+result:f149b5dfd9bea1a1b94283bd3cc9b984c139424c	a	prov:Activity ;
+		prov:endedAtTime	"2011-10-18T13:31:39.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:Tom-De-Nies ; prov:hadRole "author, committer"@en ] ;
+		prov:qualifiedUsage	[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-index-html_2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:atTime "2011-10-18T13:31:39.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-css_2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:atTime "2011-10-18T13:31:39.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-js_2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:atTime "2011-10-18T13:31:39.000Z"^^xsd:dateTime ] ;
+		prov:startedAtTime	"2011-10-18T13:31:39.000Z"^^xsd:dateTime ;
+		prov:used	result:poc-mozaiek-src-main-webapp-index-html_2578e4a7d2f5545d115c889a1f8cf0ff24186232 ,
+				result:poc-mozaiek-src-main-webapp-mozaiek-css_2578e4a7d2f5545d115c889a1f8cf0ff24186232 ,
+				result:poc-mozaiek-src-main-webapp-mozaiek-js_2578e4a7d2f5545d115c889a1f8cf0ff24186232 ;
+		prov:wasAssociatedWith	result:Tom-De-Nies ;
+		prov:wasInformedBy	result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 ;
+		rdfs:label	"First Mockup"@en .
+result:f5432f7fdc7fe42fae669fd56336572fd6f1bb9a	a	prov:Activity ;
+		prov:endedAtTime	"2013-07-08T08:14:07.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:tdn ; prov:hadRole "author, committer"@en ] ;
+		prov:qualifiedUsage	[ a prov:Usage ; prov:entity result:test-txt_4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014 ; prov:atTime "2013-07-08T08:14:07.000Z"^^xsd:dateTime ] ;
+		prov:startedAtTime	"2013-07-08T08:14:07.000Z"^^xsd:dateTime ;
+		prov:used	result:test-txt_4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014 ;
+		prov:wasAssociatedWith	result:tdn ;
+		prov:wasInformedBy	result:4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014 ;
+		rdfs:label	"test4"@en .
+result:poc-mozaiek--gitignore	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/.gitignore"@en .
+result:poc-mozaiek--gitignore_1a3c3731b4db009f6788bd597c482956f535b4c7	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek--gitignore_78bea491ea1d892a2865a3dd37a8842218bc1471 ; prov:hadGeneration result:poc-mozaiek--gitignore_1a3c3731b4db009f6788bd597c482956f535b4c7_gen ; prov:hadUsage result:poc-mozaiek--gitignore_78bea491ea1d892a2865a3dd37a8842218bc1471_1a3c3731b4db009f6788bd597c482956f535b4c7_use ; prov:hadActivity result:1a3c3731b4db009f6788bd597c482956f535b4c7 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:atTime "2011-10-19T12:55:50.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek--gitignore ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek--gitignore_78bea491ea1d892a2865a3dd37a8842218bc1471 ;
+		prov:wasGeneratedBy	result:1a3c3731b4db009f6788bd597c482956f535b4c7 .
+result:poc-mozaiek--gitignore_2ad6172287069c569d9e93f98befc9569ab1b7d7	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:2ad6172287069c569d9e93f98befc9569ab1b7d7 ; prov:atTime "2011-10-17T08:56:36.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek--gitignore ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:2ad6172287069c569d9e93f98befc9569ab1b7d7 .
+result:poc-mozaiek-pom-xml	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/pom.xml"@en .
+result:poc-mozaiek-pom-xml_d681dc5c96ea530eaf110706e5be48c160ce93be	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:d681dc5c96ea530eaf110706e5be48c160ce93be ; prov:atTime "2011-10-17T08:46:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-pom-xml ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:d681dc5c96ea530eaf110706e5be48c160ce93be .
+result:poc-mozaiek-src-main-webapp-images-dislike-icon-png	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/images/dislike-icon.png"@en .
+result:poc-mozaiek-src-main-webapp-images-dislike-icon-png_1a3c3731b4db009f6788bd597c482956f535b4c7	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:atTime "2011-10-19T12:55:50.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-images-dislike-icon-png ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:1a3c3731b4db009f6788bd597c482956f535b4c7 .
+result:poc-mozaiek-src-main-webapp-images-down-icon-png	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/images/down-icon.png"@en .
+result:poc-mozaiek-src-main-webapp-images-down-icon-png_2578e4a7d2f5545d115c889a1f8cf0ff24186232	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:atTime "2011-10-17T16:07:01.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-images-down-icon-png ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 .
+result:poc-mozaiek-src-main-webapp-images-like-icon-png	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/images/like-icon.png"@en .
+result:poc-mozaiek-src-main-webapp-images-like-icon-png_1a3c3731b4db009f6788bd597c482956f535b4c7	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:atTime "2011-10-19T12:55:50.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-images-like-icon-png ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:1a3c3731b4db009f6788bd597c482956f535b4c7 .
+result:poc-mozaiek-src-main-webapp-images-like-icon-png_90cb1e03d7c28dd096dafbc58d411e0982998f79	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-images-like-icon-png_1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-images-like-icon-png_90cb1e03d7c28dd096dafbc58d411e0982998f79_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-images-like-icon-png_1a3c3731b4db009f6788bd597c482956f535b4c7_90cb1e03d7c28dd096dafbc58d411e0982998f79_use ; prov:hadActivity result:90cb1e03d7c28dd096dafbc58d411e0982998f79 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:90cb1e03d7c28dd096dafbc58d411e0982998f79 ; prov:atTime "2011-10-24T10:43:33.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-images-like-icon-png ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-images-like-icon-png_1a3c3731b4db009f6788bd597c482956f535b4c7 ;
+		prov:wasGeneratedBy	result:90cb1e03d7c28dd096dafbc58d411e0982998f79 .
+result:poc-mozaiek-src-main-webapp-images-play-icon-png	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/images/play-icon.png"@en .
+result:poc-mozaiek-src-main-webapp-images-play-icon-png_2578e4a7d2f5545d115c889a1f8cf0ff24186232	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:atTime "2011-10-17T16:07:01.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-images-play-icon-png ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 .
+result:poc-mozaiek-src-main-webapp-images-showmore-icon-png	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/images/showmore-icon.png"@en .
+result:poc-mozaiek-src-main-webapp-images-showmore-icon-png_90cb1e03d7c28dd096dafbc58d411e0982998f79	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:90cb1e03d7c28dd096dafbc58d411e0982998f79 ; prov:atTime "2011-10-24T10:43:33.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-images-showmore-icon-png ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:90cb1e03d7c28dd096dafbc58d411e0982998f79 .
+result:poc-mozaiek-src-main-webapp-images-up-icon-png	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/images/up-icon.png"@en .
+result:poc-mozaiek-src-main-webapp-images-up-icon-png_2578e4a7d2f5545d115c889a1f8cf0ff24186232	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:atTime "2011-10-17T16:07:01.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-images-up-icon-png ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 .
+result:poc-mozaiek-src-main-webapp-index-html	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/index.html"@en .
+result:poc-mozaiek-src-main-webapp-index-html_1a3c3731b4db009f6788bd597c482956f535b4c7	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-index-html_78bea491ea1d892a2865a3dd37a8842218bc1471 ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-index-html_1a3c3731b4db009f6788bd597c482956f535b4c7_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-index-html_78bea491ea1d892a2865a3dd37a8842218bc1471_1a3c3731b4db009f6788bd597c482956f535b4c7_use ; prov:hadActivity result:1a3c3731b4db009f6788bd597c482956f535b4c7 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:atTime "2011-10-19T12:55:50.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-index-html ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-index-html_78bea491ea1d892a2865a3dd37a8842218bc1471 ;
+		prov:wasGeneratedBy	result:1a3c3731b4db009f6788bd597c482956f535b4c7 .
+result:poc-mozaiek-src-main-webapp-index-html_2578e4a7d2f5545d115c889a1f8cf0ff24186232	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-index-html_907dadec4bc09a6e6bab12be1be1c8bce211dfe7 ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-index-html_2578e4a7d2f5545d115c889a1f8cf0ff24186232_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-index-html_907dadec4bc09a6e6bab12be1be1c8bce211dfe7_2578e4a7d2f5545d115c889a1f8cf0ff24186232_use ; prov:hadActivity result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:atTime "2011-10-17T16:07:01.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-index-html ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-index-html_907dadec4bc09a6e6bab12be1be1c8bce211dfe7 ;
+		prov:wasGeneratedBy	result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 .
+result:poc-mozaiek-src-main-webapp-index-html_78bea491ea1d892a2865a3dd37a8842218bc1471	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-index-html_f149b5dfd9bea1a1b94283bd3cc9b984c139424c ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-index-html_78bea491ea1d892a2865a3dd37a8842218bc1471_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-index-html_f149b5dfd9bea1a1b94283bd3cc9b984c139424c_78bea491ea1d892a2865a3dd37a8842218bc1471_use ; prov:hadActivity result:78bea491ea1d892a2865a3dd37a8842218bc1471 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:78bea491ea1d892a2865a3dd37a8842218bc1471 ; prov:atTime "2011-10-18T15:07:34.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-index-html ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-index-html_f149b5dfd9bea1a1b94283bd3cc9b984c139424c ;
+		prov:wasGeneratedBy	result:78bea491ea1d892a2865a3dd37a8842218bc1471 .
+result:poc-mozaiek-src-main-webapp-index-html_907dadec4bc09a6e6bab12be1be1c8bce211dfe7	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:907dadec4bc09a6e6bab12be1be1c8bce211dfe7 ; prov:atTime "2011-10-17T13:07:57.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-index-html ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:907dadec4bc09a6e6bab12be1be1c8bce211dfe7 .
+result:poc-mozaiek-src-main-webapp-index-html_90cb1e03d7c28dd096dafbc58d411e0982998f79	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-index-html_1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-index-html_90cb1e03d7c28dd096dafbc58d411e0982998f79_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-index-html_1a3c3731b4db009f6788bd597c482956f535b4c7_90cb1e03d7c28dd096dafbc58d411e0982998f79_use ; prov:hadActivity result:90cb1e03d7c28dd096dafbc58d411e0982998f79 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:90cb1e03d7c28dd096dafbc58d411e0982998f79 ; prov:atTime "2011-10-24T10:43:33.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-index-html ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-index-html_1a3c3731b4db009f6788bd597c482956f535b4c7 ;
+		prov:wasGeneratedBy	result:90cb1e03d7c28dd096dafbc58d411e0982998f79 .
+result:poc-mozaiek-src-main-webapp-index-html_f149b5dfd9bea1a1b94283bd3cc9b984c139424c	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-index-html_2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-index-html_f149b5dfd9bea1a1b94283bd3cc9b984c139424c_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-index-html_2578e4a7d2f5545d115c889a1f8cf0ff24186232_f149b5dfd9bea1a1b94283bd3cc9b984c139424c_use ; prov:hadActivity result:f149b5dfd9bea1a1b94283bd3cc9b984c139424c ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:f149b5dfd9bea1a1b94283bd3cc9b984c139424c ; prov:atTime "2011-10-18T13:31:39.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-index-html ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-index-html_2578e4a7d2f5545d115c889a1f8cf0ff24186232 ;
+		prov:wasGeneratedBy	result:f149b5dfd9bea1a1b94283bd3cc9b984c139424c .
+result:poc-mozaiek-src-main-webapp-index-jsp	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/index.jsp"@en .
+result:poc-mozaiek-src-main-webapp-index-jsp_907dadec4bc09a6e6bab12be1be1c8bce211dfe7	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedInvalidation	[ a prov:Invalidation ; prov:activity result:907dadec4bc09a6e6bab12be1be1c8bce211dfe7 ; prov:atTime "2011-10-17T13:07:57.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-index-jsp ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasInvalidatedBy	result:907dadec4bc09a6e6bab12be1be1c8bce211dfe7 .
+result:poc-mozaiek-src-main-webapp-index-jsp_d681dc5c96ea530eaf110706e5be48c160ce93be	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:d681dc5c96ea530eaf110706e5be48c160ce93be ; prov:atTime "2011-10-17T08:46:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-index-jsp ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:d681dc5c96ea530eaf110706e5be48c160ce93be .
+result:poc-mozaiek-src-main-webapp-jquery-1-6-4-js	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/jquery-1.6.4.js"@en .
+result:poc-mozaiek-src-main-webapp-jquery-1-6-4-js_2578e4a7d2f5545d115c889a1f8cf0ff24186232	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:atTime "2011-10-17T16:07:01.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-jquery-1-6-4-js ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 .
+result:poc-mozaiek-src-main-webapp-META-INF-MANIFEST-MF	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/META-INF/MANIFEST.MF"@en .
+result:poc-mozaiek-src-main-webapp-META-INF-MANIFEST-MF_d681dc5c96ea530eaf110706e5be48c160ce93be	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:d681dc5c96ea530eaf110706e5be48c160ce93be ; prov:atTime "2011-10-17T08:46:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-META-INF-MANIFEST-MF ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:d681dc5c96ea530eaf110706e5be48c160ce93be .
+result:poc-mozaiek-src-main-webapp-mozaiek-css	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/mozaiek.css"@en .
+result:poc-mozaiek-src-main-webapp-mozaiek-css_1a3c3731b4db009f6788bd597c482956f535b4c7	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-css_78bea491ea1d892a2865a3dd37a8842218bc1471 ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-mozaiek-css_1a3c3731b4db009f6788bd597c482956f535b4c7_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-mozaiek-css_78bea491ea1d892a2865a3dd37a8842218bc1471_1a3c3731b4db009f6788bd597c482956f535b4c7_use ; prov:hadActivity result:1a3c3731b4db009f6788bd597c482956f535b4c7 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:atTime "2011-10-19T12:55:50.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-mozaiek-css ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-mozaiek-css_78bea491ea1d892a2865a3dd37a8842218bc1471 ;
+		prov:wasGeneratedBy	result:1a3c3731b4db009f6788bd597c482956f535b4c7 .
+result:poc-mozaiek-src-main-webapp-mozaiek-css_2578e4a7d2f5545d115c889a1f8cf0ff24186232	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-css_907dadec4bc09a6e6bab12be1be1c8bce211dfe7 ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-mozaiek-css_2578e4a7d2f5545d115c889a1f8cf0ff24186232_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-mozaiek-css_907dadec4bc09a6e6bab12be1be1c8bce211dfe7_2578e4a7d2f5545d115c889a1f8cf0ff24186232_use ; prov:hadActivity result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:atTime "2011-10-17T16:07:01.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-mozaiek-css ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-mozaiek-css_907dadec4bc09a6e6bab12be1be1c8bce211dfe7 ;
+		prov:wasGeneratedBy	result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 .
+result:poc-mozaiek-src-main-webapp-mozaiek-css_78bea491ea1d892a2865a3dd37a8842218bc1471	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-css_f149b5dfd9bea1a1b94283bd3cc9b984c139424c ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-mozaiek-css_78bea491ea1d892a2865a3dd37a8842218bc1471_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-mozaiek-css_f149b5dfd9bea1a1b94283bd3cc9b984c139424c_78bea491ea1d892a2865a3dd37a8842218bc1471_use ; prov:hadActivity result:78bea491ea1d892a2865a3dd37a8842218bc1471 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:78bea491ea1d892a2865a3dd37a8842218bc1471 ; prov:atTime "2011-10-18T15:07:34.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-mozaiek-css ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-mozaiek-css_f149b5dfd9bea1a1b94283bd3cc9b984c139424c ;
+		prov:wasGeneratedBy	result:78bea491ea1d892a2865a3dd37a8842218bc1471 .
+result:poc-mozaiek-src-main-webapp-mozaiek-css_907dadec4bc09a6e6bab12be1be1c8bce211dfe7	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:907dadec4bc09a6e6bab12be1be1c8bce211dfe7 ; prov:atTime "2011-10-17T13:07:57.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-mozaiek-css ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:907dadec4bc09a6e6bab12be1be1c8bce211dfe7 .
+result:poc-mozaiek-src-main-webapp-mozaiek-css_90cb1e03d7c28dd096dafbc58d411e0982998f79	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-css_1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-mozaiek-css_90cb1e03d7c28dd096dafbc58d411e0982998f79_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-mozaiek-css_1a3c3731b4db009f6788bd597c482956f535b4c7_90cb1e03d7c28dd096dafbc58d411e0982998f79_use ; prov:hadActivity result:90cb1e03d7c28dd096dafbc58d411e0982998f79 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:90cb1e03d7c28dd096dafbc58d411e0982998f79 ; prov:atTime "2011-10-24T10:43:33.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-mozaiek-css ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-mozaiek-css_1a3c3731b4db009f6788bd597c482956f535b4c7 ;
+		prov:wasGeneratedBy	result:90cb1e03d7c28dd096dafbc58d411e0982998f79 .
+result:poc-mozaiek-src-main-webapp-mozaiek-css_f149b5dfd9bea1a1b94283bd3cc9b984c139424c	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-css_2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-mozaiek-css_f149b5dfd9bea1a1b94283bd3cc9b984c139424c_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-mozaiek-css_2578e4a7d2f5545d115c889a1f8cf0ff24186232_f149b5dfd9bea1a1b94283bd3cc9b984c139424c_use ; prov:hadActivity result:f149b5dfd9bea1a1b94283bd3cc9b984c139424c ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:f149b5dfd9bea1a1b94283bd3cc9b984c139424c ; prov:atTime "2011-10-18T13:31:39.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-mozaiek-css ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-mozaiek-css_2578e4a7d2f5545d115c889a1f8cf0ff24186232 ;
+		prov:wasGeneratedBy	result:f149b5dfd9bea1a1b94283bd3cc9b984c139424c .
+result:poc-mozaiek-src-main-webapp-mozaiek-js	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/mozaiek.js"@en .
+result:poc-mozaiek-src-main-webapp-mozaiek-js_1a3c3731b4db009f6788bd597c482956f535b4c7	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-js_78bea491ea1d892a2865a3dd37a8842218bc1471 ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-mozaiek-js_1a3c3731b4db009f6788bd597c482956f535b4c7_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-mozaiek-js_78bea491ea1d892a2865a3dd37a8842218bc1471_1a3c3731b4db009f6788bd597c482956f535b4c7_use ; prov:hadActivity result:1a3c3731b4db009f6788bd597c482956f535b4c7 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:atTime "2011-10-19T12:55:50.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-mozaiek-js ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-mozaiek-js_78bea491ea1d892a2865a3dd37a8842218bc1471 ;
+		prov:wasGeneratedBy	result:1a3c3731b4db009f6788bd597c482956f535b4c7 .
+result:poc-mozaiek-src-main-webapp-mozaiek-js_2578e4a7d2f5545d115c889a1f8cf0ff24186232	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:atTime "2011-10-17T16:07:01.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-mozaiek-js ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 .
+result:poc-mozaiek-src-main-webapp-mozaiek-js_78bea491ea1d892a2865a3dd37a8842218bc1471	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-js_f149b5dfd9bea1a1b94283bd3cc9b984c139424c ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-mozaiek-js_78bea491ea1d892a2865a3dd37a8842218bc1471_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-mozaiek-js_f149b5dfd9bea1a1b94283bd3cc9b984c139424c_78bea491ea1d892a2865a3dd37a8842218bc1471_use ; prov:hadActivity result:78bea491ea1d892a2865a3dd37a8842218bc1471 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:78bea491ea1d892a2865a3dd37a8842218bc1471 ; prov:atTime "2011-10-18T15:07:34.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-mozaiek-js ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-mozaiek-js_f149b5dfd9bea1a1b94283bd3cc9b984c139424c ;
+		prov:wasGeneratedBy	result:78bea491ea1d892a2865a3dd37a8842218bc1471 .
+result:poc-mozaiek-src-main-webapp-mozaiek-js_90cb1e03d7c28dd096dafbc58d411e0982998f79	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-js_1a3c3731b4db009f6788bd597c482956f535b4c7 ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-mozaiek-js_90cb1e03d7c28dd096dafbc58d411e0982998f79_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-mozaiek-js_1a3c3731b4db009f6788bd597c482956f535b4c7_90cb1e03d7c28dd096dafbc58d411e0982998f79_use ; prov:hadActivity result:90cb1e03d7c28dd096dafbc58d411e0982998f79 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:90cb1e03d7c28dd096dafbc58d411e0982998f79 ; prov:atTime "2011-10-24T10:43:33.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-mozaiek-js ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-mozaiek-js_1a3c3731b4db009f6788bd597c482956f535b4c7 ;
+		prov:wasGeneratedBy	result:90cb1e03d7c28dd096dafbc58d411e0982998f79 .
+result:poc-mozaiek-src-main-webapp-mozaiek-js_f149b5dfd9bea1a1b94283bd3cc9b984c139424c	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:poc-mozaiek-src-main-webapp-mozaiek-js_2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:hadGeneration result:poc-mozaiek-src-main-webapp-mozaiek-js_f149b5dfd9bea1a1b94283bd3cc9b984c139424c_gen ; prov:hadUsage result:poc-mozaiek-src-main-webapp-mozaiek-js_2578e4a7d2f5545d115c889a1f8cf0ff24186232_f149b5dfd9bea1a1b94283bd3cc9b984c139424c_use ; prov:hadActivity result:f149b5dfd9bea1a1b94283bd3cc9b984c139424c ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:f149b5dfd9bea1a1b94283bd3cc9b984c139424c ; prov:atTime "2011-10-18T13:31:39.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-mozaiek-js ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasDerivedFrom	result:poc-mozaiek-src-main-webapp-mozaiek-js_2578e4a7d2f5545d115c889a1f8cf0ff24186232 ;
+		prov:wasGeneratedBy	result:f149b5dfd9bea1a1b94283bd3cc9b984c139424c .
+result:poc-mozaiek-src-main-webapp-test-html	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/test.html"@en .
+result:poc-mozaiek-src-main-webapp-test-html_2578e4a7d2f5545d115c889a1f8cf0ff24186232	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:atTime "2011-10-17T16:07:01.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-test-html ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 .
+result:poc-mozaiek-src-main-webapp-video1-html	a	prov:Entity ;
+		rdfs:label	"poc/mozaiek/src/main/webapp/video1.html"@en .
+result:poc-mozaiek-src-main-webapp-video1-html_2578e4a7d2f5545d115c889a1f8cf0ff24186232	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 ; prov:atTime "2011-10-17T16:07:01.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:poc-mozaiek-src-main-webapp-video1-html ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:2578e4a7d2f5545d115c889a1f8cf0ff24186232 .
+result:provenance	a	prov:Bundle ;
+		prov:alternateOf	fullResult:provenance .
+result:README	a	prov:Entity ;
+		rdfs:label	"README"@en .
+result:README_a5168fa535b34d4986ff2b3dc617e44f7acbb8b4	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:Tom-De-Nies ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:a5168fa535b34d4986ff2b3dc617e44f7acbb8b4 ; prov:atTime "2011-10-17T08:30:57.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:README ;
+		prov:wasAttributedTo	result:Tom-De-Nies ;
+		prov:wasGeneratedBy	result:a5168fa535b34d4986ff2b3dc617e44f7acbb8b4 .
+result:tdn	a	prov:Agent ;
+		rdfs:label	"tdn"@en .
+result:test-txt	a	prov:Entity ;
+		rdfs:label	"test.txt"@en .
+result:test-txt_2c705b392e8de9350ca5b79bebc4cdb476cfd9d7	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:tdn ; a "authorship"@en ] ;
+		prov:qualifiedInvalidation	[ a prov:Invalidation ; prov:activity result:2c705b392e8de9350ca5b79bebc4cdb476cfd9d7 ; prov:atTime "2013-07-08T15:28:59.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:test-txt ;
+		prov:wasAttributedTo	result:tdn ;
+		prov:wasInvalidatedBy	result:2c705b392e8de9350ca5b79bebc4cdb476cfd9d7 .
+result:test-txt_4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:tdn ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:test-txt_4eece08690189312ea5709a8b901b2238856310e ; prov:hadGeneration result:test-txt_4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014_gen ; prov:hadUsage result:test-txt_4eece08690189312ea5709a8b901b2238856310e_4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014_use ; prov:hadActivity result:4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014 ; prov:atTime "2013-07-05T18:03:33.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:test-txt ;
+		prov:wasAttributedTo	result:tdn ;
+		prov:wasDerivedFrom	result:test-txt_4eece08690189312ea5709a8b901b2238856310e ;
+		prov:wasGeneratedBy	result:4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014 .
+result:test-txt_4eece08690189312ea5709a8b901b2238856310e	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:tdn ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:test-txt_c1b14bb613474c5f1ec6a974d230396afe2e031c ; prov:hadGeneration result:test-txt_4eece08690189312ea5709a8b901b2238856310e_gen ; prov:hadUsage result:test-txt_c1b14bb613474c5f1ec6a974d230396afe2e031c_4eece08690189312ea5709a8b901b2238856310e_use ; prov:hadActivity result:4eece08690189312ea5709a8b901b2238856310e ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:4eece08690189312ea5709a8b901b2238856310e ; prov:atTime "2013-07-05T17:57:55.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:test-txt ;
+		prov:wasAttributedTo	result:tdn ;
+		prov:wasDerivedFrom	result:test-txt_c1b14bb613474c5f1ec6a974d230396afe2e031c ;
+		prov:wasGeneratedBy	result:4eece08690189312ea5709a8b901b2238856310e .
+result:test-txt_c1b14bb613474c5f1ec6a974d230396afe2e031c	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:tdn ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:c1b14bb613474c5f1ec6a974d230396afe2e031c ; prov:atTime "2013-07-05T17:57:46.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:test-txt ;
+		prov:wasAttributedTo	result:tdn ;
+		prov:wasGeneratedBy	result:c1b14bb613474c5f1ec6a974d230396afe2e031c .
+result:test-txt_e6cdc91544867bc282ea7f34ea2e4b54811a9054	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:tdn ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:test-txt_c499565a06a554a49446c4e5c966871e2447e392 ; prov:hadGeneration result:test-txt_e6cdc91544867bc282ea7f34ea2e4b54811a9054_gen ; prov:hadUsage result:test-txt_c499565a06a554a49446c4e5c966871e2447e392_e6cdc91544867bc282ea7f34ea2e4b54811a9054_use ; prov:hadActivity result:e6cdc91544867bc282ea7f34ea2e4b54811a9054 ] ,
+				[ a prov:Derivation ; prov:entity result:test-txt_f5432f7fdc7fe42fae669fd56336572fd6f1bb9a ; prov:hadGeneration result:test-txt_e6cdc91544867bc282ea7f34ea2e4b54811a9054_gen ; prov:hadUsage result:test-txt_f5432f7fdc7fe42fae669fd56336572fd6f1bb9a_e6cdc91544867bc282ea7f34ea2e4b54811a9054_use ; prov:hadActivity result:e6cdc91544867bc282ea7f34ea2e4b54811a9054 ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:e6cdc91544867bc282ea7f34ea2e4b54811a9054 ; prov:atTime "2013-07-08T08:16:13.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:test-txt ;
+		prov:wasAttributedTo	result:tdn ;
+		prov:wasDerivedFrom	result:test-txt_c499565a06a554a49446c4e5c966871e2447e392 ,
+				result:test-txt_f5432f7fdc7fe42fae669fd56336572fd6f1bb9a ;
+		prov:wasGeneratedBy	result:e6cdc91544867bc282ea7f34ea2e4b54811a9054 .
+result:test-txt_f5432f7fdc7fe42fae669fd56336572fd6f1bb9a	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:tdn ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:test-txt_4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014 ; prov:hadGeneration result:test-txt_f5432f7fdc7fe42fae669fd56336572fd6f1bb9a_gen ; prov:hadUsage result:test-txt_4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014_f5432f7fdc7fe42fae669fd56336572fd6f1bb9a_use ; prov:hadActivity result:f5432f7fdc7fe42fae669fd56336572fd6f1bb9a ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:f5432f7fdc7fe42fae669fd56336572fd6f1bb9a ; prov:atTime "2013-07-08T08:14:07.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:test-txt ;
+		prov:wasAttributedTo	result:tdn ;
+		prov:wasDerivedFrom	result:test-txt_4d4287a4dcdd5c3af39ad9b06e26649f7d5e0014 ;
+		prov:wasGeneratedBy	result:f5432f7fdc7fe42fae669fd56336572fd6f1bb9a .
+result:Tom-De-Nies	a	prov:Agent ;
+		rdfs:label	"Tom De Nies"@en .
