@@ -5,7 +5,9 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 
 SELECT DISTINCT ?entity ?entity_type ?entity_label ?activity ?activity_type ?activity_label WHERE {
+	{% if graph_uri %}
 	GRAPH <{{graph_uri}}> {
+	{% endif %}
 		{ ?activity prov:used ?entity . }
 		UNION
 		{ ?entity prov:wasUsedBy ?activity . }
@@ -14,7 +16,9 @@ SELECT DISTINCT ?entity ?entity_type ?entity_label ?activity ?activity_type ?act
 			?activity	prov:qualifiedUsage ?qu .
 			?qu			prov:entity ?entity .
 	  	}
+	{% if graph_uri %}
 	}
+	{% endif %}
 	OPTIONAL { ?activity rdf:type ?activity_type .
 			 ?activity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
 			 FILTER(!isBlank(?activity_type)) }

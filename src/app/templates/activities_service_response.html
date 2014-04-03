@@ -50,12 +50,12 @@
 </style>
 
 
-<div class="control-group" id="id{{ data_hash }}_control_group">
-	<div class="controls">
-		<label for="activities"><i class="icon-search"></i> Select an Activity</label>
-		<input type="hidden" id="id{{ data_hash }}_activities" style="width: 100%; "></input>
-	</div>
+<form class="form-horizontal" role="form">
+<div class="form-group" id="id{{ data_hash }}_control_group">
+		<label for="activities" class="col-sm-2 control_label"><i class="icon-search"></i> Select an Activity</label>
+		<input type="hidden" class="col-sm-10 form_control" id="id{{ data_hash }}_activities" style="width: 100%; "></input>
 </div>
+</form>
 
 <div id="id{{ data_hash }}_graph" class="graph"></div>
 
@@ -72,6 +72,42 @@
 		});
 		
 	});
+	
+	function get_activity_details(activity_name){
+		var selected_activity;
+		
+		for (var a in activities) {
+			var activity = activities[a];
+			
+			if (activity['id'] == activity_name) {
+				console.log(activity);
+				selected_activity = activity;
+				break;
+			}
+			
+		}
+		
+		return selected_activity;	
+		
+		
+	}
+	
+	function build_sankey(activity_name){
+		console.log("Dit is de naam "+ activity_name);
+		
+		selected_activity = get_activity_details(activity_name);
+		
+		console.log(selected_activity);
+		
+		$("#id{{ data_hash }}_graph").empty();
+        
+		drawSankeyDiagram('#id{{ data_hash }}_graph', selected_activity.graph, selected_activity.width, selected_activity.types, selected_activity.diameter);
+
+		$('.activity').on('click', function(e){
+			build_sankey(e.currentTarget.id);
+		});
+		
+	}
 
     $('#id{{ data_hash }}_activities').change(function(e) {
         console.log(e);
@@ -80,24 +116,8 @@
         if (e.val == []) {
             return;
         }
-        $("#id{{ data_hash }}_graph").empty();
-
-		var selected_activity;
 		
-		for (var a in activities) {
-			var activity = activities[a];
-			
-			if (activity['id'] == e.val) {
-				console.log(activity);
-				selected_activity = activity;
-				break;
-			}
-			
-		}
-		console.log(selected_activity);
-		        
-        drawSankeyDiagram('#id{{ data_hash }}_graph', selected_activity.graph, selected_activity.width, selected_activity.types, selected_activity.diameter);
-
+		build_sankey(e.val);
     }); 
 </script>
 

@@ -1,19 +1,28 @@
-/*@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,800,300);
+@import url(http://fonts.googleapis.com/css?family=Special+Elite);
 
-body {
-    font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+h1.title, a.navbar-brand {
+	font-family: "Special Elite";
 }
 
-h1, h2, h3, h4, h5 {
-    font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
-    font-weight: 600;
+#serviceactivities {
+	padding: 15px;
+	width: 100%;
 }
 
-h1 {
-    font-weight: 700;
-}*/
+#splash {
+	margin-top: 25%;
+}
 
+#splash h1.title {
+	text-align: center;
+	font-size: 500px;
+	text-shadow:rgba(0,0,0,0.5) 0px 0px 24px; 
+	
+}
 
+#contents {
+	margin-top: 100px;
+}
 
 .popout {
 	border-left: 2px solid grey;

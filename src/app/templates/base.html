@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2-bootstrap.css') }}" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="{{ url_for('.static',filename='js/jquery.storage.js') }}"></script>
+	<script src="{{ url_for('.static',filename='js/jquery.fittext.js') }}"></script>
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
+	<script type="text/javascript" src="http:////cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
     
 </head>
 
@@ -31,7 +33,7 @@
           </div>
           <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
-              <li class="dropdown">
+              <li class="dropdown keep-open" id="provenance-upload-dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload <b class="caret"></b></a>
                 <ul class="dropdown-menu" id="provenance-upload-menu">
 					<div style="margin: 10px;" class="form-group">
@@ -42,13 +44,13 @@
 					</div>                  
                 </ul>
               </li>
-              <li class="dropdown">
+              <li class="dropdown keep-open" id="sparql-endpoint-dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Endpoint <b class="caret"></b></a>
                 <ul class="dropdown-menu" id="sparql-endpoint-menu">
 					<div style="margin: 10px;" class="form-group">
                         <label for="endpoint">SPARQL Endpoint URI</label>
 		                <div class="form-group">
-		                    <input style="width: 455px;" type="text" class="form-control input" id="provenance-endpoint" name="provenance-endpoint" placeholder="http://semweb.cs.vu.nl:8080/openrdf-sesame/provoviz" width="100%"></input>
+		                    <input style="width: 455px;" type="text" class="form-control input" id="provenance-endpoint" name="provenance-endpoint" placeholder="http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz" width="100%"></input>
                             <div class="checkbox">
                               <label>
                                 <input type="checkbox" id="ignore-named-graphs" name="ignore-named-graphs"/> Ignore Named Graphs
@@ -65,8 +67,8 @@
 					</div>                  
                 </ul>
               </li>
-              <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Named Graphs <b class="caret"></b></a>
+              <li class="dropdown" id='named-graphs-dropdown'>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Provenance Graphs <b class="caret"></b></a>
                   <ul class="dropdown-menu" id="named-graphs-menu">
                   </ul>
               </li>
@@ -75,6 +77,7 @@
                     <input class="form-control" type="hidden" id="graphs"></input>
             </form> -->
             <ul class="nav navbar-nav navbar-right">
+				<li><a id="source" data-toggle="modal" href="#source_modal" class="btn btn-disabled" style="float: right;">&lt;&gt;</a></li>
               <li><a href="#">API</a></li>
               <li><a href="http://www.data2semantics.org">Data2Semantics</a></li>
             </ul>
@@ -82,18 +85,25 @@
         </div>
     </div>
     
+	<div class="container" id="splash-container">
+		<div class="row">
+			<div id="splash" class='col-lg-12'>
+				<h1 class="title">PROV-O-Viz</h1>
+			</div>
+		</div>
+	</div>
     
-    <div class="container" id="#contents">
-        <div class="row">
+    <div class="container" id="contents">
+        <!-- <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="page-header">
                     <h1><img src="{{ url_for('.static',filename='img/logo-no-text-150dpi.png') }}"style="float: left; width: 100px;"/>PROV-O-Viz <small>Visualizing the Train of Thought</small> </h1>
                     <p>Copyright (c) 2013, Rinke Hoekstra, VU University Amsterdam</p>
                 </div>
             </div>
-        </div>
+        </div> -->
 		
-		<div class="row">
+		<div class="row" id="about">
 			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">				
 				<h4>About PROV-O-Viz</h4>
 				<p>With PROV-O-Viz you can visualize <em>any</em> provenance graph expressed using the <a href="http://www.w3.org/TR/prov-o/" target="_blank">W3C PROV-O vocabulary</a> as an intuitive <a href="http://bost.ocks.org/mike/sankey/" target="_blank">Sankey diagram</a>. Really neat.</p>
@@ -170,44 +180,41 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						Explore Activities
-					</div>
-					<div class="panel-body">
-						  <!-- Button trigger modal -->
-  						<div id="source" data-toggle="modal" href="#source_modal" class="btn btn-disabled" style="float: right;">Show Source</div>
-						<div id="noselection" class="row">
-						    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
-						        <div class="alert alert-warning" style="margin-top: 2em;">This is where you will be able to select activities to visualize once you've <strong>given us some PROV</strong>!</div>
-						    </div>
+				  <!-- Button trigger modal -->
+				
+				<div id="noselection" class="row">
+				    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+				        <div class="alert alert-warning" style="margin-top: 2em;">This is where you will be able to select activities to visualize once you've <strong>given us some PROV</strong>!</div>
+				    </div>
+				</div>
+				<div id="selectgraph" class="row">
+				    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+				        <div class="alert alert-warning" style="margin-top: 2em;">Please select a graph from the "Provenance Graphs" dropdown menu...</div>
+				    </div>
+				</div>
+				<div id="loading" class="row">
+				    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+				        <div class="alert alert-info" style="margin-top: 2em;">Loading...
+						<div id="log"></log>
 						</div>
-						<div id="selectgraph" class="row">
-						    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
-						        <div class="alert alert-warning" style="margin-top: 2em;">Please select a graph from the panel above...</div>
-						    </div>
-						</div>
-						<div id="loading" class="row">
-						    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
-						        <div class="alert alert-info" style="margin-top: 2em;">Loading...</div>
-						    </div>
-						</div>
-						<div id="noresponse" class="row">
-						    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
-						        <div class="alert alert-error" style="margin-top: 2em;">The query did not return anything, sorry!</div>
-						    </div>
-						</div>
-						<div  id="activities-row">
-			                <p>When you select an activity from the drop down box, we will render Sankey diagram showing the <strong>activity</strong> together with causally-related <strong>entities</strong> and <strong>activities</strong>.</p>
-							<div id="serviceactivities">
-								<strong>nothing</strong>
-							</div>
-						</div>
-					</div>
+				    </div>
+				</div>
+				<div id="noresponse" class="row">
+				    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+				        <div class="alert alert-error" style="margin-top: 2em;">The query did not return anything, sorry!</div>
+				    </div>
+				</div>
+				<div  id="activities-row">
+	                <!-- <p>When you select an activity from the drop down box, we will render Sankey diagram showing the <strong>activity</strong> together with causally-related <strong>entities</strong> and <strong>activities</strong>.</p> -->
+
 				</div>
             </div>
         </div>
-
+	</div>
+	<div id="serviceactivities">
+		<strong>nothing</strong>
+	</div>
+	<div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h5>Credits</h5>
@@ -239,17 +246,59 @@
 
     <script type="application/x-javascript">
 
-        $(document).ready(function() {
-            $("#provenance-upload-menu").click(function(e) {
-               e.stopPropagation();
-            });
-            $("#sparql-endpoint-menu").click(function(e) {
-               e.stopPropagation();
-            });
-        });
+		// $(window).resize(function(){
+		// 	console.log("Resizing: ")
+		//     $('#splash').css({
+		//         position:'absolute',
+		//         left: ($('#splash-container').outerWidth() + $('#splash').outerWidth())/2,
+		//         top: ($('window').height() - $('#splash').outerHeight())/2,
+		//     });
+		// 	
+		// 	$('h1.title').css({
+		// 		'font-size': ($('#splash').outerHeight()-55)
+		// 	});
+		// 
+		// });
 
         $(document).ready(function() {
+			
+            var socket = io.connect('http://' + document.domain + ':' + location.port + '/log');
+            
+			
+			socket.on('message', function(msg) {
+                $('#log').html(msg.data);
+				console.log(msg);
+            });
+			
+			socket.on('disconnect', function(msg){
+				$('#log').html("Disconnected, server busy?");
+				console.log("Disconnected");
+			});
+			
+			
+			/*
+			// We need to make sure that the dropdowns don't close on data entry!
+			*/
+            $("#provenance-data").click(function(e) {
+               e.stopPropagation();
+            });
+            $("#provenance-endpoint").click(function(e) {
+               e.stopPropagation();
+            });
+            $("#ignore-named-graphs").click(function(e) {
+               e.stopPropagation();
+            });
+			
+			$(".title").fitText();
+
+			// Hide the named graphs dropdown menu as long as it's empty.
+			$("#named-graphs-dropdown").hide();
+			
+			
+			$("#about").hide();
+			$("#source").hide();
             $("#loading").hide();
+			$("#noselection").hide();
             $("#noresponse").hide();
 			$("#selectgraph").hide();
             $("#explore-row").hide();
@@ -258,23 +307,32 @@
 			$("#serviceactivities").empty();
             
             $('#submit-provenance-endpoint').on('click',function(){
-            	endpointSubmit($('#provenance-endpoint').val());
+				var value = $('#provenance-endpoint').val();
+				
+				if (value == ''){
+					value = $('#provenance-endpoint').attr('placeholder');
+				}
+				
+            	endpointSubmit(value);
             });
 
 			$('#submit-provenance-data').on('click', function(){
 				provoSubmit($('#provenance-data').val());
 			});
 			
-            // $('#endpointLink').on('click', function(){
-            //     endpointSubmit('http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz');
-            // });
-			
 			$('#source').on('click', function(){
-				if ($( "#source" ).hasClass( "btn-default" )) {
-					showSource();
-				}
+				showSource();
 			})
         });
+
+
+		$('.dropdown.keep-open').on({
+		    // "shown.bs.dropdown": function() { $(this).data('closable', false); },
+		    "click":             function(e) { console.log(e); },
+		    "hide.bs.dropdown":  function(e) { console.log(e); }
+		});
+
+
 
 		function showSource() {
 			var path = $('#serviceactivities').html();
@@ -284,6 +342,9 @@
 		}
 
         function endpointSubmit(endpoint_uri) {
+			$('.dropdown.keep-open').trigger('hide.bs.dropdown');
+			
+			$("#splash-container").hide();
         	$("#loading").show();
             $("#noresponse").hide();
             $("#noselection").hide();
@@ -296,48 +357,62 @@
 			$("#source").removeClass('btn-default');
 				
             $.localStorage('endpoint_uri',endpoint_uri);
+			
+			if ($("#ignore-named-graphs").is(':checked')) {
+				console.log("Ignoring named graphs");
+				
+				retrieve_activities('http://example.com/none',endpoint_uri);
+			} else {
+	            $.getJSON('{{ url_for("graphs") }}', {endpoint_uri: endpoint_uri }).done(function(data){
+	                $('#named-graphs-menu').empty();
+	                $.each(data.graphs, function(k,v){
+	                    var li = $('<li></li>');
+	                    var a = $('<a></a>');
+                    
+	                    a.attr('id',v.id);
+                    
+	                    a.on('click',function(e){
+	            		    var graph_uri = e.target.id;
+	            		    $.localStorage('graph_uri',graph_uri);
+	            		    var endpoint_uri = $.localStorage('endpoint_uri');
+
+	            		    retrieve_activities(graph_uri, endpoint_uri);
+	                    });
+                    
+	                    a.append(v.text);
+	                    li.append(a);
+                    
+                    
+	                    $('#named-graphs-menu').append(li);
+						$("#named-graphs-dropdown").show();
+	                })
+	                $("#loading").hide();
+	            });
+			}
             
-            $.getJSON('{{ url_for("graphs") }}', {endpoint_uri: endpoint_uri }).done(function(data){
-                
-                $.each(data.graphs, function(k,v){
-                    var li = $('<li></li>');
-                    var a = $('<a></a>');
-                    
-                    a.attr('id',v.id);
-                    
-                    a.on('click',function(e){
-            		    var graph_uri = e.target.id;
-            		    $.localStorage('graph_uri',graph_uri);
-            		    var endpoint_uri = $.localStorage('endpoint_uri');
-    
-            		    $.get('{{ url_for("activities") }}', {graph_uri: graph_uri, endpoint_uri: endpoint_uri }).done(function(data){
-            				$("#serviceactivities").empty();
-            				$("#serviceactivities").html(data);
-            				$("#loading").hide();
-            				$("#source").removeClass('btn-disabled');
-            				$("#source").addClass('btn-default');
-            				$("#activities-row").show();
-            				$("#serviceactivities").show();	    
-            		    });
-                    });
-                    
-                    a.append(v.text);
-                    li.append(a);
-                    
-                    
-                    $('#named-graphs-menu').append(li);
-                })
-                $("#graphs").select2({ placeholder: "Start typing..." , allowClear: false, data: data.graphs, width: '256px' });
-                $("#loading").hide();
-                $("#explore-row").show();
-				$("#selectgraph").show();
-				$.scrollTo( '#explore-row', 800);
-                
-            });
+            
         }
+		
+		function retrieve_activities(graph_uri, endpoint_uri){
+			$("#loading").show();
+			
+		    $.get('{{ url_for("activities") }}', {graph_uri: graph_uri, endpoint_uri: endpoint_uri }).done(function(data){
+				$("#serviceactivities").empty();
+				$("#serviceactivities").html(data);
+				$("#loading").hide();
+				$("#selectgraph").hide();
+				$("#source").show();
+				$("#activities-row").show();
+				$("#serviceactivities").show();	    
+		    });
+		}
 
 		function provoSubmit(provodata) {
+			$('.dropdown-toggle').dropdown();
+
+			$("#splash-container").hide();
 			$("#loading").show();
+			$("#source").hide();
             $("#noresponse").hide();
             $("#noselection").hide();
             $("#explore-row").hide();
@@ -345,6 +420,8 @@
             $("#activities-row").hide();
 			$("#serviceactivities").empty();
 			$("#serviceactivities").hide();	
+			
+
 
 			var hash=CryptoJS.SHA1(provodata);
 			
@@ -358,8 +435,7 @@
 				$("#serviceactivities").empty();
 				$("#serviceactivities").html(data);
 				$("#loading").hide();
-				$("#source").removeClass('btn-disabled');
-				$("#source").addClass('btn-default');
+				$("#source").show();
 				$("#activities-row").show();
 				$("#serviceactivities").show();	
 				$.scrollTo( '#activities-row', 800);
@@ -376,6 +452,7 @@
 		    $("#noselection").hide();
 		    $("#noresponse").hide();
 			$("#selectgraph").hide();
+			$("#source").hide();
 		    $("#loading").show();
 		    $("#activities-row").hide();
 			$("#serviceactivities").empty();
@@ -386,16 +463,7 @@
 		    $.localStorage('graph_uri',graph_uri);
 		    var endpoint_uri = $.localStorage('endpoint_uri');
     
-		    $.get('{{ url_for("activities") }}', {graph_uri: graph_uri, endpoint_uri: endpoint_uri }).done(function(data){
-				$("#serviceactivities").empty();
-				$("#serviceactivities").html(data);
-				$("#loading").hide();
-				$("#source").removeClass('btn-disabled');
-				$("#source").addClass('btn-default');
-				$("#activities-row").show();
-				$("#serviceactivities").show();	    
-		    });
-
+			retrieve_activities(graph_uri, endpoint_uri);
 		});
       
     </script>
