@@ -13,7 +13,7 @@ import hashlib
 from datetime import timedelta
 from flask import make_response, request, current_app
 from functools import update_wrapper
-from flask.ext.socketio import SocketIO, emit
+from flask.ext.socketio import SocketIO
 import time
 from app import app, socketio
 
@@ -82,7 +82,7 @@ def service():
 def service(prov_data, graph_uri, client=None):
     
     
-    log("Starting service for {}".format(graph_uri))
+    emit("Starting service for {}".format(graph_uri))
     
     
     
@@ -110,7 +110,7 @@ def service(prov_data, graph_uri, client=None):
         response = generate_graphs(graph_uri, DEFAULT_SPARQL_ENDPOINT_URL)
         
         response = json.dumps(response)
-        log("Done")
+        emit("Done")
         
         if client == 'linkitup':
             return render_template('activities_service_response_linkitup.html', response=response, data_hash=data_hash)
@@ -142,7 +142,7 @@ def service_test():
     
 
 def generate_graphs(graph_uri, endpoint_uri, activities = None):
-    log("Generating provenance graphs...")
+    emit("Generating provenance graphs...")
     
     ## It seems we're good to go!
     G = s.build_full_graph(graph_uri, endpoint_uri)
@@ -151,18 +151,21 @@ def generate_graphs(graph_uri, endpoint_uri, activities = None):
         activities = s.get_activities(graph_uri, endpoint_uri)
     
     response = []
+    total = len(activities)
+    count = 0
     for a in activities:
-        
+        count += 1
         activity_uri = a['id']
         activity_id = a['text']
         
-        log(activity_uri)
+        emit(activity_uri)
         try:
+            emit("Extracting graph for {} ({}) - {}/{}".format(activity_uri, activity_id, count, total))
             graph, width, types, diameter = s.extract_activity_graph(G, activity_uri, activity_id)
         except Exception as e:
             app.logger.debug(e)
             app.logger.debug("Continuing as if nothing happened...")
-            log("Continuing as if nothing happened...")
+            emit("Continuing as if nothing happened...")
             continue
             
         activity = {}
@@ -180,18 +183,18 @@ def generate_graphs(graph_uri, endpoint_uri, activities = None):
 
 @socketio.on('connect', namespace='/log')
 def test_connect():
-    emit('message', {'data': 'Connected'})
+    socketio.emit('message', {'data': 'Connected'})
 
 @socketio.on('disconnect', namespace='/log')
 def test_disconnect():
     app.logger.info('Client disconnected')
     
 
-def log(message):
+def emit(message):
     socketio.emit('message',
                   {'data': message },
                   namespace='/log')
-    time.sleep(.2)
+    time.sleep(.05)
 
 
 
