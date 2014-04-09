@@ -20,4 +20,3 @@ app.debug = True
 
 
 import views
-from views import log
