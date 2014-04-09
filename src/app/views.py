@@ -14,7 +14,7 @@ from datetime import timedelta
 from flask import make_response, request, current_app
 from functools import update_wrapper
 from flask.ext.socketio import SocketIO, emit
-
+import time
 from app import app, socketio
 
 
@@ -191,6 +191,7 @@ def log(message):
     socketio.emit('message',
                   {'data': message },
                   namespace='/log')
+    time.sleep(.2)
 
 
 
