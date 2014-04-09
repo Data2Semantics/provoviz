@@ -11,7 +11,7 @@ from rdflib import Graph, Namespace, RDF, RDFS, Literal, URIRef
 from rdflib.serializer import Serializer
 import rdfextras
 from math import log
-
+import time
 from app import app, socketio
 
 
@@ -53,9 +53,15 @@ def get_activities(graph_uri, endpoint_uri):
     results = sparql.query().convert()
     
     activities = []
-    
+    activity_uris = set()
     for result in results["results"]["bindings"]:
         activity_uri = result['activity']['value']
+        
+        if activity_uri in activity_uris:
+            continue
+        else :
+            activity_uris.add(activity_uri)
+        
         
         emit('{}...'.format(activity_uri))
         
@@ -221,7 +227,6 @@ def build_full_graph(graph_uri, endpoint_uri):
     
 def extract_activity_graph(G, activity_uri, activity_id):
     app.logger.debug(u"Extracting graph for {} ({})".format(activity_uri, activity_id))
-    emit("Extracting graph for {} ({})".format(activity_uri, activity_id))
     
     origin_node_id = activity_uri
 
@@ -352,6 +357,7 @@ def emit(message):
     socketio.emit('message',
                   {'data': message },
                   namespace='/log')
+
 
 
         
