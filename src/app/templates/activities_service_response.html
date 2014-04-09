@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2.css',_external=True) }}" />
 <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2-bootstrap.css',_external=True) }}" />
-<script type="application/x-javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="application/x-javascript" src="{{ url_for('.static',filename='js/activity_graph.js',_external=True)}}"></script>
+
 <style>
 	.graph {
 		color: black;
@@ -60,18 +59,79 @@
 <div id="id{{ data_hash }}_graph" class="graph"></div>
 
 
+<!-- Always load jQuery -->
+<script type="application/x-javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<!-- <script type="application/x-javascript" src="{{ url_for('.static',filename='js/activity_graph.js',_external=True)}}"></script> -->
+
+<!-- <script type="application/x-javascript" src="{{ url_for('.static',filename='js/jquery.storage.js',_external=True) }}"></script> -->
+<!-- <script src="{{ url_for('.static',filename='js/d3.v3.js',_external=True)}}" charset="utf-8"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/sankey.js',_external=True)}}"></script> -->
+<!-- <script type="application/x-javascript" src="{{ url_for('.static',filename='js/colorbrewer.js',_external=True)}}"></script> -->
+
+<!-- <script src="{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js', _external=True) }}"></script> -->
+
+<!-- <script src="{{ url_for('.static',filename='js/bootstrap.min.js', _external=True) }}"></script> -->
+
+
+<!-- <script src="{{ url_for('.static',filename='js/select2.js', _external=True) }}"></script> -->
+<!-- <script src="{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js', _external=True) }}"></script> -->
+
+
 <script>
 	var activities = {{ response|safe }};
 
 	$(function(){
-		$("#id{{ data_hash }}_activities").select2({ placeholder: "Start typing..." , allowClear: true, data: activities });
-		console.log("Loading D3js");
-		$.getScript("{{ url_for('.static',filename='js/d3.v3.js',_external=True)}}").done(function(script, textStatus){
-			console.log("Loading sankey.js");
-			$.getScript("{{ url_for('.static',filename='js/sankey.js',_external=True)}}");
-		});
-		
+        
+        // The service call is not embedded in the Prov-O-Viz page
+        if (typeof embedded_service_call === 'undefined') {
+    		console.log("Loading Bootstrap");
+    		$.getScript("{{ url_for('.static',filename='js/bootstrap.min.js',_external=True)}}").success(function(){
+                console.log("Loaded Bootstrap");
+                load_modules_and_initialize();
+            })
+        } else {
+            // NO need to load Bootstrap
+            load_modules_and_initialize();
+		}
+        
+
 	});
+    
+    function load_modules_and_initialize(){
+		console.log("Loading D3js");
+		$.getScript("{{ url_for('.static',filename='js/d3.v3.js',_external=True)}}").success(function(){
+            console.log("Loaded D3js");
+            
+			console.log("Loading sankey.js");
+			$.getScript("{{ url_for('.static',filename='js/sankey.js',_external=True)}}").success(function(){
+			    console.log("Loaded sankey.js");
+                
+    			console.log("Loading colorbrewer");
+    			$.getScript("{{ url_for('.static',filename='js/colorbrewer.js',_external=True)}}").success(function(){
+    			    console.log("Loaded colorbrewer");
+                    
+        			console.log("Loading activity_graph.js");
+        			$.getScript("{{ url_for('.static',filename='js/activity_graph.js',_external=True)}}").success(function(){
+        			    console.log("Loaded activity_graph.js");
+        			});
+    			});
+			});
+		});
+        
+        
+        
+		console.log("Loading jQuery Widgets");
+		$.getScript("{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js',_external=True)}}").success(function(){
+		    console.log("Loaded jQuery Widgets");
+    
+    		console.log("Loading select2");
+    		$.getScript("{{ url_for('.static',filename='js/select2.js',_external=True)}}").success(function(){
+    		    console.log("Loaded select2");
+                $(".select2-container").remove();
+                $("#id{{ data_hash }}_activities").removeClass('select2-offscreen').select2({ placeholder: "Start typing..." , allowClear: true, data: activities });
+    		});
+		});
+    }
 	
 	function get_activity_details(activity_name){
 		var selected_activity;
@@ -122,13 +182,7 @@
 </script>
 
 
-<script type="application/x-javascript" src="{{ url_for('.static',filename='js/jquery.storage.js',_external=True) }}"></script>
-<!-- <script src="{{ url_for('.static',filename='js/d3.v3.js',_external=True)}}" charset="utf-8"></script>
-<script type="application/x-javascript" src="{{ url_for('.static',filename='js/sankey.js',_external=True)}}"></script> -->
-<script type="application/x-javascript" src="{{ url_for('.static',filename='js/colorbrewer.js',_external=True)}}"></script>
-<script src="{{ url_for('.static',filename='js/bootstrap.min.js', _external=True) }}"></script>
-<script src="{{ url_for('.static',filename='js/select2.js', _external=True) }}"></script>
-<script src="{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js', _external=True) }}"></script> 
+
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -11,7 +11,7 @@ from rdflib import Graph, Namespace, RDF, RDFS, Literal, URIRef
 from rdflib.serializer import Serializer
 import rdfextras
 from math import log
-
+import time
 from app import app, socketio
 
 
@@ -41,7 +41,7 @@ def shorten(text):
 
 
 def get_activities(graph_uri, endpoint_uri):
-    log('Retrieving activities...')
+    emit('Retrieving activities...')
     q = render_template('activities.q', graph_uri=graph_uri)
     
     sparql = SPARQLWrapper(endpoint_uri)
@@ -53,11 +53,17 @@ def get_activities(graph_uri, endpoint_uri):
     results = sparql.query().convert()
     
     activities = []
-    
+    activity_uris = set()
     for result in results["results"]["bindings"]:
         activity_uri = result['activity']['value']
         
-        log('{}...'.format(activity_uri))
+        if activity_uri in activity_uris:
+            continue
+        else :
+            activity_uris.add(activity_uri)
+        
+        
+        emit('{}...'.format(activity_uri))
         
         if 'label' in result :
             activity_id = result['label']['value']
@@ -71,7 +77,7 @@ def get_activities(graph_uri, endpoint_uri):
 
 
 def get_named_graphs(endpoint_uri):
-    log('Retrieving graphs...')
+    emit('Retrieving graphs...')
     q = render_template('named_graphs.q')
     sparql = SPARQLWrapper(endpoint_uri)
     sparql.setReturnFormat(JSON)
@@ -85,7 +91,7 @@ def get_named_graphs(endpoint_uri):
     
     for result in results["results"]["bindings"]:
         graph_uri = result['graph']['value']
-        log('{}...'.format(graph_uri))
+        emit('{}...'.format(graph_uri))
         
         graphs.append({'uri': graph_uri, 'id': graph_uri, 'text': graph_uri})
         
@@ -100,7 +106,7 @@ def get_named_graphs(endpoint_uri):
 
 
 def build_graph(G, endpoint_uri, name=None, source=None, target=None, query=None, intermediate = None):
-    log('Building edges from {} to {}'.format(source, target))
+    emit('Building edges from {} to {}'.format(source, target))
     
     sparql = SPARQLWrapper(endpoint_uri)
     sparql.setReturnFormat(JSON)
@@ -185,43 +191,42 @@ def build_graph(G, endpoint_uri, name=None, source=None, target=None, query=None
             G.add_edge(result[intermediate]["value"], result[target]["value"], value=10)
 
     app.logger.debug('Query-based graph building complete...')
-    log('Query-based graph building complete...')
+    emit('Query-based graph building complete...')
 
     return G
 
 
 def build_full_graph(graph_uri, endpoint_uri):
     app.logger.debug(u"Building full graph")
-    log("Building full provenance graph...")
+    emit("Building full provenance graph...")
     
     G = nx.DiGraph()
     
     q_activity_to_resource = render_template('activity_to_resource.q', graph_uri=graph_uri)
     app.logger.debug("Running activity_to_resource")
-    log("Running activity_to_resource")
+    emit("Running activity_to_resource")
     G = build_graph(G, endpoint_uri, source="activity", target="entity", query=q_activity_to_resource)
     
     q_resource_to_activity = render_template('resource_to_activity.q', graph_uri=graph_uri)
     app.logger.debug("Running resource to activity")
-    log("Running activity_to_resource")
+    emit("Running activity_to_resource")
     G = build_graph(G, endpoint_uri, source="entity", target="activity", query=q_resource_to_activity)
     
     q_derived_from = render_template('derived_from.q', graph_uri = graph_uri)
     app.logger.debug("Running derived from")
-    log("Running derived from")
+    emit("Running derived from")
     G = build_graph(G, endpoint_uri, source="entity1", target="entity2", query=q_derived_from)
     
     q_informed_by = render_template('informed_by.q', graph_uri = graph_uri)
     app.logger.debug("Running informed by")
-    log("Running informed by")
+    emit("Running informed by")
     G = build_graph(G, endpoint_uri, source="activity1", target="activity2", query=q_informed_by)
     
-    log("Building full provenance graph complete...")
+    emit("Building full provenance graph complete...")
     return G
     
 def extract_activity_graph(G, activity_uri, activity_id):
     app.logger.debug(u"Extracting graph for {} ({})".format(activity_uri, activity_id))
-    log("Extracting graph for {} ({})".format(activity_uri, activity_id))
     
     origin_node_id = activity_uri
 
@@ -292,7 +297,7 @@ def extract_activity_graph(G, activity_uri, activity_id):
         diameter = nx.diameter(sG.to_undirected())
     except Exception:
         app.logger.warning("Could not determine diameter, setting to arbitrary value of 25")
-        log("Could not determine diameter, setting to arbitrary value of 25")
+        emit("Could not determine diameter, setting to arbitrary value of 25")
         diameter = 25
     
     types = len(set(nx.get_node_attributes(sG,'type').values()))
@@ -306,7 +311,7 @@ def extract_activity_graph(G, activity_uri, activity_id):
 
 
 def assign_weights(sG, next_nodes = []):
-    log("Assigning weights to nodes")
+    emit("Assigning weights to nodes")
     weight_dict = {}
     new_next_nodes = []
     if next_nodes == []:
@@ -331,6 +336,7 @@ def assign_weights(sG, next_nodes = []):
                 if data['value']:
                     accumulated_weight += data['value']
                 
+                
             out_weight = accumulated_weight/out_degree
             
             outgoing = sG.out_edges([node])
@@ -347,10 +353,11 @@ def assign_weights(sG, next_nodes = []):
             return
 
 
-def log(message):
+def emit(message):
     socketio.emit('message',
                   {'data': message },
                   namespace='/log')
+
 
 
         
