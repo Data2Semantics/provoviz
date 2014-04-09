@@ -1,7 +1,17 @@
 @import url(http://fonts.googleapis.com/css?family=Special+Elite);
 
-h1.title, a.navbar-brand {
+#title, a.navbar-brand {
 	font-family: "Special Elite";
+}
+
+a.navbar-brand {
+    margin-top: .2em;
+}
+
+a.navbar-brand img {
+    width: 100px; 
+    margin-top: -15px; 
+    margin-left: -100px; 
 }
 
 #serviceactivities {
@@ -13,10 +23,10 @@ h1.title, a.navbar-brand {
 	margin-top: 25%;
 }
 
-#splash h1.title {
+#title {
 	text-align: center;
-	font-size: 500px;
-	text-shadow:rgba(0,0,0,0.5) 0px 0px 24px; 
+	font-size: 120px;
+	text-shadow:rgba(0,0,0,0.5) 0px 0px 8px; 
 	
 }
 
@@ -28,26 +38,58 @@ h1.title, a.navbar-brand {
 	border-left: 2px solid grey;
 }
 
+@media (min-width: 1300px) {
+    .container{
+        max-width: 1170px;
+        min-width: 1170px;
+    }
+}
+
 @media (min-width: 1400px) {
     .container{
         max-width: 1270px;
+        min-width: 1270px;
+    }
+}
+
+@media (min-width: 1500px) {
+    .container{
+        max-width: 1370px;
+        min-width: 1370px;
     }
 }
 
 @media (min-width: 1600px) {
     .container{
         max-width: 1470px;
+        min-width: 1470px;
+    }
+}
+
+@media (min-width: 1700px) {
+    .container{
+        max-width: 1570px;
+        min-width: 1570px;
     }
 }
 
 @media (min-width: 1800px) {
     .container{
         max-width: 1670px;
+        min-width: 1670px;
+    }
+}
+
+@media (min-width: 1900px) {
+    .container{
+        max-width: 1770px;
+        min-width: 1770px;
     }
 }
 
 @media (min-width: 2000px) {
     .container{
         max-width: 1870px;
+        min-width: 1870px;
     }
 }
