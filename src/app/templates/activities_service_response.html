@@ -127,8 +127,8 @@
     		console.log("Loading select2");
     		$.getScript("{{ url_for('.static',filename='js/select2.js',_external=True)}}").success(function(){
     		    console.log("Loaded select2");
-    
-                $("#id{{ data_hash }}_activities").select2({ placeholder: "Start typing..." , allowClear: true, data: activities });
+                $(".select2-container").remove();
+                $("#id{{ data_hash }}_activities").removeClass('select2-offscreen').select2({ placeholder: "Start typing..." , allowClear: true, data: activities });
     		});
 		});
     }
