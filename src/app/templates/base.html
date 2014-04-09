@@ -67,13 +67,13 @@
               <span class="icon-bar"></span>
             </button>
             
-            <a class="navbar-brand" href="#"><img src="{{ url_for('.static',filename='img/logo-no-text-150dpi.png') }}" style="width: 100px; margin-top: -15px; margin-left: -110px; "/></a>
+            <a class="navbar-brand" href="#"><img src="{{ url_for('.static',filename='img/logo-no-text-150dpi.png') }}"/></a>
             <a class="navbar-brand">PROV-O-Viz</a>
           </div>
           <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
               <li class="dropdown keep-open" id="provenance-upload-dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload <b class="caret"></b></a>
+                <a href="#" id="provenance-upload-toggle" class="dropdown-toggle" data-toggle="dropdown">Upload <b class="caret"></b></a>
                 <ul class="dropdown-menu" id="provenance-upload-menu">
 					<div style="margin: 10px;" class="form-group">
                         <label for="provenance-data">Upload Provenance</label>
@@ -84,7 +84,7 @@
                 </ul>
               </li>
               <li class="dropdown keep-open" id="sparql-endpoint-dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Endpoint <b class="caret"></b></a>
+                <a href="#" id="sparql-endpoint-toggle" class="dropdown-toggle" data-toggle="dropdown">Endpoint <b class="caret"></b></a>
                 <ul class="dropdown-menu" id="sparql-endpoint-menu">
 					<div style="margin: 10px;" class="form-group">
                         <label for="endpoint">SPARQL Endpoint URI</label>
@@ -106,8 +106,8 @@
 					</div>                  
                 </ul>
               </li>
-              <li class="dropdown" id='named-graphs-dropdown'>
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Provenance Graphs <b class="caret"></b></a>
+              <li class="dropdown" id='named-graphs-dropdown' style="display: none;">
+                  <a href="#" id="named-graphs-toggle" class="dropdown-toggle" data-toggle="dropdown">Provenance Graphs <b class="caret"></b></a>
                   <ul class="dropdown-menu" id="named-graphs-menu">
                   </ul>
               </li>
@@ -116,8 +116,8 @@
                     <input class="form-control" type="hidden" id="graphs"></input>
             </form> -->
             <ul class="nav navbar-nav navbar-right">
-				<li><a id="source" data-toggle="modal" href="#source_modal" class="btn btn-disabled" style="float: right;">&lt;&gt;</a></li>
-              <li><a href="#">API</a></li>
+				<li><a id="source" data-toggle="modal" href="#source_modal" class="btn btn-disabled" style="float: right; display: none;">&lt;&gt;</a></li>
+              <li><a id="#api-button" data-toggle="modal" data-target="#api-modal" href="#">About</a></li>
               <li><a href="http://www.data2semantics.org">Data2Semantics</a></li>
             </ul>
           </div>
@@ -127,7 +127,7 @@
 	<div class="container" id="splash-container">
 		<div class="row">
 			<div id="splash" class='col-lg-12'>
-				<h1 class="title">PROV-O-Viz</h1>
+				<h1 id="title">PROV-O-Viz</h1>
 			</div>
 		</div>
 	</div>
@@ -142,8 +142,8 @@
             </div>
         </div> -->
 		
-		<div class="row" id="about">
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">				
+		<div class="row hidden" id="about">
+			<div class="col-lg-12">				
 				<h4>About PROV-O-Viz</h4>
 				<p>With PROV-O-Viz you can visualize <em>any</em> provenance graph expressed using the <a href="http://www.w3.org/TR/prov-o/" target="_blank">W3C PROV-O vocabulary</a> as an intuitive <a href="http://bost.ocks.org/mike/sankey/" target="_blank">Sankey diagram</a>. Really neat.</p>
 				<p>PROV-O-Viz was developed by the <a href="http://www.data2semantics.org" target="_blank">Data2Semantics</a> project, funded under the <a href="http://www.commit-nl.nl" target="_blank">COMMIT/ programme</a>.</p>
@@ -151,116 +151,84 @@
 				<p>To see what it does, you can point PROV-O-Viz to your own SPARQL endpoint, containing Named Graphs with PROV-O activities and entities in it.</p>
 				<p>Alternatively, you can simply copy and paste some of PROV-O in Turtle format in the Paste-And-Go form.</p>
 
-				<p>Finally, you can POST PROV-O in Turtle format to the PROV-O-Viz service, and we'll return a self-contained HTML snippet for you to include in your website.</p>
+				<p>You can also POST PROV-O in Turtle format to the PROV-O-Viz service, and we'll return a self-contained HTML snippet for you to include in your website.</p>
 				<ul>
 					<li>The service lives at <code>http://provoviz.org/service</code>, and</li>
 					<li>expects a POST with a <code>graph_uri</code> parameter (a URI that identifies your provenance graph), and</li>
 				 	<li>a <code>data</code>	parameter that contains a Turtle serialization of a PROV-O graph</li>
 				</ul>
 			</div>
-			
-            <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        Go on, give us some PROV!
-                    </div>
-                    <div class="panel-body">
-                        <ul class="nav nav-tabs" id="options_tab">
-                            <li class="active"><a>Paste-And-Go</a></li>
-                            <li><a>SPARQL Endpoint</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="paste">
-                                <h4>Paste-And-Go form</h4>
-                                <p>Paste a Turtle serialization of a PROV-O graph in the text area below.</p>
-                                <div class="input-append">
-                                    <textarea id="provodata" class="col-xs-12" name="data" rows="4" placeholder="PROV-O input"></textarea>
-                                    <button id="provoSubmit" class="btn btn-primary btn-block" value="go" type="button">Go</button>
-                                </div>
-                                <div class="alert alert-info" style="margin-top: 1em;"><strong>Example</strong>
-                                    <p>Use the most excellent <a href="http://git2prov.org">Git2PROV</a> we developed together with the University of Ghent to generate PROV-O from your favorite Git repository. The output of Git2PROV can simply be copied to the text area.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="sparql">
-                                <h4>SPARQL Endpoint</h4>
-                                <p>Give the URL of your SPARQL endpoint</p>
-                                <div class="input-append">
-                                    <input type="text" class="col-xs-12" id="endpoint" name="endpoint" placeholder="Start typing..." width="100%"></input>
-                                    <div class="checkbox">
-                                      <label>
-                                        <input type="checkbox" id="ignoregraphs" name="ignoregraphs"/> Ignore Named Graphs
-                                      </label>
-                                    </div>
-                                    
-                                    <button type="button" id="endpointSubmit" value="go" class="btn btn-primary btn-block">Go</input>
-                                </div>
-                                <div class="alert alert-info" style="margin-top: 1em;"><strong>Example</strong>
-                                    <p>Our own <a id="endpointLink">experimental endpoint</a> usually contains some PROV-O for you to explore.
-                                    </p>
-                                </div>
-                                <div id="explore-row">
-                                    <h4>Select Provenance Graph</h4>
-                                    <p>When you select a Named Graph, we will retrieve a list of all activities in that graph. Only graphs with activities are shown here.</p>
-                                    <div class="control-group">
-                                            <div class="controls">
-                                                    <label for="graphs"><i class="icon-search"></i> Select a Named Graph</label>
-                                                    <input type="hidden" id="graphs" style="width: 100%; "></input>
-                                            </div>
-                                    </div>
-                                </div>                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
 		</div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="api-modal" tabindex="-1" role="dialog" aria-labelledby="api-modal-label" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="api-modal-label">About PROV-O-Viz</h4>
+              </div>
+              <div class="modal-body">
+				<p>With PROV-O-Viz you can visualize <em>any</em> provenance graph expressed using the <a href="http://www.w3.org/TR/prov-o/" target="_blank">W3C PROV-O vocabulary</a> as an intuitive <a href="http://bost.ocks.org/mike/sankey/" target="_blank">Sankey diagram</a>. Really neat.</p>
+				<p>PROV-O-Viz was developed by the <a href="http://www.data2semantics.org" target="_blank">Data2Semantics</a> project, funded under the <a href="http://www.commit-nl.nl" target="_blank">COMMIT/ programme</a>.</p>
+				<h4>How to use it</h4>
+				<p>To see what it does, you can point PROV-O-Viz to your own SPARQL endpoint, containing Named Graphs with PROV-O activities and entities in it.</p>
+				<p>Alternatively, you can simply copy and paste some of PROV-O in Turtle format in the Paste-And-Go form.</p>
+
+				<p>You can also POST PROV-O in Turtle format to the PROV-O-Viz service, and we'll return a self-contained HTML snippet for you to include in your website.</p>
+				<ul>
+					<li>The service lives at <code>http://provoviz.org/service</code>, and</li>
+					<li>expects a POST with a <code>graph_uri</code> parameter (a URI that identifies your provenance graph), and</li>
+				 	<li>a <code>data</code>	parameter that contains a Turtle serialization of a PROV-O graph</li>
+				</ul>
+                <h4>Credits</h4>
+                <p>Thanks go to the most excellent <a href="http://d3js.org/">D3.js</a> library for the Sankey diagram used on this page.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
 
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				  <!-- Button trigger modal -->
 				
-				<div id="noselection" class="row">
+				<div id="noselection" class="row" style="display: none;">
 				    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
 				        <div class="alert alert-warning" style="margin-top: 2em;">This is where you will be able to select activities to visualize once you've <strong>given us some PROV</strong>!</div>
 				    </div>
 				</div>
-				<div id="selectgraph" class="row">
+				<div id="selectgraph" class="row" style="display: none;">
 				    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
 				        <div class="alert alert-warning" style="margin-top: 2em;">Please select a graph from the "Provenance Graphs" dropdown menu...</div>
 				    </div>
 				</div>
-				<div id="loading" class="row">
+				<div id="loading" class="row" style="display: none;">
 				    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
 				        <div class="alert alert-info" style="margin-top: 2em;">Loading...
 						<div id="log"></log>
 						</div>
 				    </div>
 				</div>
-				<div id="noresponse" class="row">
+				<div id="noresponse" class="row" style="display: none;">
 				    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
 				        <div class="alert alert-error" style="margin-top: 2em;">The query did not return anything, sorry!</div>
 				    </div>
 				</div>
-				<div  id="activities-row">
+				<div  id="activities-row" style="display: none;">
 	                <!-- <p>When you select an activity from the drop down box, we will render Sankey diagram showing the <strong>activity</strong> together with causally-related <strong>entities</strong> and <strong>activities</strong>.</p> -->
 
 				</div>
             </div>
         </div>
 	</div>
-	<div id="serviceactivities">
+	<div id="serviceactivities" style="display: none;">
 		<strong>nothing</strong>
 	</div>
-	<div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h5>Credits</h5>
-                <p>Thanks go to the most excellent <a href="http://d3js.org/">D3.js</a> library for the Sankey diagram used on this page.</p>
-            </div>
-        </div>
-    </div>
+
 
 
 
