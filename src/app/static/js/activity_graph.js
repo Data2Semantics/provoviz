@@ -17,15 +17,15 @@ function drawDiagramForActivity(diagram_service_url, uri, id, graph_uri, endpoin
 
 
 function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
-    var margin = {top: 1, right: 1, bottom: 6, left: 1},
+    var margin = {top: 16, right: 15, bottom: 16, left: 5},
         width = (200 * diameter) - margin.left - margin.right;
     	
 		console.log("Tree width = "+tree_width);
 		
-		// We will use a minimum height of 500 pixels
-        if (tree_width * 30 < 500) {
-			console.log("Set height to 500");
-            var height = 500;
+		// We will use a minimum height of 150 pixels
+        if (tree_width * 30 < 150) {
+			console.log("Set height to 150");
+            var height = 150;
         } else {
             var height = tree_width * 30;
 			console.log("Set height to "+height);
