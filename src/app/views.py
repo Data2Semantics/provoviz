@@ -18,10 +18,16 @@ import time
 from app import app, socketio
 
 
-DEFAULT_SPARQL_ENDPOINT_URL = "http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz"
-DEFAULT_RDF_DATA_UPLOAD_URL = "http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz/statements"
+# DEFAULT_SPARQL_ENDPOINT_URL = "http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz"
+# DEFAULT_RDF_DATA_UPLOAD_URL = "http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz/statements"
 
 
+DEFAULT_SPARQL_ENDPOINT_URL = "http://localhost:5820/provoviz/query"
+DEFAULT_RDF_DATA_UPLOAD_URL = "http://localhost:5820/provoviz/update"
+
+STARDOG = True
+USER = 'admin'
+PASS = 'admin'
 
 @app.route('/')
 def index():
@@ -33,8 +39,12 @@ def graphs():
     
     endpoint_uri = request.args.get('endpoint_uri','')
     
+    stardog = STARDOG
+    if endpoint_uri != DEFAULT_SPARQL_ENDPOINT_URL :
+        stardog = False
+    
     if endpoint_uri != '' :
-        graphs = s.get_named_graphs(endpoint_uri)
+        graphs = s.get_named_graphs(endpoint_uri, stardog=stardog, auth=(USER,PASS))
         
         return jsonify(graphs = graphs)
 
@@ -48,14 +58,18 @@ def activities():
     graph_uri = request.args.get('graph_uri',None)
     endpoint_uri = request.args.get('endpoint_uri',None)
     
+    stardog = STARDOG
+    if endpoint_uri != DEFAULT_SPARQL_ENDPOINT_URL :
+        stardog = False
+    
     if graph_uri and endpoint_uri:
         
         if graph_uri == 'http://example.com/none':
             graph_uri = None
         
-        activities = s.get_activities(graph_uri, endpoint_uri)
+        activities = s.get_activities(graph_uri, endpoint_uri, stardog = stardog, auth = (USER, PASS))
         
-        response = generate_graphs(graph_uri, endpoint_uri, activities=activities)
+        response = generate_graphs(graph_uri, endpoint_uri, activities=activities, stardog = stardog, auth = (USER, PASS))
         
         response = json.dumps(response)
         
@@ -101,13 +115,20 @@ def service(prov_data, graph_uri, client=None):
 
     print prov_data
     
-    r = requests.put(DEFAULT_RDF_DATA_UPLOAD_URL,
-                     data = prov_data,
-                     params = params,
-                     headers = headers)
+    if not STARDOG :    
+        r = requests.put(DEFAULT_RDF_DATA_UPLOAD_URL,
+                         data = prov_data,
+                         params = params,
+                         headers = headers)
+    else :
+        data = "INSERT DATA {{ GRAPH {} {{ {} }} }}".format(context, prov_data)
+        
+        payload = {'update': data}
+        
+        r = requests.post(DEFAULT_RDF_DATA_UPLOAD_URL, data=payload, auth=(USER,PASS))
     
     if r.ok :
-        response = generate_graphs(graph_uri, DEFAULT_SPARQL_ENDPOINT_URL)
+        response = generate_graphs(graph_uri, DEFAULT_SPARQL_ENDPOINT_URL, stardog=STARDOG, auth=(USER,PASS))
         
         response = json.dumps(response)
         emit("Done")
@@ -119,6 +140,7 @@ def service(prov_data, graph_uri, client=None):
         
     else :
         app.logger.debug("Something went wrong")
+        print r.content
         return make_response(r.content, 500)
     
     
@@ -141,14 +163,16 @@ def service_test():
 
     
 
-def generate_graphs(graph_uri, endpoint_uri, activities = None):
+def generate_graphs(graph_uri, endpoint_uri, activities = None, stardog=False, auth=None):
     emit("Generating provenance graphs...")
     
+    
+    
     ## It seems we're good to go!
-    G = s.build_full_graph(graph_uri, endpoint_uri)
+    G = s.build_full_graph(graph_uri, endpoint_uri, stardog=stardog, auth=auth)
     
     if not activities:
-        activities = s.get_activities(graph_uri, endpoint_uri)
+        activities = s.get_activities(graph_uri, endpoint_uri, stardog=stardog, auth=auth)
     
     response = []
     total = len(activities)

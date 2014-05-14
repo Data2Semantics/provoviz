@@ -40,13 +40,17 @@ def shorten(text):
         return text
 
 
-def get_activities(graph_uri, endpoint_uri):
+def get_activities(graph_uri, endpoint_uri, stardog=False, auth=None):
     emit('Retrieving activities...')
     q = render_template('activities.q', graph_uri=graph_uri)
     
     sparql = SPARQLWrapper(endpoint_uri)
     sparql.setReturnFormat(JSON)
     sparql.setQuery(q)
+    
+    if stardog:
+        (user, password) = auth
+        sparql.setCredentials(user,password)
     
     app.logger.debug(u"Query:\n{}".format(q))
 
@@ -76,12 +80,16 @@ def get_activities(graph_uri, endpoint_uri):
     return activities
 
 
-def get_named_graphs(endpoint_uri):
+def get_named_graphs(endpoint_uri, stardog=False, auth=None):
     emit('Retrieving graphs...')
     q = render_template('named_graphs.q')
     sparql = SPARQLWrapper(endpoint_uri)
     sparql.setReturnFormat(JSON)
     sparql.setQuery(q)
+    
+    if stardog:
+        (user, password) = auth
+        sparql.setCredentials(user,password)
     
     app.logger.debug(u"Query:\n{}".format(q))
 
@@ -105,12 +113,16 @@ def get_named_graphs(endpoint_uri):
 
 
 
-def build_graph(G, endpoint_uri, name=None, source=None, target=None, query=None, intermediate = None):
+def build_graph(G, endpoint_uri, name=None, source=None, target=None, query=None, intermediate = None, stardog=False, auth=None):
     emit('Building edges from {} to {}'.format(source, target))
     
     sparql = SPARQLWrapper(endpoint_uri)
     sparql.setReturnFormat(JSON)
     sparql.setQuery(query)
+    
+    if stardog:
+        (user, password) = auth
+        sparql.setCredentials(user,password)
     
     app.logger.debug(u"Query:\n{}".format(query))
     
@@ -196,7 +208,7 @@ def build_graph(G, endpoint_uri, name=None, source=None, target=None, query=None
     return G
 
 
-def build_full_graph(graph_uri, endpoint_uri):
+def build_full_graph(graph_uri, endpoint_uri, stardog=False, auth=None):
     app.logger.debug(u"Building full graph")
     emit("Building full provenance graph...")
     
@@ -205,22 +217,22 @@ def build_full_graph(graph_uri, endpoint_uri):
     q_activity_to_resource = render_template('activity_to_resource.q', graph_uri=graph_uri)
     app.logger.debug("Running activity_to_resource")
     emit("Running activity_to_resource")
-    G = build_graph(G, endpoint_uri, source="activity", target="entity", query=q_activity_to_resource)
+    G = build_graph(G, endpoint_uri, source="activity", target="entity", query=q_activity_to_resource, stardog=stardog, auth=auth)
     
     q_resource_to_activity = render_template('resource_to_activity.q', graph_uri=graph_uri)
     app.logger.debug("Running resource to activity")
     emit("Running activity_to_resource")
-    G = build_graph(G, endpoint_uri, source="entity", target="activity", query=q_resource_to_activity)
+    G = build_graph(G, endpoint_uri, source="entity", target="activity", query=q_resource_to_activity, stardog=stardog, auth=auth)
     
     q_derived_from = render_template('derived_from.q', graph_uri = graph_uri)
     app.logger.debug("Running derived from")
     emit("Running derived from")
-    G = build_graph(G, endpoint_uri, source="entity1", target="entity2", query=q_derived_from)
+    G = build_graph(G, endpoint_uri, source="entity1", target="entity2", query=q_derived_from, stardog=stardog, auth=auth)
     
     q_informed_by = render_template('informed_by.q', graph_uri = graph_uri)
     app.logger.debug("Running informed by")
     emit("Running informed by")
-    G = build_graph(G, endpoint_uri, source="activity1", target="activity2", query=q_informed_by)
+    G = build_graph(G, endpoint_uri, source="activity1", target="activity2", query=q_informed_by, stardog=stardog, auth=auth)
     
     emit("Building full provenance graph complete...")
     return G
