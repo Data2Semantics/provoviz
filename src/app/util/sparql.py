@@ -273,12 +273,12 @@ def extract_activity_graph(G, activity_uri, activity_id):
     nx.set_node_attributes(sG,'degree',deg)
     
     app.logger.debug(u"Assigning weights to nodes in {} ({})".format(activity_uri, activity_id))
-    #assign_weights(sG, [])
+    assign_weights(sG, [])
     
-    app.logger.debug(u"WARNING: Using faster but suboptimal calculation of edge widths!!!!")
-    bc = nx.edge_betweenness_centrality(sG, normalized=True)   
-    nx.set_edge_attributes(sG,'value',bc)
-    
+    # app.logger.debug(u"WARNING: Using faster but suboptimal calculation of edge widths!!!!")
+#     bc = nx.edge_betweenness_centrality(sG, normalized=True)   
+#     nx.set_edge_attributes(sG,'value',bc)
+#     
             
 
             
