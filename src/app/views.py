@@ -15,6 +15,7 @@ from flask import make_response, request, current_app
 from functools import update_wrapper
 from flask.ext.socketio import SocketIO
 import time
+from rdflib import Graph
 from app import app, socketio
 
 
@@ -115,13 +116,17 @@ def service(prov_data, graph_uri, client=None):
 
     print prov_data
     
+    prov_graph = Graph()
+    prov_graph.parse(data=prov_data,format="turtle")
+    prov_data_nt = prov_graph.serialize(format='nt')
+    
     if not STARDOG :    
         r = requests.put(DEFAULT_RDF_DATA_UPLOAD_URL,
-                         data = prov_data,
+                         data = prov_data_nt,
                          params = params,
                          headers = headers)
     else :
-        data = "INSERT DATA {{ GRAPH {} {{ {} }} }}".format(context, prov_data)
+        data = "INSERT DATA {{ GRAPH {} {{ {} }} }}".format(context, prov_data_nt)
         
         payload = {'update': data}
         
