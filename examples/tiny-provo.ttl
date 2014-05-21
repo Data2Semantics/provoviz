@@ -1,0 +1,20 @@
+@prefix ex: <http://example.com/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix result: <http://git2prov.org/git2prov?giturl=https%3A%2F%2Fgithub.com%2FData2Semantics%2Fprovoviz.git&serialization=PROV-O#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+ex:foo2 a prov:Entity ;
+    prov:wasGeneratedBy ex:bar1 ;
+    rdfs:label "Foo 2".
+    
+    
+ex:foo1 a prov:Entity ;
+    prov:wasUsedBy ex:bar1 ;
+    rdfs:label "Foo 1".
+    
+ex:bar1 a prov:Activity ;
+    prov:used ex:foo1 ;
+    prov:generated ex:foo2 ;
+    rdfs:label "Bar 1" .
