@@ -13,7 +13,7 @@ import rdfextras
 from math import log
 import time
 from app import app, socketio
-
+import pprint
 
 
 
@@ -233,12 +233,20 @@ def build_full_graph(graph_uri, endpoint_uri, stardog=False, auth=None):
     app.logger.debug("Running informed by")
     emit("Running informed by")
     G = build_graph(G, endpoint_uri, source="activity1", target="activity2", query=q_informed_by, stardog=stardog, auth=auth)
+ 
+
     
     emit("Building full provenance graph complete...")
+
+
+
     return G
     
 def extract_activity_graph(G, activity_uri, activity_id):
     app.logger.debug(u"Extracting graph for {} ({})".format(activity_uri, activity_id))
+    sG = None
+    inG = None
+    outG = None
     
     origin_node_id = activity_uri
 
@@ -267,54 +275,53 @@ def extract_activity_graph(G, activity_uri, activity_id):
     
     nx.set_node_attributes(sG,'label', names)
     
-     
-    app.logger.debug(u"Computing degrees {} ({})".format(activity_uri, activity_id))
-    deg = nx.degree(sG)
-    nx.set_node_attributes(sG,'degree',deg)
+    app.logger.debug(u"Assigning weights to edges")
+    emit("Assigning weights to edges")
     
-    app.logger.debug(u"Assigning weights to nodes in {} ({})".format(activity_uri, activity_id))
-    assign_weights(sG, [])
+    start_nodes = [ n for n in sG.nodes() if sG.in_degree(n) == 0 ]
+    end_nodes = [ n for n in sG.nodes() if sG.out_degree(n) == 0 ]
     
-    # app.logger.debug(u"WARNING: Using faster but suboptimal calculation of edge widths!!!!")
-#     bc = nx.edge_betweenness_centrality(sG, normalized=True)   
-#     nx.set_edge_attributes(sG,'value',bc)
-#     
-            
+    edge_weights = walk_weights(sG, start_nodes)
+    
+    app.logger.debug("Check {}/{}".format(len(edge_weights.keys()),len(sG.edges())))
+    pprint.pprint(edge_weights.keys())
+    pprint.pprint(sG.edges())
+    nx.set_edge_attributes(sG,'value',edge_weights)
+    del(edge_weights)
+    # nx.set_node_attributes(sG,'value',node_weights)
 
-            
-    # print sG.edges(data=True)
     
     
     app.logger.debug(u"Converting to JSON {} ({})".format(activity_uri, activity_id))
     g_json = json_graph.node_link_data(sG) # node-link format to serialize
 
     app.logger.debug(u"Determining start and end nodes in {} ({})".format(activity_uri, activity_id))
-    start_nodes = 0
-    end_nodes = 0
+    
+    start_nodes = len(start_nodes)
+    end_nodes = len(end_nodes)
     max_degree = 1
-    for n in sG.nodes():
-        if sG.in_degree(n) == 0 :
-            start_nodes += 1
-        elif sG.out_degree(n) == 0 :
-            end_nodes += 1
-            
+    for n,d in sG.nodes(data=True):
         if sG.in_degree(n) > max_degree :
             max_degree = sG.in_degree(n)
         if sG.out_degree(n) > max_degree :
             max_degree = sG.out_degree(n)
      
-    app.logger.debug(u"Computing ideal graph width {} ({})".format(activity_uri, activity_id))       
-    # Initially set width to largest: number of start nodes vs. end nodes        
-    if end_nodes > start_nodes :
-        width = end_nodes
-    else :
-        width = start_nodes
-        
-    # But if the maximum degree exceeds that width, set the width to the max_degree
-    if max_degree > width :
-        width = max_degree
-            
-        # print sG.nodes(n)
+    app.logger.debug(u"Computing ideal graph width {} ({})".format(activity_uri, activity_id)) 
+    
+    width = max([end_nodes,start_nodes,max_degree])      
+    # # Initially set width to largest: number of start nodes vs. end nodes        
+    # if end_nodes > start_nodes :
+    #     width = end_nodes
+    # else :
+    #     width = start_nodes
+    #     
+    # # But if the maximum degree exceeds that width, set the width to the max_degree
+    # if max_degree > width :
+    # 
+    #     width = max_degree
+    # 
+ 
+    # print sG.nodes(n)
     
     app.logger.debug(u"Computing graph diameter {} ({})".format(activity_uri, activity_id))
     try:
@@ -335,62 +342,118 @@ def extract_activity_graph(G, activity_uri, activity_id):
     return g_json, width, types, diameter
 
 
-def assign_weights(sG, next_nodes = [], visited = []):
-    emit("Assigning weights to nodes, {}".format(next_nodes))
-    weight_dict = {}
-    new_next_nodes = []
-    if next_nodes == []:
-        app.logger.debug(u"Next nodes is empty")
-        for (s,t) in sG.edges():
+def walk_weights(graph, pending_nodes, edge_weight_dict = {}, visited = []):
+    if pending_nodes == []:
+        return edge_weight_dict
+        
+    next_nodes = []
+    for n in pending_nodes:
+        if n in visited:
+            app.logger.debug("Already visited {}".format(n))
+            continue
             
-            if sG.in_degree(s) == 0 :
-                app.logger.debug(u"({},{}) where {} has no incoming edges".format(s,t,s))
-                weight_dict[(s,t)] = log(10)
-                next_nodes.append(t)
-                visited.append(s)
-        # Loop!
-        app.logger.debug(u"Setting edge attributes")
-        nx.set_edge_attributes(sG,'value',weight_dict)
-        assign_weights(sG, next_nodes, visited)
-    else :
-        for node in next_nodes :
+        # app.logger.debug(u"Assigning weights to outgoing edges of {}".format(n))
+        
+        # The node does not have any incoming edges, set the edge weight of each outgoing edge to log(10) (why? search me!)
+        if graph.in_degree(n) == 0:
+            out_edges = graph.out_edges([n])
+            for (u,v) in out_edges:
+                edge_weight_dict[(u,v)] = log(10)
+                next_nodes.append(v)
+                
+            # We can safely add the node to the visited list.
+            visited.append(n)
+        else:
+            # Get all incoming edges
+            in_edges = graph.in_edges([n])
             
-            
-            if node in visited :
-                app.logger.debug(u"Node already visited")
+            # Make sure that all incoming edges already have a weight
+            incomplete = [e for e in in_edges if e not in edge_weight_dict.keys()]
+            # If some of them don't, we add the current node to the end of the queue
+            if incomplete != [] :
+                app.logger.debug("Node `{}` has unvisited incoming edges, adding to end of queue".format(n))
+                next_nodes.append(n)
                 continue
                 
-            app.logger.debug(u"Assigning weight to {}".format(node))
+            # Otherwise, we'll just calculate the accumulated weight of all incoming edges
+            accumulated_weight = sum([edge_weight_dict[e] for e in in_edges])
             
+            out_edges = graph.out_edges([n])
+            out_degree = graph.out_degree(n)
             
-            out_degree = sG.out_degree(node)
+            # app.logger.debug("Out degree is {}".format(out_degree))
             
-            if out_degree == 0 :
-                continue
-            
-            incoming = sG.in_edges([node],data=True)
-            
-            accumulated_weight = 0
-            for (s,t,data) in incoming :
-                if data['value']:
-                    accumulated_weight += data['value']
+            # And then we divide the accumulated weight by the out degree, 
+            # assign it to each outgoing edge, and
+            # add the target node to the next_nodes queue
+            for (u,v) in out_edges:
+                edge_weight_dict[(u,v)] = accumulated_weight/out_degree
+                next_nodes.append(v)
                 
-            visited.append(node)
-                
-            out_weight = accumulated_weight/out_degree
-            
-            outgoing = sG.out_edges([node])
-            
-            for (s,t) in outgoing :
-                weight_dict[(s,t)] = out_weight
-                new_next_nodes.append(t)
-        
-        nx.set_edge_attributes(sG,'value',weight_dict)
-        
-        if new_next_nodes != [] :
-            assign_weights(sG, new_next_nodes, visited)
-        else :
-            return
+            # Only append node to visited if it is not in next_nodes
+            visited.append(n)
+
+    # Once we have visited all nodes, we call walk_weights recursively with the next_nodes list
+    app.logger.debug("Recursion...")
+    return walk_weights(graph, next_nodes, edge_weight_dict, visited)
+    
+
+# def assign_weights(sG, next_nodes = [], visited = []):
+#     emit("Assigning weights to nodes, {}".format(next_nodes))
+#     weight_dict = {}
+#     new_next_nodes = []
+#     if next_nodes == []:
+#         app.logger.debug(u"Next nodes is empty")
+#         for (s,t) in sG.edges():
+#             
+#             if sG.in_degree(s) == 0 :
+#                 app.logger.debug(u"({},{}) where {} has no incoming edges".format(s,t,s))
+#                 weight_dict[(s,t)] = log(10)
+#                 next_nodes.append(t)
+#                 visited.append(s)
+#         # Loop!
+#         app.logger.debug(u"Setting edge attributes")
+#         nx.set_edge_attributes(sG,'value',weight_dict)
+#         assign_weights(sG, next_nodes, visited)
+#     else :
+#         for node in next_nodes :
+#             
+#             
+#             if node in visited :
+#                 app.logger.debug(u"Node already visited")
+#                 continue
+#                 
+#             app.logger.debug(u"Assigning weight to {}".format(node))
+#             
+#             
+#             out_degree = sG.out_degree(node)
+#             
+#             if out_degree == 0 :
+#                 continue
+#             
+#             incoming = sG.in_edges([node],data=True)
+#             
+#             accumulated_weight = 0
+#             for (s,t,data) in incoming :
+#                 if data['value']:
+#                     accumulated_weight += data['value']
+#                 
+#             visited.append(node)
+#                 
+#             out_weight = accumulated_weight/out_degree
+#             
+#             outgoing = sG.out_edges([node])
+#             
+#             for (s,t) in outgoing :
+#                 weight_dict[(s,t)] = out_weight
+#                 new_next_nodes.append(t)
+#         
+#         nx.set_edge_attributes(sG,'value',weight_dict)
+#         
+#         if new_next_nodes != [] :
+#             assign_weights(sG, new_next_nodes, visited)
+#         else :
+#             return
 
 
 def emit(message):
