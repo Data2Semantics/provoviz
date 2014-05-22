@@ -242,47 +242,44 @@ def build_full_graph(graph_uri, endpoint_uri, stardog=False, auth=None):
 
     return G
     
-def extract_activity_graph(G, activity_uri, activity_id):
-    app.logger.debug(u"Extracting graph for {} ({})".format(activity_uri, activity_id))
+    
+def extract_ego_graph(G, activity_uri):
     sG = None
     inG = None
     outG = None
     
-    origin_node_id = activity_uri
-
-    app.logger.debug(u"Extracting ego graph (forward) {} ({})".format(activity_uri, activity_id))
-    outG = nx.ego_graph(G,origin_node_id,50)
-    app.logger.debug(u"Extracting ego graph (backward) {} ({})".format(activity_uri, activity_id))
-    inG = nx.ego_graph(G.reverse(),origin_node_id,50)
-    app.logger.debug(u"Reversing backward ego graph {} ({})".format(activity_uri, activity_id))
+    app.logger.debug(u"Extracting ego graph (forward) {}".format(activity_uri))
+    outG = nx.ego_graph(G,activity_uri,50)
+    app.logger.debug(u"Extracting ego graph (backward) {}".format(activity_uri))
+    inG = nx.ego_graph(G.reverse(),activity_uri,50)
+    app.logger.debug(u"Reversing backward ego graph {}".format(activity_uri))
     inG = inG.reverse()
-    app.logger.debug(u"Joining ego graphs {} ({})".format(activity_uri, activity_id))
+    app.logger.debug(u"Joining ego graphs {}".format(activity_uri))
     sG = nx.compose(outG,inG)
     
-    # origin_node_id = "{}".format(activity_id.lower())
-    
-    #
-    sG.node[origin_node_id]['type'] = 'origin'
-    
-    app.logger.debug(u"Adding labels to graph {} ({})".format(activity_uri, activity_id))
-    names = {}
-    for n, nd in sG.nodes(data=True):
-        if nd['type'] == 'activity' or nd['type'] == 'origin':
-            label = nd['label']         
-            names[n] = label
-        else :
-            names[n] = nd['label']
-    
-    nx.set_node_attributes(sG,'label', names)
+    return sG
+
+def extract_activity_graph(G, activity_uri, activity_id):
+    emit(u"Extracting ego graph for {}".format(activity_id))
+    app.logger.debug(u"Extracting graph for {} ({})".format(activity_uri, activity_id))
+    sG = extract_ego_graph(G, activity_uri)
+
+    app.logger.debug("Original graph: {} nodes\nEgo graph: {} nodes".format(len(G.nodes()),len(sG.nodes())))
+
+    # Set node type for the activity_uri to 'origin'
+    sG.node[activity_uri]['type'] = 'origin'
     
     app.logger.debug(u"Assigning weights to edges")
     emit("Assigning weights to edges")
     
+    # Get start and end nodes (those without incoming or outgoing edges, respectively)
     start_nodes = [ n for n in sG.nodes() if sG.in_degree(n) == 0 ]
     end_nodes = [ n for n in sG.nodes() if sG.out_degree(n) == 0 ]
     
-    edge_weights = walk_weights(sG, start_nodes)
+    # Walk all edges, and assign weights
+    edge_weights = walk_weights(graph = sG, pending_nodes = start_nodes, edge_weights = {}, visited = [])
     
+    # Check to make sure that the edge weights dictionary has the same number of keys as edges in the ego graph
     app.logger.debug("Check {}/{}".format(len(edge_weights.keys()),len(sG.edges())))
     pprint.pprint(edge_weights.keys())
     pprint.pprint(sG.edges())
@@ -342,12 +339,15 @@ def extract_activity_graph(G, activity_uri, activity_id):
     return g_json, width, types, diameter
 
 
-def walk_weights(graph, pending_nodes, edge_weight_dict = {}, visited = []):
+TRACK_NODE = "http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0"
+def walk_weights(graph, pending_nodes = [], edge_weights = {}, visited = []):
     if pending_nodes == []:
-        return edge_weight_dict
+        return edge_weights
         
     next_nodes = []
     for n in pending_nodes:
+        if n == TRACK_NODE:
+            app.logger.debug("Touching TRACK_NODE {}".format(TRACK_NODE))
         if n in visited:
             app.logger.debug("Already visited {}".format(n))
             continue
@@ -358,44 +358,60 @@ def walk_weights(graph, pending_nodes, edge_weight_dict = {}, visited = []):
         if graph.in_degree(n) == 0:
             out_edges = graph.out_edges([n])
             for (u,v) in out_edges:
-                edge_weight_dict[(u,v)] = log(10)
+                edge_weights[(u,v)] = log(10)
                 next_nodes.append(v)
                 
             # We can safely add the node to the visited list.
             visited.append(n)
         else:
+            
             # Get all incoming edges
             in_edges = graph.in_edges([n])
+            if n == TRACK_NODE:
+                app.logger.debug(in_edges)
             
             # Make sure that all incoming edges already have a weight
-            incomplete = [e for e in in_edges if e not in edge_weight_dict.keys()]
+            incomplete = [e for e in in_edges if e not in edge_weights.keys()]
             # If some of them don't, we add the current node to the end of the queue
             if incomplete != [] :
                 app.logger.debug("Node `{}` has unvisited incoming edges, adding to end of queue".format(n))
                 next_nodes.append(n)
                 continue
                 
+                
+            if n == TRACK_NODE :
+                app.logger.debug("Incoming edges: \n{}".format([edge_weights[e] for e in in_edges]))
             # Otherwise, we'll just calculate the accumulated weight of all incoming edges
-            accumulated_weight = sum([edge_weight_dict[e] for e in in_edges])
+            accumulated_weight = sum([edge_weights[e] for e in in_edges])
+            if n == TRACK_NODE:
+                app.logger.debug("Accumulated weight: {}".format(accumulated_weight))
             
             out_edges = graph.out_edges([n])
+            if n == TRACK_NODE:
+                app.logger.debug("Out edges: {}".format(out_edges))
             out_degree = graph.out_degree(n)
+            if n == TRACK_NODE:
+                app.logger.debug("Out degree: {}".format(out_degree))
+                app.logger.debug("Weight per edge: {}".format(accumulated_weight/out_degree))
+                
             
-            # app.logger.debug("Out degree is {}".format(out_degree))
             
             # And then we divide the accumulated weight by the out degree, 
             # assign it to each outgoing edge, and
             # add the target node to the next_nodes queue
             for (u,v) in out_edges:
-                edge_weight_dict[(u,v)] = accumulated_weight/out_degree
+                edge_weights[(u,v)] = accumulated_weight/out_degree
                 next_nodes.append(v)
                 
             # Only append node to visited if it is not in next_nodes
             visited.append(n)
+            
+            if n == TRACK_NODE:
+                raw_input("Press Enter to continue...")
 
     # Once we have visited all nodes, we call walk_weights recursively with the next_nodes list
     app.logger.debug("Recursion...")
-    return walk_weights(graph, next_nodes, edge_weight_dict, visited)
+    return walk_weights(graph, next_nodes, edge_weights, visited)
     
 
 # def assign_weights(sG, next_nodes = [], visited = []):
