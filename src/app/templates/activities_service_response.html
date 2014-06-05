@@ -153,10 +153,11 @@
 	}
 	
 	function build_sankey(activity_name){
-		console.log("Dit is de naam "+ activity_name);
+		console.log("Selected activity name: "+ activity_name);
 		
 		selected_activity = get_activity_details(activity_name);
 		
+        console.log("Selected activity:");
 		console.log(selected_activity);
 		
 		$("#id{{ data_hash }}_graph").empty();
