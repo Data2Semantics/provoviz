@@ -50,7 +50,8 @@ def get_activities(graph_uri, endpoint_uri, stardog=False, auth=None):
     
     if stardog:
         (user, password) = auth
-        sparql.setCredentials(user,password)
+        if user and password:
+            sparql.setCredentials(user,password)
     
     app.logger.debug(u"Query:\n{}".format(q))
 
@@ -89,7 +90,8 @@ def get_named_graphs(endpoint_uri, stardog=False, auth=None):
     
     if stardog:
         (user, password) = auth
-        sparql.setCredentials(user,password)
+        if user and password:
+            sparql.setCredentials(user,password)
     
     app.logger.debug(u"Query:\n{}".format(q))
 
@@ -122,7 +124,8 @@ def build_graph(G, endpoint_uri, name=None, source=None, target=None, query=None
     
     if stardog:
         (user, password) = auth
-        sparql.setCredentials(user,password)
+        if user and password:
+            sparql.setCredentials(user,password)
     
     app.logger.debug(u"Query:\n{}".format(query))
     

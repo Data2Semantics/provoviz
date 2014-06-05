@@ -29,8 +29,11 @@ DEFAULT_SPARQL_ENDPOINT_URL = "http://localhost:5820/provoviz/query"
 DEFAULT_RDF_DATA_UPLOAD_URL = "http://localhost:5820/provoviz/update"
 
 STARDOG = True
-USER = 'admin'
-PASS = 'admin'
+# USER = 'admin'
+# PASS = 'admin'
+USER = None
+PASS = None
+
 
 @app.route('/')
 def index():
@@ -134,12 +137,15 @@ def service(prov_data, graph_uri, client=None):
                          params = params,
                          headers = headers)
     else :
-        app.logger.debug("Posting to STARDOG SPARQL Update endpoint using credentials")
+        app.logger.debug("Posting to STARDOG SPARQL Update endpoint using credentials, if provided")
         data = "INSERT DATA {{ GRAPH {} {{ {} }} }}".format(context, prov_data_nt)
         
         payload = {'update': data}
         
-        r = requests.post(DEFAULT_RDF_DATA_UPLOAD_URL, data=payload, auth=(USER,PASS))
+        if USER and PASS :
+            r = requests.post(DEFAULT_RDF_DATA_UPLOAD_URL, data=payload, auth=(USER,PASS))
+        else :
+            r = requests.post(DEFAULT_RDF_DATA_UPLOAD_URL, data=payload)
         
     
     
