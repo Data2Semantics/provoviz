@@ -15,13 +15,22 @@ from flask import make_response, request, current_app
 from functools import update_wrapper
 from flask.ext.socketio import SocketIO
 import time
+from rdflib import Graph
 from app import app, socketio
+import sys
+import traceback
 
 
-DEFAULT_SPARQL_ENDPOINT_URL = "http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz"
-DEFAULT_RDF_DATA_UPLOAD_URL = "http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz/statements"
+# DEFAULT_SPARQL_ENDPOINT_URL = "http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz"
+# DEFAULT_RDF_DATA_UPLOAD_URL = "http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz/statements"
 
 
+DEFAULT_SPARQL_ENDPOINT_URL = "http://localhost:5820/provoviz/query"
+DEFAULT_RDF_DATA_UPLOAD_URL = "http://localhost:5820/provoviz/update"
+
+STARDOG = True
+USER = 'admin'
+PASS = 'admin'
 
 @app.route('/')
 def index():
@@ -33,8 +42,12 @@ def graphs():
     
     endpoint_uri = request.args.get('endpoint_uri','')
     
+    stardog = STARDOG
+    if endpoint_uri != DEFAULT_SPARQL_ENDPOINT_URL :
+        stardog = False
+    
     if endpoint_uri != '' :
-        graphs = s.get_named_graphs(endpoint_uri)
+        graphs = s.get_named_graphs(endpoint_uri, stardog=stardog, auth=(USER,PASS))
         
         return jsonify(graphs = graphs)
 
@@ -48,14 +61,18 @@ def activities():
     graph_uri = request.args.get('graph_uri',None)
     endpoint_uri = request.args.get('endpoint_uri',None)
     
+    stardog = STARDOG
+    if endpoint_uri != DEFAULT_SPARQL_ENDPOINT_URL :
+        stardog = False
+    
     if graph_uri and endpoint_uri:
         
         if graph_uri == 'http://example.com/none':
             graph_uri = None
         
-        activities = s.get_activities(graph_uri, endpoint_uri)
+        activities = s.get_activities(graph_uri, endpoint_uri, stardog = stardog, auth = (USER, PASS))
         
-        response = generate_graphs(graph_uri, endpoint_uri, activities=activities)
+        response = generate_graphs(graph_uri, endpoint_uri, activities=activities, stardog = stardog, auth = (USER, PASS))
         
         response = json.dumps(response)
         
@@ -99,15 +116,35 @@ def service(prov_data, graph_uri, client=None):
     headers =  {'content-type':'text/turtle;charset=UTF-8'}
     params = {'context': context}
 
-    print prov_data
+    # print prov_data
+    try :
+        prov_graph = Graph()
+        prov_graph.parse(data=prov_data,format="turtle")
+        prov_data_nt = prov_graph.serialize(format='nt')
+    except :
+        message = "Could not parse your PROV. Please upload a valid Turtle or N-Triple serialization that uses the PROV-O vocabulary"
+        app.logger.debug(message)
+        emit(message)
+        return make_response(message, 500)
     
-    r = requests.put(DEFAULT_RDF_DATA_UPLOAD_URL,
-                     data = prov_data,
-                     params = params,
-                     headers = headers)
+    if not STARDOG :    
+        app.logger.debug("Using default PUT method (non STARDOG)")
+        r = requests.put(DEFAULT_RDF_DATA_UPLOAD_URL,
+                         data = prov_data_nt,
+                         params = params,
+                         headers = headers)
+    else :
+        app.logger.debug("Posting to STARDOG SPARQL Update endpoint using credentials")
+        data = "INSERT DATA {{ GRAPH {} {{ {} }} }}".format(context, prov_data_nt)
+        
+        payload = {'update': data}
+        
+        r = requests.post(DEFAULT_RDF_DATA_UPLOAD_URL, data=payload, auth=(USER,PASS))
+        
+    
     
     if r.ok :
-        response = generate_graphs(graph_uri, DEFAULT_SPARQL_ENDPOINT_URL)
+        response = generate_graphs(graph_uri, DEFAULT_SPARQL_ENDPOINT_URL, stardog=STARDOG, auth=(USER,PASS))
         
         response = json.dumps(response)
         emit("Done")
@@ -118,7 +155,8 @@ def service(prov_data, graph_uri, client=None):
             return render_template('activities_service_response.html', response=response, data_hash=data_hash)
         
     else :
-        app.logger.debug("Something went wrong")
+        app.logger.debug("Failed to upload the PROV to server: {} ({}).\n{}".format(r.reason, r.status_code,r.text))
+        emit("Failed to upload the PROV to server: {} ({}).\n{}".format(r.reason, r.status_code,r.text))
         return make_response(r.content, 500)
     
     
@@ -141,14 +179,16 @@ def service_test():
 
     
 
-def generate_graphs(graph_uri, endpoint_uri, activities = None):
+def generate_graphs(graph_uri, endpoint_uri, activities = None, stardog=False, auth=None):
     emit("Generating provenance graphs...")
     
+    
+    
     ## It seems we're good to go!
-    G = s.build_full_graph(graph_uri, endpoint_uri)
+    G = s.build_full_graph(graph_uri, endpoint_uri, stardog=stardog, auth=auth)
     
     if not activities:
-        activities = s.get_activities(graph_uri, endpoint_uri)
+        activities = s.get_activities(graph_uri, endpoint_uri, stardog=stardog, auth=auth)
     
     response = []
     total = len(activities)
@@ -158,15 +198,16 @@ def generate_graphs(graph_uri, endpoint_uri, activities = None):
         activity_uri = a['id']
         activity_id = a['text']
         
-        emit(activity_uri)
-        try:
-            emit("Extracting graph for {} ({}) - {}/{}".format(activity_uri, activity_id, count, total))
-            graph, width, types, diameter = s.extract_activity_graph(G, activity_uri, activity_id)
-        except Exception as e:
-            app.logger.debug(e)
-            app.logger.debug("Continuing as if nothing happened...")
-            emit("Continuing as if nothing happened...")
-            continue
+        # try:
+        emit("Extracting graph for {} - {}/{}".format(activity_id, count, total))
+        graph, width, types, diameter = s.extract_activity_graph(G, activity_uri, activity_id)
+        # except Exception as e:
+        #     t_,v_,traceback_ = sys.exc_info()
+        #     app.logger.warning(t_)
+        #     app.logger.warning(traceback_)
+        #     app.logger.debug("Continuing as if nothing happened...")
+        #     emit("Continuing as if nothing happened...")
+        #     continue
             
         activity = {}
         activity['id'] = activity_uri

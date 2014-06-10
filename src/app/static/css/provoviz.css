@@ -38,6 +38,11 @@ a.navbar-brand img {
 	border-left: 2px solid grey;
 }
 
+textarea {
+    font-family: Inconsolata, Menlo, Monaco, "Andale Mono", "Courier New";
+    
+}
+
 @media (min-width: 1300px) {
     .container{
         max-width: 1170px;
