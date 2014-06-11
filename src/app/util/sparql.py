@@ -279,6 +279,7 @@ def extract_activity_graph(G, activity_uri, activity_id):
     start_nodes = [ n for n in sG.nodes() if sG.in_degree(n) == 0 ]
     end_nodes = [ n for n in sG.nodes() if sG.out_degree(n) == 0 ]
     
+    edge_weights = {}
     try:
         # Walk all edges, and assign weights
         edge_weights = walk_weights(graph = sG, pending_nodes = start_nodes, edge_weights = {}, visited = [])
