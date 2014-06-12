@@ -27,7 +27,7 @@ def uri_to_label(uri):
         (base,hash_sign,local_name) = uri.rpartition('#')
         base_uri = local_name.encode('utf-8')
     else :
-        base_uri = re.sub("http.*/","",uri.encode('utf-8'))
+        base_uri = re.sub("http.*/.+","",uri.encode('utf-8'))
         
     
     return shorten(unquote_plus(base_uri).replace('_',' ').lstrip('-').lstrip(' '))
@@ -58,10 +58,11 @@ def get_activities(store, graph_uri=None):
         
         emit('{}...'.format(activity_uri))
         
-        if 'label' in result :
-            app.logger.debug("Found label {} in result".format(result['label']))
+        try:
+            
             activity_id = result['label']
-        else :
+            app.logger.debug("Found label {} in result".format(result['label']))
+        except :
             app.logger.debug("No label for {}".format(activity_uri))
             activity_id = uri_to_label(activity_uri)
         
