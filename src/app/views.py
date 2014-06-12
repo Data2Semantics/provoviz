@@ -3,6 +3,8 @@
 
 from flask import render_template, g, request, jsonify, make_response
 import util.sparql as s
+from util.store import Store 
+
 from bs4 import BeautifulSoup
 import requests
 import os
@@ -11,7 +13,7 @@ from datetime import datetime
 import json 
 import hashlib
 from datetime import timedelta
-from flask import make_response, request, current_app
+from flask import make_response, request, current_app, url_for
 from functools import update_wrapper
 from flask.ext.socketio import SocketIO
 import time
@@ -21,18 +23,8 @@ import sys
 import traceback
 
 
-# DEFAULT_SPARQL_ENDPOINT_URL = "http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz"
-# DEFAULT_RDF_DATA_UPLOAD_URL = "http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/provoviz/statements"
+DEFAULT_SPARQL_ENDPOINT_URL = "http://example.com/sparql"
 
-
-DEFAULT_SPARQL_ENDPOINT_URL = "http://localhost:5820/provoviz/query"
-DEFAULT_RDF_DATA_UPLOAD_URL = "http://localhost:5820/provoviz/update"
-
-STARDOG = True
-USER = 'admin'
-PASS = 'admin'
-# USER = None
-# PASS = None
 
 
 @app.route('/')
@@ -43,14 +35,12 @@ def index():
 @app.route('/graphs', methods=['GET'])
 def graphs():
     
-    endpoint_uri = request.args.get('endpoint_uri','')
+    endpoint_uri = request.args.get('endpoint_uri',None)
     
-    stardog = STARDOG
-    if endpoint_uri != DEFAULT_SPARQL_ENDPOINT_URL :
-        stardog = False
-    
-    if endpoint_uri != '' :
-        graphs = s.get_named_graphs(endpoint_uri, stardog=stardog, auth=(USER,PASS))
+    if endpoint_uri :
+        store = Store(endpoint=endpoint_uri)
+        
+        graphs = s.get_named_graphs(store)
         
         return jsonify(graphs = graphs)
 
@@ -64,19 +54,15 @@ def activities():
     graph_uri = request.args.get('graph_uri',None)
     endpoint_uri = request.args.get('endpoint_uri',None)
     
-    stardog = STARDOG
-    if endpoint_uri != DEFAULT_SPARQL_ENDPOINT_URL :
-        stardog = False
-    
     if graph_uri and endpoint_uri:
+        
+        store = Store(endpoint=endpoint_uri)
+        
         
         if graph_uri == 'http://example.com/none':
             graph_uri = None
         
-        activities = s.get_activities(graph_uri, endpoint_uri, stardog = stardog, auth = (USER, PASS))
-        
-        response = generate_graphs(graph_uri, endpoint_uri, activities=activities, stardog = stardog, auth = (USER, PASS))
-        
+        response = generate_graphs(store, graph_uri=graph_uri)
         response = json.dumps(response)
         
         return render_template('activities_service_response.html', response=response, data_hash='default')
@@ -87,39 +73,26 @@ def activities():
 @app.route('/service', methods=['POST'])
 def service():
     prov_data = request.form['data']
-    graph_uri = request.form['graph_uri']
     
     prov_data = unicode(prov_data).encode('utf-8')
-    graph_uri = unicode(graph_uri).encode('utf-8')
-    
+        
     if 'client' in request.form:
         client = request.form['client']
     else :
         client = None
-    return service(prov_data, graph_uri, client)
+        
+    return service(prov_data, client)
     
 
-def service(prov_data, graph_uri, client=None):
-    emit("Starting service for {}".format(graph_uri))
-    
-    if graph_uri.startswith('<') :
-        context = graph_uri
-    else :
-        context = "<{}>".format(graph_uri)
-    
-    if graph_uri == '<http://example.com/none>':
-        graph_uri = None
+def service(prov_data, client=None):
+    emit("Starting service")
     
     data_hash = hashlib.sha1(prov_data).hexdigest()
     
-    headers =  {'content-type':'text/turtle;charset=UTF-8'}
-    params = {'context': context}
-
     try :
-        emit("Parsing PROV and converting to N-Triples")
-        prov_graph = Graph()
-        prov_graph.parse(data=prov_data,format="turtle")
-        prov_data_nt = prov_graph.serialize(format='nt')
+        emit("Initializing Store")
+        
+        store = Store(data=prov_data)
     except Exception as e:
         message = "Could not parse your PROV. Please upload a valid Turtle or N-Triple serialization that uses the PROV-O vocabulary.<br/>\n{}".format(e.message)
         app.logger.debug(message)
@@ -127,45 +100,15 @@ def service(prov_data, graph_uri, client=None):
         emit(message)
         return make_response(message, 500)
     
-    emit("Uploading PROV to triple store...")
-    
-    if not STARDOG :    
-        app.logger.debug("Using default PUT method (non STARDOG)")
-        r = requests.put(DEFAULT_RDF_DATA_UPLOAD_URL,
-                         data = prov_data_nt,
-                         params = params,
-                         headers = headers)
+    response = generate_graphs(store)
+    response = json.dumps(response)
+
+    emit("Done")
+        
+    if client == 'linkitup':
+        return render_template('activities_service_response_linkitup.html', response=response, data_hash=data_hash)
     else :
-        app.logger.debug("Posting to STARDOG SPARQL Update endpoint using credentials, if provided")
-        data = "INSERT DATA {{ GRAPH {} {{ {} }} }}".format(context, prov_data_nt)
-        
-        payload = {'update': data}
-        
-        if USER and PASS :
-            app.logger.debug("Using credentials to post")
-            r = requests.post(DEFAULT_RDF_DATA_UPLOAD_URL, data=payload, auth=(USER,PASS))
-        else :
-            app.logger.debug("Not using credentials")
-            r = requests.post(DEFAULT_RDF_DATA_UPLOAD_URL, data=payload)
-    
-    emit("Received response from triple store...")
-    
-    if r.ok :
-        response = generate_graphs(graph_uri, DEFAULT_SPARQL_ENDPOINT_URL, stardog=STARDOG, auth=(USER,PASS))
-        
-        response = json.dumps(response)
-        emit("Done")
-        
-        if client == 'linkitup':
-            return render_template('activities_service_response_linkitup.html', response=response, data_hash=data_hash)
-        else :
-            return render_template('activities_service_response.html', response=response, data_hash=data_hash)        
-    else :
-        app.logger.debug("Failed to upload the PROV to server: {} ({}).\n{}".format(r.reason, r.status_code,r.text))
-        emit("Failed to upload the PROV to server: {} ({}).\n{}".format(r.reason, r.status_code,r.text))
-        return make_response(r.content, 500)
-    
-    
+        return render_template('activities_service_response.html', response=response, data_hash=data_hash)      
     
     
 @app.route('/test')
@@ -185,16 +128,13 @@ def service_test():
 
     
 
-def generate_graphs(graph_uri, endpoint_uri, activities = None, stardog=False, auth=None):
+def generate_graphs(store, graph_uri=None):
     emit("Generating provenance graphs...")
     
-    
-    
     ## It seems we're good to go!
-    G = s.build_full_graph(graph_uri, endpoint_uri, stardog=stardog, auth=auth)
+    G = s.build_full_graph(store,graph_uri)
     
-    if not activities:
-        activities = s.get_activities(graph_uri, endpoint_uri, stardog=stardog, auth=auth)
+    activities = s.get_activities(store,graph_uri)
     
     response = []
     total = len(activities)
@@ -213,14 +153,6 @@ def generate_graphs(graph_uri, endpoint_uri, activities = None, stardog=False, a
             emit("Something went wrong, will skip this activity...")
             continue
         
-        # except Exception as e:
-        #     t_,v_,traceback_ = sys.exc_info()
-        #     app.logger.warning(t_)
-        #     app.logger.warning(traceback_)
-        #     app.logger.debug("Continuing as if nothing happened...")
-        #     emit("Continuing as if nothing happened...")
-        #     continue
-            
         activity = {}
         activity['id'] = activity_uri
         activity['text'] = activity_id

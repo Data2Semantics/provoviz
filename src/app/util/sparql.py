@@ -39,28 +39,17 @@ def shorten(text):
         return text
 
 
-def get_activities(graph_uri, endpoint_uri, stardog=False, auth=None):
+def get_activities(store, graph_uri=None):
     emit('Retrieving activities...')
     q = render_template('activities.q', graph_uri=graph_uri)
     
-    sparql = SPARQLWrapper(endpoint_uri)
-    sparql.setReturnFormat(JSON)
-    sparql.setQuery(q)
-    
-    if stardog:
-        (user, password) = auth
-        if user and password:
-            app.logger.debug("Setting credentials...")
-            sparql.setCredentials(user,password)
-    
-    app.logger.debug(u"Query:\n{}".format(q))
-
-    results = sparql.query().convert()
+    results = store.query(q)
     
     activities = []
     activity_uris = set()
-    for result in results["results"]["bindings"]:
-        activity_uri = result['activity']['value']
+    
+    for result in results:
+        activity_uri = result['activity']
         
         if activity_uri in activity_uris:
             continue
@@ -70,8 +59,10 @@ def get_activities(graph_uri, endpoint_uri, stardog=False, auth=None):
         emit('{}...'.format(activity_uri))
         
         if 'label' in result :
-            activity_id = result['label']['value']
+            app.logger.debug("Found label {} in result".format(result['label']))
+            activity_id = result['label']
         else :
+            app.logger.debug("No label for {}".format(activity_uri))
             activity_id = uri_to_label(activity_uri)
         
         
@@ -80,27 +71,16 @@ def get_activities(graph_uri, endpoint_uri, stardog=False, auth=None):
     return activities
 
 
-def get_named_graphs(endpoint_uri, stardog=False, auth=None):
+def get_named_graphs(store):
     emit('Retrieving graphs...')
     q = render_template('named_graphs.q')
-    sparql = SPARQLWrapper(endpoint_uri)
-    sparql.setReturnFormat(JSON)
-    sparql.setQuery(q)
-    
-    if stardog:
-        (user, password) = auth
-        if user and password:
-            app.logger.debug("Setting credentials...")
-            sparql.setCredentials(user,password)
-    
-    app.logger.debug(u"Query:\n{}".format(q))
 
-    results = sparql.query().convert()
+    results = store.query(q)
 
     graphs = []
     
-    for result in results["results"]["bindings"]:
-        graph_uri = result['graph']['value']
+    for result in results:
+        graph_uri = result['graph']
         emit('{}...'.format(graph_uri))
         
         graphs.append({'uri': graph_uri, 'id': graph_uri, 'text': graph_uri})
@@ -115,24 +95,15 @@ def get_named_graphs(endpoint_uri, stardog=False, auth=None):
 
 
 
-def build_graph(G, endpoint_uri, name=None, source=None, target=None, query=None, intermediate = None, stardog=False, auth=None):
+def build_graph(G, store, name=None, source=None, target=None, query=None, intermediate = None):
     emit('Building edges from {} to {}'.format(source, target))
     
-    sparql = SPARQLWrapper(endpoint_uri)
-    sparql.setReturnFormat(JSON)
-    sparql.setQuery(query)
-    
-    if stardog:
-        (user, password) = auth
-        if user and password:
-            app.logger.debug("Setting credentials...")
-            sparql.setCredentials(user,password)
     
     app.logger.debug(u"Query:\n{}".format(query))
     
-    results = sparql.query().convert()
+    results = store.query(query)
 
-    for result in results["results"]["bindings"]:
+    for result in results:
         app.logger.debug(u"Result:\n{}".format(result))
         
         if not intermediate :
@@ -145,36 +116,36 @@ def build_graph(G, endpoint_uri, name=None, source=None, target=None, query=None
                 source_binding = "example"
                 source_uri = "http://prov.data2semantics.org/resource/example"
             else :
-                if source+"_label" in result:
+                try :
+                    source_binding = shorten(result[source+"_label"])
                     app.logger.debug("{}_label in result".format(source))
-                    source_binding = shorten(result[source+"_label"]["value"])
-                else :
+                except :
                     app.logger.debug("No {}_label in result!!".format(source))
-                    source_binding = uri_to_label(result[source]["value"]).replace("'","")
+                    source_binding = uri_to_label(result[source]).replace("'","")
             
-            source_uri = result[source]["value"]
+            source_uri = result[source]
                 
-            if target+"_label" in result:
-                target_binding = shorten(result[target+"_label"]["value"])
-            else :
-                target_binding = uri_to_label(result[target]["value"]).replace("'","")
+            try :
+                target_binding = shorten(result[target+"_label"])
+            except :
+                target_binding = uri_to_label(result[target]).replace("'","")
             
             
-            if source+"_type" in result :
-                source_type = result[source+"_type"]["value"]
-            else :
+            try  :
+                source_type = result[source+"_type"]
+            except :
                 source_type = re.sub('\d+$','',source)
             
-            if target+"_type" in result :
-                target_type = result[target+"_type"]["value"]
-            else :
+            try :
+                target_type = result[target+"_type"]
+            except:
                 target_type = re.sub('\d+$','',target)
                 
-            target_uri = result[target]["value"]
+            target_uri = result[target]
             
             
             G.add_node(source_uri, label=source_binding, type=source_type, uri=source_uri)
-            G.add_node(target_uri, label=target_binding, type=target_type, uri=result[target]["value"])
+            G.add_node(target_uri, label=target_binding, type=target_type, uri=result[target])
             G.add_edge(source_uri, target_uri, value=10)
             
             
@@ -182,27 +153,27 @@ def build_graph(G, endpoint_uri, name=None, source=None, target=None, query=None
 
         else :
             
-            if source+"_label" in result:
-                source_binding = shorten(result[source+"_label"]["value"])
-            else :
-                source_binding = uri_to_label(result[source]["value"]).replace("'","")
+            try :
+                source_binding = shorten(result[source+"_label"])
+            except :
+                source_binding = uri_to_label(result[source]).replace("'","")
                 
-            if intermediate+"_label" in result:
-                intermediate_binding = shorten(result[intermediate+"_label"]["value"])
-            else :
-                intermediate_binding = uri_to_label(result[intermediate]["value"]).replace("'","")
+            try :
+                intermediate_binding = shorten(result[intermediate+"_label"])
+            except :
+                intermediate_binding = uri_to_label(result[intermediate]).replace("'","")
                 
-            if target+"_label" in result:
-                target_binding = shorten(result[target+"_label"]["value"])
-            else :
-                target_binding = uri_to_label(result[target]["value"]).replace("'","")
+            try :
+                target_binding = shorten(result[target+"_label"])
+            except :
+                target_binding = uri_to_label(result[target]).replace("'","")
             
-            G.add_node(result[source]["value"], label=source_binding, type=re.sub('\d+$','',source), uri=result[source]["value"])
-            G.add_node(result[intermediate]["value"], label=intermediate_binding, type=re.sub('\d+$','',intermediate), uri=result[intermediate]["value"])
-            G.add_node(result[target]["value"], label=target_binding, type=re.sub('\d+$','',target), uri=result[target]["value"])
+            G.add_node(result[source], label=source_binding, type=re.sub('\d+$','',source), uri=result[source])
+            G.add_node(result[intermediate], label=intermediate_binding, type=re.sub('\d+$','',intermediate), uri=result[intermediate])
+            G.add_node(result[target], label=target_binding, type=re.sub('\d+$','',target), uri=result[target])
             
-            G.add_edge(result[source]["value"], result[intermediate]["value"], value=10)
-            G.add_edge(result[intermediate]["value"], result[target]["value"], value=10)
+            G.add_edge(result[source], result[intermediate], value=10)
+            G.add_edge(result[intermediate], result[target], value=10)
 
     app.logger.debug('Query-based graph building complete...')
     emit('Query-based graph building complete...')
@@ -210,7 +181,7 @@ def build_graph(G, endpoint_uri, name=None, source=None, target=None, query=None
     return G
 
 
-def build_full_graph(graph_uri, endpoint_uri, stardog=False, auth=None):
+def build_full_graph(store, graph_uri=None):
     app.logger.debug(u"Building full graph")
     emit("Building full provenance graph...")
     
@@ -219,22 +190,22 @@ def build_full_graph(graph_uri, endpoint_uri, stardog=False, auth=None):
     q_activity_to_resource = render_template('activity_to_resource.q', graph_uri=graph_uri)
     app.logger.debug("Running activity_to_resource")
     emit("Running activity_to_resource")
-    G = build_graph(G, endpoint_uri, source="activity", target="entity", query=q_activity_to_resource, stardog=stardog, auth=auth)
+    G = build_graph(G, store, source="activity", target="entity", query=q_activity_to_resource)
     
     q_resource_to_activity = render_template('resource_to_activity.q', graph_uri=graph_uri)
     app.logger.debug("Running resource to activity")
     emit("Running activity_to_resource")
-    G = build_graph(G, endpoint_uri, source="entity", target="activity", query=q_resource_to_activity, stardog=stardog, auth=auth)
+    G = build_graph(G, store, source="entity", target="activity", query=q_resource_to_activity)
     
     q_derived_from = render_template('derived_from.q', graph_uri = graph_uri)
     app.logger.debug("Running derived from")
     emit("Running derived from")
-    G = build_graph(G, endpoint_uri, source="entity1", target="entity2", query=q_derived_from, stardog=stardog, auth=auth)
+    G = build_graph(G, store, source="entity1", target="entity2", query=q_derived_from)
     
     q_informed_by = render_template('informed_by.q', graph_uri = graph_uri)
     app.logger.debug("Running informed by")
     emit("Running informed by")
-    G = build_graph(G, endpoint_uri, source="activity1", target="activity2", query=q_informed_by, stardog=stardog, auth=auth)
+    G = build_graph(G, store, source="activity1", target="activity2", query=q_informed_by)
  
 
     
