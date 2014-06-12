@@ -236,7 +236,7 @@ result:commit-51a599c64cb54025bb4736f8934fe5efa21907a0	a	prov:Activity ;
 		prov:used	result:file-src-app-templates-activities_service_response-html_commit-5d7146c0b349d80d1a431a5aa438158b0ef5fe35 ;
 		prov:wasAssociatedWith	result:user-Rinke-Hoekstra ;
 		prov:wasInformedBy	result:commit-5d7146c0b349d80d1a431a5aa438158b0ef5fe35 ;
-		rdfs:label	"Dynamic \"smart\" loading of javascript dependencies"@en .
+		rdfs:label	"Dynamic 'smart' loading of javascript dependencies"@en .
 result:commit-53e9a1cd4c9197b1fe341ec83f398636e1457128	a	prov:Activity ;
 		prov:endedAtTime	"2014-04-02T15:03:06.000Z"^^xsd:dateTime ;
 		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:user-Rinke-Hoekstra ; prov:hadRole "author, committer"@en ] ;
