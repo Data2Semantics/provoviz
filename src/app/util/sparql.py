@@ -23,7 +23,6 @@ concept_type_color_dict = {'popg': '#9edae5', 'inpo': '#ffbb78', 'elii': '#dbdb8
 
 
 def uri_to_label(uri):
-    
     if '#' in uri:
         (base,hash_sign,local_name) = uri.rpartition('#')
         base_uri = local_name.encode('utf-8')
@@ -51,6 +50,7 @@ def get_activities(graph_uri, endpoint_uri, stardog=False, auth=None):
     if stardog:
         (user, password) = auth
         if user and password:
+            app.logger.debug("Setting credentials...")
             sparql.setCredentials(user,password)
     
     app.logger.debug(u"Query:\n{}".format(q))
@@ -66,7 +66,6 @@ def get_activities(graph_uri, endpoint_uri, stardog=False, auth=None):
             continue
         else :
             activity_uris.add(activity_uri)
-        
         
         emit('{}...'.format(activity_uri))
         
@@ -91,6 +90,7 @@ def get_named_graphs(endpoint_uri, stardog=False, auth=None):
     if stardog:
         (user, password) = auth
         if user and password:
+            app.logger.debug("Setting credentials...")
             sparql.setCredentials(user,password)
     
     app.logger.debug(u"Query:\n{}".format(q))
@@ -125,13 +125,12 @@ def build_graph(G, endpoint_uri, name=None, source=None, target=None, query=None
     if stardog:
         (user, password) = auth
         if user and password:
+            app.logger.debug("Setting credentials...")
             sparql.setCredentials(user,password)
     
     app.logger.debug(u"Query:\n{}".format(query))
     
     results = sparql.query().convert()
-
-    
 
     for result in results["results"]["bindings"]:
         app.logger.debug(u"Result:\n{}".format(result))
@@ -265,8 +264,15 @@ def extract_ego_graph(G, activity_uri):
 def extract_activity_graph(G, activity_uri, activity_id):
     emit(u"Extracting ego graph for {}".format(activity_id))
     app.logger.debug(u"Extracting graph for {} ({})".format(activity_uri, activity_id))
-    sG = extract_ego_graph(G, activity_uri)
-
+    
+    try:
+        sG = extract_ego_graph(G, activity_uri)
+    except:
+        emit(u"Could not extract ego graph for {} (Bug in NetworkX?)".format(activity_id))
+        app.logger(u"Could not extract ego graph for {} (Bug in NetworkX?)".format(activity_id))
+        return
+        
+        
     app.logger.debug("Original graph: {} nodes\nEgo graph: {} nodes".format(len(G.nodes()),len(sG.nodes())))
 
     # Set node type for the activity_uri to 'origin'
@@ -285,6 +291,7 @@ def extract_activity_graph(G, activity_uri, activity_id):
         edge_weights = walk_weights(graph = sG, pending_nodes = start_nodes, edge_weights = {}, visited = [])
     except Exception as e:
         emit("ERROR: Provenance trace contains cycles: {}".format(e.message))
+        raise e
     
     # Check to make sure that the edge weights dictionary has the same number of keys as edges in the ego graph
     app.logger.debug("Check {}/{}".format(len(edge_weights.keys()),len(sG.edges())))

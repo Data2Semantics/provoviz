@@ -29,15 +29,15 @@ DEFAULT_SPARQL_ENDPOINT_URL = "http://localhost:5820/provoviz/query"
 DEFAULT_RDF_DATA_UPLOAD_URL = "http://localhost:5820/provoviz/update"
 
 STARDOG = True
-# USER = 'admin'
-# PASS = 'admin'
-USER = None
-PASS = None
+USER = 'admin'
+PASS = 'admin'
+# USER = None
+# PASS = None
 
 
 @app.route('/')
 def index():
-    return render_template('base.html')
+    return render_template('base.html', default_endpoint = DEFAULT_SPARQL_ENDPOINT_URL)
 
 
 @app.route('/graphs', methods=['GET'])
@@ -100,11 +100,7 @@ def service():
     
 
 def service(prov_data, graph_uri, client=None):
-    
-    
     emit("Starting service for {}".format(graph_uri))
-    
-    
     
     if graph_uri.startswith('<') :
         context = graph_uri
@@ -119,16 +115,19 @@ def service(prov_data, graph_uri, client=None):
     headers =  {'content-type':'text/turtle;charset=UTF-8'}
     params = {'context': context}
 
-    # print prov_data
     try :
+        emit("Parsing PROV and converting to N-Triples")
         prov_graph = Graph()
         prov_graph.parse(data=prov_data,format="turtle")
         prov_data_nt = prov_graph.serialize(format='nt')
-    except :
-        message = "Could not parse your PROV. Please upload a valid Turtle or N-Triple serialization that uses the PROV-O vocabulary"
+    except Exception as e:
+        message = "Could not parse your PROV. Please upload a valid Turtle or N-Triple serialization that uses the PROV-O vocabulary.<br/>\n{}".format(e.message)
         app.logger.debug(message)
+        app.logger.debug(e.message)
         emit(message)
         return make_response(message, 500)
+    
+    emit("Uploading PROV to triple store...")
     
     if not STARDOG :    
         app.logger.debug("Using default PUT method (non STARDOG)")
@@ -143,11 +142,13 @@ def service(prov_data, graph_uri, client=None):
         payload = {'update': data}
         
         if USER and PASS :
+            app.logger.debug("Using credentials to post")
             r = requests.post(DEFAULT_RDF_DATA_UPLOAD_URL, data=payload, auth=(USER,PASS))
         else :
+            app.logger.debug("Not using credentials")
             r = requests.post(DEFAULT_RDF_DATA_UPLOAD_URL, data=payload)
-        
     
+    emit("Received response from triple store...")
     
     if r.ok :
         response = generate_graphs(graph_uri, DEFAULT_SPARQL_ENDPOINT_URL, stardog=STARDOG, auth=(USER,PASS))
@@ -158,8 +159,7 @@ def service(prov_data, graph_uri, client=None):
         if client == 'linkitup':
             return render_template('activities_service_response_linkitup.html', response=response, data_hash=data_hash)
         else :
-            return render_template('activities_service_response.html', response=response, data_hash=data_hash)
-        
+            return render_template('activities_service_response.html', response=response, data_hash=data_hash)        
     else :
         app.logger.debug("Failed to upload the PROV to server: {} ({}).\n{}".format(r.reason, r.status_code,r.text))
         emit("Failed to upload the PROV to server: {} ({}).\n{}".format(r.reason, r.status_code,r.text))
@@ -206,7 +206,13 @@ def generate_graphs(graph_uri, endpoint_uri, activities = None, stardog=False, a
         
         # try:
         emit("Extracting graph for {} - {}/{}".format(activity_id, count, total))
-        graph, width, types, diameter = s.extract_activity_graph(G, activity_uri, activity_id)
+        
+        try:
+            graph, width, types, diameter = s.extract_activity_graph(G, activity_uri, activity_id)
+        except:
+            emit("Something went wrong, will skip this activity...")
+            continue
+        
         # except Exception as e:
         #     t_,v_,traceback_ = sys.exc_info()
         #     app.logger.warning(t_)
