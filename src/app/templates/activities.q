@@ -5,9 +5,22 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 
 SELECT DISTINCT ?activity ?label WHERE {
-  ?activity a prov:Activity
-  GRAPH <{{ graph_uri }}> {
-    ?activity ?p ?o .
-    OPTIONAL {?activity rdfs:label ?label }
-  }.
+  
+  
+  {% if graph_uri %}
+  { GRAPH <{{ graph_uri }}> {
+    ?activity a prov:Activity .
+	?activity ?p ?o .
+	OPTIONAL {?activity rdfs:label ?label . }
+  } } UNION {
+    ?activity a prov:Activity .
+    GRAPH <{{ graph_uri }}> {
+    	?activity ?p ?o .
+    	OPTIONAL {?activity rdfs:label ?label . }
+     }
+  } 
+  {% else %}
+  ?activity a prov:Activity .
+  OPTIONAL {?activity rdfs:label ?label . }
+  {% endif %}
 } ORDER BY ?activity

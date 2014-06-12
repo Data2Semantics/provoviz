@@ -5,7 +5,9 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 
 SELECT DISTINCT ?entity ?entity_type ?entity_label ?activity ?activity_type ?activity_label WHERE {
-	GRAPH <{{graph_uri}}> {
+	{% if graph_uri %}
+	{ GRAPH <{{graph_uri}}> {
+	{% endif %}
 		{ ?activity prov:used ?entity . }
 		UNION
 		{ ?entity prov:wasUsedBy ?activity . }
@@ -14,15 +16,29 @@ SELECT DISTINCT ?entity ?entity_type ?entity_label ?activity ?activity_type ?act
 			?activity	prov:qualifiedUsage ?qu .
 			?qu			prov:entity ?entity .
 	  	}
+    	OPTIONAL { ?activity rdf:type ?activity_type .
+    			 ?activity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+    			 FILTER(!isBlank(?activity_type)) }
+    	OPTIONAL { ?activity rdfs:label ?activity_label . }
+    	OPTIONAL { ?entity rdf:type ?entity_type .
+    			 ?entity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+    			 FILTER(!isBlank(?entity_type)) }
+    	OPTIONAL { ?entity rdfs:label ?entity_label .  }
+	{% if graph_uri %}
 	}
-	OPTIONAL { ?activity rdf:type ?activity_type .
-			 ?activity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
-			 FILTER(!isBlank(?activity_type)) }
-	OPTIONAL { ?activity rdfs:label ?activity_label . }
-	OPTIONAL { ?entity rdf:type ?entity_type .
-			 ?entity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
-			 FILTER(!isBlank(?entity_type)) }
-	OPTIONAL { ?entity rdfs:label ?entity_label .  }
+    } UNION {
+    	OPTIONAL { ?activity rdf:type ?activity_type .
+    			 ?activity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+    			 FILTER(!isBlank(?activity_type)) }
+    	OPTIONAL { ?activity rdfs:label ?activity_label . }
+    	OPTIONAL { ?entity rdf:type ?entity_type .
+    			 ?entity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+    			 FILTER(!isBlank(?entity_type)) }
+    	OPTIONAL { ?entity rdfs:label ?entity_label .  }
+    
+    }
+	{% endif %}
+
 
 	
 } 

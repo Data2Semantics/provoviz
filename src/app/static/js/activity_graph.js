@@ -17,15 +17,15 @@ function drawDiagramForActivity(diagram_service_url, uri, id, graph_uri, endpoin
 
 
 function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
-    var margin = {top: 1, right: 1, bottom: 6, left: 1},
+    var margin = {top: 16, right: 15, bottom: 16, left: 5},
         width = (200 * diameter) - margin.left - margin.right;
     	
 		console.log("Tree width = "+tree_width);
 		
-		// We will use a minimum height of 500 pixels
-        if (tree_width * 30 < 500) {
-			console.log("Set height to 500");
-            var height = 500;
+		// We will use a minimum height of 150 pixels
+        if (tree_width * 30 < 150) {
+			console.log("Set height to 150");
+            var height = 150;
         } else {
             var height = tree_width * 30;
 			console.log("Set height to "+height);
@@ -67,8 +67,9 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
     var node = svg.append("g").selectAll(".node")
         .data(graph.nodes)
         .enter().append("g")
-        .attr("class", "node")
-        .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+		.attr("class", function(d) { if(d.type == 'origin') {return 'node activity';} else { return 'node '+ d.type; } })
+		.attr("id", function(d) {return d.id; })
+		.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
         .call(d3.behavior.drag()
         .origin(function(d) { return d; })
         .on("dragstart", function() { this.parentNode.appendChild(this); })
@@ -81,7 +82,8 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
         .style("stroke", function(d) { return d3.rgb(d.color).darker(1); })
         .style("stroke-width", function(d) { if (d.type == 'origin') { return 2;} else { return 1;}})
         .append("title")
-        .text(function(d) { return d.label + "\n(" + d.type + ")"; });
+        .text(function(d) { return d.label + "\n(" + d.type + ")"; })
+        .on("click",function(d) { build_sankey(d.id); });
 
     node.append("text")
         .attr("x", -6)

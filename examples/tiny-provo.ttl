@@ -1,0 +1,19 @@
+## Very simple example
+
+@prefix ex: <http://example.com/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:foo2 a prov:Entity ;
+    prov:wasGeneratedBy ex:bar1 ;
+    rdfs:label "Foo 2".
+    
+    
+ex:foo1 a prov:Entity ;
+    prov:wasUsedBy ex:bar1 ;
+    rdfs:label "Foo 1".
+    
+ex:bar1 a prov:Activity ;
+    prov:used ex:foo1 ;
+    prov:generated ex:foo2 ;
+    rdfs:label "Bar 1" .

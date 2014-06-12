@@ -1,0 +1,925 @@
+## Machine Learning Workflow example
+
+<http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> a <http://www.w3.org/ns/prov#Agent> .
+
+<http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> a <http://www.w3.org/ns/prov#Plan> .
+
+<http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> <http://www.w3.org/2000/01/rdf-schema#label> "ducktape on: VeryZenBook, versionID: 6847885952040544661"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> <http://www.w3.org/2000/01/rdf-schema#label> "Affiliation Experiment Test, date: Fri Sep 13 15:56:14 CEST 2013"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:03.584+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:07.631+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22300 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22300 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:07.631+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/output/dataset> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:07.631+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/input/filename> <http://www.data2semantics.org/d2s-platform/value> "C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Ckernelexperiments%5C%5Cdatasets%5C%5Caifb-fixed_complete.n3"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "filename: C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Ckernelexperiments%5C%5Cdatasets%5C%5Caifb-fixed_complete.n3"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/input/filename> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/input/mimetype> <http://www.data2semantics.org/d2s-platform/value> "text/n3"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "mimetype: text/n3"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/input/mimetype> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:07.873+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:07.888+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22301 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22301 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:07.904+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/target> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:07.904+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/blacklist> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:07.904+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/instances> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:07.904+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/labels> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:07.904+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/input/minSize> <http://www.data2semantics.org/d2s-platform/value> "0"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "minSize: 0"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/input/minSize> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/input/fraction> <http://www.data2semantics.org/d2s-platform/value> "1.0"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "fraction: 1.0"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/input/fraction> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/input/seed> <http://www.data2semantics.org/d2s-platform/value> "11"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "seed: 11"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/input/seed> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/input/property> <http://www.data2semantics.org/d2s-platform/value> "http://swrc.ontoware.org/ontology#affiliation"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "property: http://swrc.ontoware.org/ontology#affiliation"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/input/property> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/output/dataset> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:08.201+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:08.201+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22302 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22302 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:08.201+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/output/parameters> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:08.201+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/input/cs> a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/input/cs> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/input/splitFraction> <http://www.data2semantics.org/d2s-platform/value> "0.7"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "splitFraction: 0.7"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/input/splitFraction> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/target> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:08.466+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:08.623+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22303 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22303 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:08.623+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/output/depth> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:08.623+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "1"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 1"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/output/featureVectors> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:08.623+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/input/iterations> <http://www.data2semantics.org/d2s-platform/value> "0"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "iterations: 0"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/input/iterations> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/input/depth> <http://www.data2semantics.org/d2s-platform/value> "1"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 1"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/input/depth> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/input/inference> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "inference: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/input/inference> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/input/normalize> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "normalize: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/input/normalize> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/input/reverse> <http://www.data2semantics.org/d2s-platform/value> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "reverse: false"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/input/reverse> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/output/dataset> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/instances> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/blacklist> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:08.623+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:10.185+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22304 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22304 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:10.185+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/output/depth> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:10.185+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "2"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 2"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/output/featureVectors> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:10.185+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/input/iterations> <http://www.data2semantics.org/d2s-platform/value> "0"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "iterations: 0"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/input/iterations> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/input/depth> <http://www.data2semantics.org/d2s-platform/value> "2"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 2"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/input/depth> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/input/inference> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "inference: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/input/inference> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/input/normalize> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "normalize: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/input/normalize> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/input/reverse> <http://www.data2semantics.org/d2s-platform/value> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "reverse: false"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/input/reverse> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/output/dataset> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/instances> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/blacklist> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:10.188+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:10.392+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22305 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22305 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:10.392+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/output/depth> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:10.392+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "1"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 1"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/output/featureVectors> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:10.392+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/input/iterations> <http://www.data2semantics.org/d2s-platform/value> "2"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "iterations: 2"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/input/iterations> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/input/depth> <http://www.data2semantics.org/d2s-platform/value> "1"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 1"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/input/depth> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/input/inference> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "inference: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/input/inference> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/input/normalize> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "normalize: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/input/normalize> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/input/reverse> <http://www.data2semantics.org/d2s-platform/value> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "reverse: false"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/input/reverse> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/output/dataset> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/instances> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/blacklist> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:10.392+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:12.313+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22306 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22306 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:12.313+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/output/depth> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:12.313+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "2"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 2"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/output/featureVectors> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:12.313+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/input/iterations> <http://www.data2semantics.org/d2s-platform/value> "2"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "iterations: 2"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/input/iterations> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/input/depth> <http://www.data2semantics.org/d2s-platform/value> "2"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 2"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/input/depth> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/input/inference> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "inference: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/input/inference> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/input/normalize> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "normalize: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/input/normalize> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/input/reverse> <http://www.data2semantics.org/d2s-platform/value> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "reverse: false"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/input/reverse> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/output/dataset> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/instances> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/blacklist> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:12.320+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:12.430+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22307 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22307 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:12.430+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/output/depth> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:12.430+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "1"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 1"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/output/featureVectors> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:12.430+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/input/iterations> <http://www.data2semantics.org/d2s-platform/value> "4"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "iterations: 4"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/input/iterations> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/input/depth> <http://www.data2semantics.org/d2s-platform/value> "1"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 1"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/input/depth> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/input/inference> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "inference: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/input/inference> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/input/normalize> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "normalize: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/input/normalize> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/input/reverse> <http://www.data2semantics.org/d2s-platform/value> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "reverse: false"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/input/reverse> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/output/dataset> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/instances> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/blacklist> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:12.430+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:14.383+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22308 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22308 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:14.383+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/output/depth> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:14.383+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "2"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 2"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/output/featureVectors> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:14.383+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/input/iterations> <http://www.data2semantics.org/d2s-platform/value> "4"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "iterations: 4"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/input/iterations> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/input/depth> <http://www.data2semantics.org/d2s-platform/value> "2"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 2"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/input/depth> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/input/inference> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "inference: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/input/inference> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/input/normalize> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "normalize: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/input/normalize> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/input/reverse> <http://www.data2semantics.org/d2s-platform/value> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "reverse: false"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/input/reverse> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/output/dataset> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/instances> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/blacklist> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:15.725+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:15.772+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22309 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22309 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:15.772+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0/output/depth> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:15.772+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "1"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 1"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0/output/featureVectors> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:15.772+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0/input/depth> <http://www.data2semantics.org/d2s-platform/value> "1"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 1"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0/input/depth> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0/input/probabilities> <http://www.data2semantics.org/d2s-platform/value> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "probabilities: false"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0/input/probabilities> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0/input/inference> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "inference: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0/input/inference> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0/input/normalize> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "normalize: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0/input/normalize> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/output/dataset> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/instances> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/blacklist> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:15.772+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:16.569+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22310 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22310 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:16.569+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1/output/depth> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:16.569+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "2"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 2"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1/output/featureVectors> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:16.569+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1/input/depth> <http://www.data2semantics.org/d2s-platform/value> "2"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "depth: 2"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1/input/depth> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1/input/probabilities> <http://www.data2semantics.org/d2s-platform/value> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "probabilities: false"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1/input/probabilities> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1/input/inference> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "inference: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1/input/inference> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1/input/normalize> <http://www.data2semantics.org/d2s-platform/value> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "normalize: true"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1/input/normalize> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFDataSet0/output/dataset> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/instances> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/blacklist> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment0> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:17.487+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:17.926+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22311 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment0> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22311 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment0/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:17.926+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment0/output/accuracy> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:17.926+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.8146067415730337"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "accuracy: 0.8146067415730337"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment0/output/f1> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment0> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:17.926+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.5074948288488502"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "f1: 0.5074948288488502"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment0/input/seed> <http://www.data2semantics.org/d2s-platform/value> "111"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "seed: 111"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment0/input/seed> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment0/input/folds> <http://www.data2semantics.org/d2s-platform/value> "5"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "folds: 5"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment0/input/folds> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/target> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/output/parms> a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment0> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/output/parms> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel0/output/featureVectors> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment1> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:17.926+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:20.623+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22312 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment1> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22312 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment1/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment1> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:20.623+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment1/output/accuracy> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment1> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:20.623+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.7865168539325843"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "accuracy: 0.7865168539325843"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment1/output/f1> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment1> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:20.623+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.49055596314860966"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "f1: 0.49055596314860966"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment1/input/seed> <http://www.data2semantics.org/d2s-platform/value> "111"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "seed: 111"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment1> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment1/input/seed> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment1/input/folds> <http://www.data2semantics.org/d2s-platform/value> "5"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "folds: 5"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment1> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment1/input/folds> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/target> , <http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/output/parms> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel1/output/featureVectors> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment2> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:20.623+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:21.293+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22313 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment2> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22313 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment2/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment2> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:21.293+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment2/output/accuracy> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment2> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:21.293+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.797752808988764"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "accuracy: 0.797752808988764"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment2/output/f1> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment2> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:21.293+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.49778930574264607"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "f1: 0.49778930574264607"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment2/input/seed> <http://www.data2semantics.org/d2s-platform/value> "111"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "seed: 111"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment2> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment2/input/seed> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment2/input/folds> <http://www.data2semantics.org/d2s-platform/value> "5"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "folds: 5"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment2> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment2/input/folds> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/target> , <http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/output/parms> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel2/output/featureVectors> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment3> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:21.293+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:27.944+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22314 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment3> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22314 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment3/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment3> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:27.944+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment3/output/accuracy> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment3> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:27.944+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.848314606741573"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "accuracy: 0.848314606741573"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment3/output/f1> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment3> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:27.944+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.5423483102918587"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "f1: 0.5423483102918587"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment3/input/seed> <http://www.data2semantics.org/d2s-platform/value> "111"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "seed: 111"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment3> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment3/input/seed> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment3/input/folds> <http://www.data2semantics.org/d2s-platform/value> "5"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "folds: 5"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment3> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment3/input/folds> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/target> , <http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/output/parms> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel3/output/featureVectors> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment4> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:27.952+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:28.983+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22315 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment4> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22315 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment4/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment4> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:28.983+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment4/output/accuracy> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment4> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:28.983+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.7808988764044944"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "accuracy: 0.7808988764044944"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment4/output/f1> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment4> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:28.983+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.47465573179524145"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "f1: 0.47465573179524145"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment4/input/seed> <http://www.data2semantics.org/d2s-platform/value> "111"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "seed: 111"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment4> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment4/input/seed> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment4/input/folds> <http://www.data2semantics.org/d2s-platform/value> "5"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "folds: 5"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment4> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment4/input/folds> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/target> , <http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/output/parms> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel4/output/featureVectors> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment5> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:28.994+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:38.884+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22316 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment5> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22316 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment5/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment5> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:38.884+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment5/output/accuracy> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment5> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:38.884+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.8314606741573034"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "accuracy: 0.8314606741573034"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment5/output/f1> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment5> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:38.884+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.5421327884035312"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "f1: 0.5421327884035312"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment5/input/seed> <http://www.data2semantics.org/d2s-platform/value> "111"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "seed: 111"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment5> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment5/input/seed> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment5/input/folds> <http://www.data2semantics.org/d2s-platform/value> "5"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "folds: 5"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment5> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment5/input/folds> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/target> , <http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/output/parms> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFWLSubTreeKernel5/output/featureVectors> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment6> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:38.884+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:38.947+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22317 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment6> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22317 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment6/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment6> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:38.947+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment6/output/accuracy> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment6> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:38.947+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.8314606741573034"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "accuracy: 0.8314606741573034"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment6/output/f1> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment6> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:38.947+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.5298629508423804"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "f1: 0.5298629508423804"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment6/input/seed> <http://www.data2semantics.org/d2s-platform/value> "111"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "seed: 111"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment6> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment6/input/seed> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment6/input/folds> <http://www.data2semantics.org/d2s-platform/value> "5"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "folds: 5"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment6> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment6/input/folds> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/target> , <http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/output/parms> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel0/output/featureVectors> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment7> a <http://www.w3.org/ns/prov#Activity> ;
+	<http://www.w3.org/ns/prov#startedAtTime> "2013-09-13T16:35:38.947+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#endedAtTime> "2013-09-13T16:35:40.362+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+_:node184bru7vhx22318 a <http://www.w3.org/ns/prov#Association> ;
+	<http://www.w3.org/ns/prov#hadPlan> <http://www.data2semantics.org/d2s-platform/workflow/C:%5C%5CUsers%5C%5CGerben%5C%5Cgit%5C%5Cd2s-tools%5C%5Cd2s-platform-experiments%5C%5Cplatform_test%5C%5Caffiliation_exp%5C%5Cworkflow.yaml/1379080574728> ;
+	<http://www.w3.org/ns/prov#agent> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment7> <http://www.w3.org/ns/prov#qualifiedAssociation> _:node184bru7vhx22318 .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment7/output/result> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment7> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:40.362+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment7/output/accuracy> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment7> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:40.362+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.8370786516853933"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "accuracy: 0.8370786516853933"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment7/output/f1> a <http://www.w3.org/ns/prov#Entity> ;
+	<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment7> ;
+	<http://www.w3.org/ns/prov#generatedAtTime> "2013-09-13T16:35:40.362+02:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://www.w3.org/ns/prov#wasAttributedTo> <http://www.data2semantics.org/d2s-platform/ducktape/VeryZenBook/6847885952040544661> ;
+	<http://www.data2semantics.org/d2s-platform/value> "0.5308613131268222"^^<http://www.w3.org/2001/XMLSchema#double> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "f1: 0.5308613131268222"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment7/input/seed> <http://www.data2semantics.org/d2s-platform/value> "111"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "seed: 111"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment7> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment7/input/seed> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment7/input/folds> <http://www.data2semantics.org/d2s-platform/value> "5"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "folds: 5"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a <http://www.w3.org/ns/prov#Entity> .
+
+<http://www.data2semantics.org/d2s-platform/module/instance/Experiment7> <http://www.w3.org/ns/prov#used> <http://www.data2semantics.org/d2s-platform/module/instance/Experiment7/input/folds> , <http://www.data2semantics.org/d2s-platform/module/instance/AffiliationDataSet0/output/target> , <http://www.data2semantics.org/d2s-platform/module/instance/LibLINEARParms0/output/parms> , <http://www.data2semantics.org/d2s-platform/module/instance/RDFIntersectionTreeEdgeVertexPathKernel1/output/featureVectors> .

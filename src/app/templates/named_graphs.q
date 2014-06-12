@@ -5,8 +5,16 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 
 SELECT DISTINCT ?graph WHERE {
-  GRAPH ?graph {
+  { GRAPH ?graph {
     ?s ?p ?o.
+    ?s a prov:Activity .
   }
-  ?s a prov:Activity .
+  } UNION {
+    GRAPH ?graph {
+      ?s ?p ?o.
+      
+    }  	
+    ?s a prov:Activity .
+  }
+  
 }

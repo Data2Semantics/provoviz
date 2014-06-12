@@ -1,42 +1,100 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,800,300);
+@import url(http://fonts.googleapis.com/css?family=Special+Elite);
 
-body {
-	font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+#title, a.navbar-brand {
+	font-family: "Special Elite";
 }
 
-h1, h2, h3, h4, h5 {
-	font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
-	font-weight: 600;
+a.navbar-brand {
+    margin-top: .2em;
 }
 
-h1 {
-	font-weight: 700;
+a.navbar-brand img {
+    width: 100px; 
+    margin-top: -15px; 
+    margin-left: -100px; 
+}
+
+#serviceactivities {
+	padding: 15px;
+	width: 100%;
+}
+
+#splash {
+	margin-top: 25%;
+}
+
+#title {
+	text-align: center;
+	font-size: 120px;
+	text-shadow:rgba(0,0,0,0.5) 0px 0px 8px; 
+	
+}
+
+#contents {
+	margin-top: 100px;
 }
 
 .popout {
 	border-left: 2px solid grey;
 }
 
+textarea {
+    font-family: Inconsolata, Menlo, Monaco, "Andale Mono", "Courier New";
+    
+}
+
+@media (min-width: 1300px) {
+    .container{
+        max-width: 1170px;
+        min-width: 1170px;
+    }
+}
+
 @media (min-width: 1400px) {
     .container{
         max-width: 1270px;
+        min-width: 1270px;
+    }
+}
+
+@media (min-width: 1500px) {
+    .container{
+        max-width: 1370px;
+        min-width: 1370px;
     }
 }
 
 @media (min-width: 1600px) {
     .container{
         max-width: 1470px;
+        min-width: 1470px;
+    }
+}
+
+@media (min-width: 1700px) {
+    .container{
+        max-width: 1570px;
+        min-width: 1570px;
     }
 }
 
 @media (min-width: 1800px) {
     .container{
         max-width: 1670px;
+        min-width: 1670px;
+    }
+}
+
+@media (min-width: 1900px) {
+    .container{
+        max-width: 1770px;
+        min-width: 1770px;
     }
 }
 
 @media (min-width: 2000px) {
     .container{
         max-width: 1870px;
+        min-width: 1870px;
     }
 }
