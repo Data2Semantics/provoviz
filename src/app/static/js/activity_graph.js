@@ -73,7 +73,8 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
         .call(d3.behavior.drag()
         .origin(function(d) { return d; })
         .on("dragstart", function() { this.parentNode.appendChild(this); })
-        .on("drag", dragmove));
+        .on("drag", dragmove))
+        .on("click",function(d) { console.log("Clicked"); console.log(d); build_sankey(d.id); });
 
     node.append("rect")
         .attr("height", function(d) { return d.dy; })
@@ -82,8 +83,7 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
         .style("stroke", function(d) { return d3.rgb(d.color).darker(1); })
         .style("stroke-width", function(d) { if (d.type == 'origin') { return 2;} else { return 1;}})
         .append("title")
-        .text(function(d) { return d.label + "\n(" + d.type + ")"; })
-        .on("click",function(d) { build_sankey(d.id); });
+        .text(function(d) { return d.label + "\n(" + d.type + ")"; });
 
     node.append("text")
         .attr("x", -6)

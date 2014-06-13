@@ -181,7 +181,6 @@ function provoSubmit(provodata) {
 		$("#source").show();
 		$("#activities-row").show();
 		$("#serviceactivities").show();	
-		$.scrollTo( '#activities-row', 800);
 	})
 }
 
