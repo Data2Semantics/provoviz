@@ -91,7 +91,7 @@ def data_service():
             data_hash = hashlib.sha1(prov_data).hexdigest()
             store = Store(data=prov_data)
             
-            emig("Generating graphs")
+            emit("Generating graphs")
             
             response = generate_graphs(store)
             response = json.dumps(response)
