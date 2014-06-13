@@ -24,8 +24,6 @@ SELECT DISTINCT ?entity1 ?entity1_type ?entity1_label ?entity2 ?entity2_type ?en
     	OPTIONAL { ?entity1 rdf:type ?entity1_type .
     			   ?entity1_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
     			   FILTER(!isBlank(?entity1_type)) }
-    	OPTIONAL { ?entity1 rdfs:label ?entity1_label .}
-    	OPTIONAL { ?entity2 rdfs:label ?entity2_label . }
     	OPTIONAL { ?entity2 rdf:type ?entity2_type .
     			   ?entity2_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
     			   FILTER(!isBlank(?entity2_type))}

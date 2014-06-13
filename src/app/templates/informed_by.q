@@ -24,8 +24,6 @@ SELECT DISTINCT ?activity1 ?activity1_type ?activity1_label ?activity2 ?activity
     	OPTIONAL { ?activity1 rdf:type ?activity1_type .
     			   ?activity1_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
     			   FILTER(!isBlank(?activity1_type)) }
-    	OPTIONAL { ?activity1 rdfs:label ?activity1_label .}
-    	OPTIONAL { ?activity2 rdfs:label ?activity2_label . }
     	OPTIONAL { ?activity2 rdf:type ?activity2_type .
     			   ?activity2_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
     			   FILTER(!isBlank(?activity2_type))}

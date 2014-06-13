@@ -30,11 +30,9 @@ SELECT DISTINCT ?entity ?entity_type ?entity_label ?activity ?activity_type ?act
     	OPTIONAL { ?activity rdf:type ?activity_type .
     			 ?activity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
     			 FILTER(!isBlank(?activity_type)) }
-    	OPTIONAL { ?activity rdfs:label ?activity_label . }
     	OPTIONAL { ?entity rdf:type ?entity_type .
     			 ?entity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
     			 FILTER(!isBlank(?entity_type)) }
-    	OPTIONAL { ?entity rdfs:label ?entity_label .  }
     
     }
 	{% endif %}
