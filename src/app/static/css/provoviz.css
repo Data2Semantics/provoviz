@@ -43,6 +43,12 @@ textarea {
     
 }
 
+.dropdown-menu {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 @media (min-width: 1300px) {
     .container{
         max-width: 1170px;
