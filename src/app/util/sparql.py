@@ -112,7 +112,7 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
     for result in results:
         app.logger.debug(u"Result:\n{}".format(result))
         
-        if not result[source] or not result[target]:
+        if result[source] == None or result[target] == None:
             app.logger.warning(u"This result is not usable as there is no binding to source and/or target")
             continue
             
