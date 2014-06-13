@@ -32,8 +32,9 @@ def index():
     return render_template('base.html', default_endpoint = DEFAULT_SPARQL_ENDPOINT_URL)
 
 
-@app.route('/graphs', methods=['GET'])
-def graphs():
+@app.route('/graphs', methods=['GET']) ## LEGACY
+@app.route('/api/graphs', methods=['GET'])
+def graphs_service():
     
     endpoint_uri = request.args.get('endpoint_uri',None)
     
@@ -49,82 +50,70 @@ def graphs():
     
 
 
-@app.route('/activities', methods=['GET'])
-def activities():
+@app.route('/activities', methods=['GET']) ## LEGACY
+@app.route('/api/endpoint', methods=['GET'])
+def endpoint_service():
     graph_uri = request.args.get('graph_uri',None)
     endpoint_uri = request.args.get('endpoint_uri',None)
     
-    if graph_uri and endpoint_uri:
-        
+    if endpoint_uri:
         store = Store(endpoint=endpoint_uri)
-        
-        
-        if graph_uri == 'http://example.com/none':
-            graph_uri = None
         
         response = generate_graphs(store, graph_uri=graph_uri)
         response = json.dumps(response)
         
         return render_template('activities_service_response.html', response=response, data_hash='default')
 
-    return "Nothing! Oops"
+    else :
+        return make_response("At the very least, you should provide a SPARQL endpoint URL using the 'endpoint_uri' parameter in your GET request.",500)
 
 
-@app.route('/service', methods=['POST'])
-def service():
-    prov_data = request.form['data']
+@app.route('/service', methods=['POST']) ## LEGACY
+@app.route('/api/data',methods=['POST'])
+def data_service():
     
-    prov_data = unicode(prov_data).encode('utf-8')
-        
+    ## This is (somehow) needed to make sure Linkitup works.
     if 'client' in request.form:
         client = request.form['client']
     else :
-        client = None
-        
-    return service(prov_data, client)
+        client = None    
     
+    ## If the form posted to us contains data, then yay!
+    if 'data' in request.form:
+        app.logger.debug("Retrieved some data!")
+        prov_data = request.form['data']
+    
+        prov_data = unicode(prov_data).encode('utf-8')
+        
+        try :
+            emit("Initializing data store")
+            
+            data_hash = hashlib.sha1(prov_data).hexdigest()
+            store = Store(data=prov_data)
+            
+            emig("Generating graphs")
+            
+            response = generate_graphs(store)
+            response = json.dumps(response)
 
-def service(prov_data, client=None):
-    emit("Starting service")
-    
-    data_hash = hashlib.sha1(prov_data).hexdigest()
-    
-    try :
-        emit("Initializing Store")
+            emit("Done")
         
-        store = Store(data=prov_data)
-    except Exception as e:
-        message = "Could not parse your PROV. Please upload a valid Turtle or N-Triple serialization that uses the PROV-O vocabulary.<br/>\n{}".format(e.message)
-        app.logger.debug(message)
-        app.logger.debug(e.message)
+            if client == 'linkitup':
+                return render_template('activities_service_response_linkitup.html', response=response, data_hash=data_hash)
+            else :
+                return render_template('activities_service_response.html', response=response, data_hash=data_hash)
+        except Exception as e:
+            message = "Could not parse your PROV. Please upload a valid Turtle or N-Triple serialization that uses the PROV-O vocabulary.<br/>\n{}".format(e.message)
+            app.logger.debug(e.message)
+            emit(message)
+            return make_response(message, 500)
+    else :
+        message = "You need to provide PROV-O in Turtle format using the 'data' field in your POST request."
         emit(message)
         return make_response(message, 500)
     
-    response = generate_graphs(store)
-    response = json.dumps(response)
 
-    emit("Done")
-        
-    if client == 'linkitup':
-        return render_template('activities_service_response_linkitup.html', response=response, data_hash=data_hash)
-    else :
-        return render_template('activities_service_response.html', response=response, data_hash=data_hash)      
     
-    
-@app.route('/test')
-def service_test():
-    git_url = 'https://github.com/tdn/SMIF-Mozaiek.git'
-
-    g2p_response = requests.get('http://git2prov.org/git2prov', params={'giturl': git_url, 'serialization': 'PROV-O'})  
-
-    prov_data = g2p_response.content
-
-    if not g2p_response.ok:
-        g2p_response.raise_for_status()
-
-    provoviz_response = service(prov_data, git_url)
-    
-    return provoviz_response
 
     
 

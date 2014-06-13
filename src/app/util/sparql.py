@@ -60,14 +60,15 @@ def get_activities(store, graph_uri=None):
         
         try:
             
-            activity_id = result['label']
+            activity_label = result['label']
             app.logger.debug("Found label {} in result".format(result['label']))
         except :
             app.logger.debug("No label for {}".format(activity_uri))
-            activity_id = uri_to_label(activity_uri)
+            activity_label = uri_to_label(activity_uri)
         
-        
-        activities.append({'id': activity_uri, 'text': activity_id})
+        emit("Found activity {}".format(activity_label))
+         
+        activities.append({'id': activity_uri, 'text': activity_label})
         
     return activities
 
@@ -83,6 +84,8 @@ def get_named_graphs(store):
     for result in results:
         graph_uri = result['graph']
         emit('{}...'.format(graph_uri))
+        
+        emit("Found graph {}".format(graph_uri))
         
         graphs.append({'uri': graph_uri, 'id': graph_uri, 'text': graph_uri})
         

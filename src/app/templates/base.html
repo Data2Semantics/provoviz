@@ -35,11 +35,11 @@
                             $.getScript("{{ url_for('.static',filename='js/main.js') }}").success(function(){
                                 console.log("Main module loaded");
                                 
-                                var graphs_url = '{{ url_for("graphs") }}';
-                                var activities_url = '{{ url_for("activities") }}';
-                                var service_url = '{{ url_for("service") }}';
+                                var graphs_url = '{{ url_for("graphs_service") }}';
+                                var endpoint_url = '{{ url_for("endpoint_service") }}';
+                                var data_url = '{{ url_for("data_service") }}';
                                 
-                                initialize(graphs_url, activities_url, service_url);
+                                initialize(graphs_url, endpoint_url, data_url);
                             });
                         });
                     });

@@ -60,17 +60,19 @@ function initialize(g_url, a_url, s_url) {
     });
     
     $('#submit-provenance-endpoint').on('click',function(){
+        $('#log').html("Connecting to endpoint...");
 		var value = $('#provenance-endpoint').val();
 		
 		if (value == ''){
 			value = $('#provenance-endpoint').attr('placeholder');
 		}
 		
-    	endpointSubmit(value);
+    	graphs_client(value);
     });
 
 	$('#submit-provenance-data').on('click', function(){
-		provoSubmit($('#provenance-data').val());
+        $('#log').html("Sending provenance data");
+		data_client($('#provenance-data').val());
 	});
 	
 	$('#source').on('click', function(){
@@ -85,7 +87,7 @@ function showSource() {
 	$('#sourcetext').text(path);
 }
 
-function endpointSubmit(endpoint_uri) {
+function graphs_client(endpoint_uri) {
 	//$('.dropdown.keep-open').trigger('hide.bs.dropdown');
 	
 	loading();
@@ -97,7 +99,7 @@ function endpointSubmit(endpoint_uri) {
 	if ($("#ignore-named-graphs").is(':checked')) {
 		console.log("Ignoring named graphs");
 		
-		retrieve_activities('http://example.com/none',endpoint_uri);
+		endpoint_client('http://example.com/none',endpoint_uri);
 	} else {
         $.getJSON(graphs_url, {endpoint_uri: endpoint_uri }).done(function(data){
             $('#named-graphs-menu').empty();
@@ -108,13 +110,14 @@ function endpointSubmit(endpoint_uri) {
                 a.attr('id',v.id);
             
                 a.on('click',function(e){
+                    $('#log').html("Connecting to endpoint...");
         		    var graph_uri = e.target.id;
         		    $.localStorage('graph_uri',graph_uri);
         		    var endpoint_uri = $.localStorage('endpoint_uri');
                     
                     loading();
                     
-        		    retrieve_activities(graph_uri, endpoint_uri);
+        		    endpoint_client(graph_uri, endpoint_uri);
                 });
             
                 a.append(v.text);
@@ -144,7 +147,7 @@ function loading(){
 	$("#serviceactivities").empty();
 }
 
-function retrieve_activities(graph_uri, endpoint_uri){
+function endpoint_client(graph_uri, endpoint_uri){
 	loading();
 	
     $.get(activities_url, {graph_uri: graph_uri, endpoint_uri: endpoint_uri }).done(function(data){
@@ -158,7 +161,7 @@ function retrieve_activities(graph_uri, endpoint_uri){
     });
 }
 
-function provoSubmit(provodata) {
+function data_client(provodata) {
     
     
 	loading();
@@ -205,5 +208,5 @@ $('#graphs').change(function(e) {
     $.localStorage('graph_uri',graph_uri);
     var endpoint_uri = $.localStorage('endpoint_uri');
 
-	retrieve_activities(graph_uri, endpoint_uri);
+	endpoint_client(graph_uri, endpoint_uri);
 });
