@@ -61,20 +61,6 @@
 
 <!-- Always load jQuery -->
 <script type="application/x-javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-<!-- <script type="application/x-javascript" src="{{ url_for('.static',filename='js/activity_graph.js',_external=True)}}"></script> -->
-
-<!-- <script type="application/x-javascript" src="{{ url_for('.static',filename='js/jquery.storage.js',_external=True) }}"></script> -->
-<!-- <script src="{{ url_for('.static',filename='js/d3.v3.js',_external=True)}}" charset="utf-8"></script>
-<script type="application/x-javascript" src="{{ url_for('.static',filename='js/sankey.js',_external=True)}}"></script> -->
-<!-- <script type="application/x-javascript" src="{{ url_for('.static',filename='js/colorbrewer.js',_external=True)}}"></script> -->
-
-<!-- <script src="{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js', _external=True) }}"></script> -->
-
-<!-- <script src="{{ url_for('.static',filename='js/bootstrap.min.js', _external=True) }}"></script> -->
-
-
-<!-- <script src="{{ url_for('.static',filename='js/select2.js', _external=True) }}"></script> -->
-<!-- <script src="{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js', _external=True) }}"></script> -->
 
 
 <script>
@@ -160,14 +146,15 @@
         console.log("Selected activity:");
 		console.log(selected_activity);
 		
-		$("#id{{ data_hash }}_graph").empty();
+        if (selected_activity) {
+    		$("#id{{ data_hash }}_graph").empty();
         
-		drawSankeyDiagram('#id{{ data_hash }}_graph', selected_activity.graph, selected_activity.width, selected_activity.types, selected_activity.diameter);
+    		drawSankeyDiagram('#id{{ data_hash }}_graph', selected_activity.graph, selected_activity.width, selected_activity.types, selected_activity.diameter);
 
-		$('.activity').on('click', function(e){
-			build_sankey(e.currentTarget.id);
-		});
-		
+    		$('.activity').on('click', function(e){
+    			build_sankey(e.currentTarget.id);
+    		});
+        }
 	}
 
     $('#id{{ data_hash }}_activities').change(function(e) {
