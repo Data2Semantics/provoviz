@@ -27,14 +27,14 @@ def uri_to_label(uri):
         (base,hash_sign,local_name) = uri.rpartition('#')
         base_uri = local_name.encode('utf-8')
     else :
-        base_uri = re.sub("http.*/.+","",uri.encode('utf-8'))
+        base_uri = re.sub("http://.*?/","",uri.encode('utf-8'))
         
     
     return shorten(unquote_plus(base_uri).replace('_',' ').lstrip('-').lstrip(' '))
     
 def shorten(text):
-    if len(text)>22:
-        return text[:10] + "..." + text[-10:]
+    if len(text)>32:
+        return text[:15] + "..." + text[-15:]
     else :
         return text
 
@@ -128,19 +128,26 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
                 
             try :
                 target_binding = shorten(result[target+"_label"])
+                app.logger.debug("{}_label in result".format(target))
             except :
+                app.logger.debug("No {}_label in result!!".format(target))
                 target_binding = uri_to_label(result[target]).replace("'","")
+                app.logger.debug("Set to {}".format(target_binding))
             
             
             try  :
                 source_type = result[source+"_type"]
+                app.logger.debug("{}_type in result".format(source))
             except :
                 source_type = re.sub('\d+$','',source)
+                app.logger.debug("No {}_type in result!!".format(source))
             
             try :
                 target_type = result[target+"_type"]
+                app.logger.debug("{}_type in result".format(target))
             except:
                 target_type = re.sub('\d+$','',target)
+                app.logger.debug("No {}_type in result!!".format(target))
                 
             target_uri = result[target]
             
@@ -178,6 +185,7 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
 
     app.logger.debug('Query-based graph building complete...')
     emit('Query-based graph building complete...')
+
 
     return G
 
@@ -267,8 +275,6 @@ def extract_activity_graph(G, activity_uri, activity_id):
     
     # Check to make sure that the edge weights dictionary has the same number of keys as edges in the ego graph
     app.logger.debug("Check {}/{}".format(len(edge_weights.keys()),len(sG.edges())))
-    pprint.pprint(edge_weights.keys())
-    pprint.pprint(sG.edges())
     nx.set_edge_attributes(sG,'value',edge_weights)
     del(edge_weights)
     # nx.set_node_attributes(sG,'value',node_weights)
