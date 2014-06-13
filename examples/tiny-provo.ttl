@@ -6,14 +6,29 @@
 
 ex:foo2 a prov:Entity ;
     prov:wasGeneratedBy ex:bar1 ;
-    rdfs:label "Foo 2".
-    
+    rdfs:label "Entity 2".
     
 ex:foo1 a prov:Entity ;
     prov:wasUsedBy ex:bar1 ;
-    rdfs:label "Foo 1".
+    rdfs:label "Entity 1".
+    
+ex:foo3 a prov:Entity ;
+    prov:wasGeneratedBy ex:bar2 ;
+    prov:wasGeneratedBy ex:bar3 ;
+    rdfs:label "Entity 3".
     
 ex:bar1 a prov:Activity ;
     prov:used ex:foo1 ;
     prov:generated ex:foo2 ;
-    rdfs:label "Bar 1" .
+    rdfs:label "Activity 1" .
+    
+ex:bar2 a prov:Activity ;
+    prov:used ex:foo1 ;
+    prov:used ex:foo2 ;
+    prov:generated ex:foo3 ;
+    rdfs:label "Activity 2" .
+
+ex:bar3 a prov:Activity ;
+    prov:used ex:foo2 ;
+    prov:generated ex:foo3 ;
+    rdfs:label "Activity 3" .
