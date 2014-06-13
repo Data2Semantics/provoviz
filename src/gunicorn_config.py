@@ -4,5 +4,6 @@ bind = '0.0.0.0:5000'
 pidfile = '/tmp/gunicorn.pid'
 debug = True
 loglevel = 'debug'
-errorlog = '/tmp/gunicorn.log'
+errorlog = '/tmp/gunicorn_error.log'
+accesslog = '/tmp/gunicorn_access.log'
 daemon = False
