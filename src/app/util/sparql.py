@@ -112,95 +112,67 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
     for result in results:
         app.logger.debug(u"Result:\n{}".format(result))
         
+        app.logger.debug("Source: {}\nTarget: {}".format(result[source],result[target]))
+        
         if result[source] == None or result[target] == None:
             app.logger.warning(u"This result is not usable as there is no binding to source and/or target")
             continue
             
+        source_uri = unicode(result[source])    
+        target_uri = unicode(result[target])
+
+        try :
+            source_binding = shorten(result[source+"_label"])
+            app.logger.debug("{}_label in result".format(source))
+            if not source_binding:
+                raise Exception("None label")
+        except :
+            app.logger.debug("No {}_label in result!!".format(source))
+            source_binding = uri_to_label(result[source]).replace("'","")
+        
+        
             
-        if not intermediate :
-            app.logger.debug("No intermediate node")
+        try :
+            target_binding = shorten(result[target+"_label"])
+            app.logger.debug("{}_label in result".format(target))
             
-            if name and not source:
-                source_binding = uri_to_label(name).replace("'","");
-                source_uri = name
-            elif not source :
-                source_binding = "example"
-                source_uri = "http://prov.data2semantics.org/resource/example"
-            else :
-                try :
-                    source_binding = shorten(result[source+"_label"])
-                    app.logger.debug("{}_label in result".format(source))
-                    if not source_binding:
-                        raise Exception("None label")
-                except :
-                    app.logger.debug("No {}_label in result!!".format(source))
-                    source_binding = uri_to_label(result[source]).replace("'","")
+            if not target_binding:
+                raise Exception("None label")
+        except :
+            app.logger.debug("No {}_label in result!!".format(target))
+            target_binding = uri_to_label(result[target]).replace("'","")
+            app.logger.debug("Set to {}".format(target_binding))
+        
+        
+        try  :
+            source_type = result[source+"_type"]
+            app.logger.debug("{}_type in result".format(source))
+            if not source_type:
+                raise Exception("None type")
+        except :
+            source_type = re.sub('\d+$','',source)
+            app.logger.debug("No {}_type in result!!".format(source))
+        
+        try :
+            target_type = result[target+"_type"]
+            app.logger.debug("{}_type in result".format(target))
+            if not target_type:
+                raise Exception("None type")
+        except:
+            target_type = re.sub('\d+$','',target)
+            app.logger.debug("No {}_type in result!!".format(target))
             
-            source_uri = unicode(result[source])
-                
-            try :
-                target_binding = shorten(result[target+"_label"])
-                app.logger.debug("{}_label in result".format(target))
-                
-                if not target_binding:
-                    raise Exception("None label")
-            except :
-                app.logger.debug("No {}_label in result!!".format(target))
-                target_binding = uri_to_label(result[target]).replace("'","")
-                app.logger.debug("Set to {}".format(target_binding))
-            
-            
-            try  :
-                source_type = result[source+"_type"]
-                app.logger.debug("{}_type in result".format(source))
-                if not source_type:
-                    raise Exception("None type")
-            except :
-                source_type = re.sub('\d+$','',source)
-                app.logger.debug("No {}_type in result!!".format(source))
-            
-            try :
-                target_type = result[target+"_type"]
-                app.logger.debug("{}_type in result".format(target))
-                if not target_type:
-                    raise Exception("None type")
-            except:
-                target_type = re.sub('\d+$','',target)
-                app.logger.debug("No {}_type in result!!".format(target))
-                
-            target_uri = unicode(result[target])
-            
-            
-            G.add_node(source_uri, label=source_binding, type=source_type, uri=source_uri)
-            G.add_node(target_uri, label=target_binding, type=target_type, uri=target_uri)
-            G.add_edge(source_uri, target_uri, value=10)
+        
+        
+        
+        G.add_node(source_uri, label=source_binding, type=source_type, uri=source_uri)
+        G.add_node(target_uri, label=target_binding, type=target_type, uri=target_uri)
+        G.add_edge(source_uri, target_uri, value=10)
             
             
             
 
-        else :
-            
-            try :
-                source_binding = shorten(result[source+"_label"])
-            except :
-                source_binding = uri_to_label(result[source]).replace("'","")
-                
-            try :
-                intermediate_binding = shorten(result[intermediate+"_label"])
-            except :
-                intermediate_binding = uri_to_label(result[intermediate]).replace("'","")
-                
-            try :
-                target_binding = shorten(result[target+"_label"])
-            except :
-                target_binding = uri_to_label(result[target]).replace("'","")
-            
-            G.add_node(result[source], label=source_binding, type=re.sub('\d+$','',source), uri=result[source])
-            G.add_node(result[intermediate], label=intermediate_binding, type=re.sub('\d+$','',intermediate), uri=result[intermediate])
-            G.add_node(result[target], label=target_binding, type=re.sub('\d+$','',target), uri=result[target])
-            
-            G.add_edge(result[source], result[intermediate], value=10)
-            G.add_edge(result[intermediate], result[target], value=10)
+
 
     app.logger.debug('Query-based graph building complete...')
     emit('Query-based graph building complete...')
