@@ -49,7 +49,7 @@ def get_activities(store, graph_uri=None):
     activity_uris = set()
     
     for result in results:
-        activity_uri = result['activity']
+        activity_uri = unicode(result['activity'])
         
         if activity_uri in activity_uris:
             continue
@@ -62,6 +62,8 @@ def get_activities(store, graph_uri=None):
             
             activity_label = result['label']
             app.logger.debug("Found label {} in result".format(result['label']))
+            if not activity_label:
+                raise Exception("None label")
         except :
             app.logger.debug("No label for {}".format(activity_uri))
             activity_label = uri_to_label(activity_uri)
@@ -110,6 +112,11 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
     for result in results:
         app.logger.debug(u"Result:\n{}".format(result))
         
+        if not result[source] or not result[target]:
+            app.logger.warning(u"This result is not usable as there is no binding to source and/or target")
+            continue
+            
+            
         if not intermediate :
             app.logger.debug("No intermediate node")
             
@@ -123,15 +130,20 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
                 try :
                     source_binding = shorten(result[source+"_label"])
                     app.logger.debug("{}_label in result".format(source))
+                    if not source_binding:
+                        raise Exception("None label")
                 except :
                     app.logger.debug("No {}_label in result!!".format(source))
                     source_binding = uri_to_label(result[source]).replace("'","")
             
-            source_uri = result[source]
+            source_uri = unicode(result[source])
                 
             try :
                 target_binding = shorten(result[target+"_label"])
                 app.logger.debug("{}_label in result".format(target))
+                
+                if not target_binding:
+                    raise Exception("None label")
             except :
                 app.logger.debug("No {}_label in result!!".format(target))
                 target_binding = uri_to_label(result[target]).replace("'","")
@@ -141,6 +153,8 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             try  :
                 source_type = result[source+"_type"]
                 app.logger.debug("{}_type in result".format(source))
+                if not source_type:
+                    raise Exception("None type")
             except :
                 source_type = re.sub('\d+$','',source)
                 app.logger.debug("No {}_type in result!!".format(source))
@@ -148,15 +162,17 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             try :
                 target_type = result[target+"_type"]
                 app.logger.debug("{}_type in result".format(target))
+                if not target_type:
+                    raise Exception("None type")
             except:
                 target_type = re.sub('\d+$','',target)
                 app.logger.debug("No {}_type in result!!".format(target))
                 
-            target_uri = result[target]
+            target_uri = unicode(result[target])
             
             
             G.add_node(source_uri, label=source_binding, type=source_type, uri=source_uri)
-            G.add_node(target_uri, label=target_binding, type=target_type, uri=result[target])
+            G.add_node(target_uri, label=target_binding, type=target_type, uri=target_uri)
             G.add_edge(source_uri, target_uri, value=10)
             
             
@@ -250,9 +266,10 @@ def extract_activity_graph(G, activity_uri, activity_id):
     
     try:
         sG = extract_ego_graph(G, activity_uri)
-    except:
-        emit(u"Could not extract ego graph for {} (Bug in NetworkX?)".format(activity_id))
-        app.logger(u"Could not extract ego graph for {} (Bug in NetworkX?)".format(activity_id))
+    except Exception as e:
+        emit(u"Could not extract ego graph for {}/{} (Bug in NetworkX?)".format(activity_id, activity_uri))
+        app.logger.debug(u"Could not extract ego graph for {}/{} (Bug in NetworkX?)".format(activity_id, activity_uri))
+        app.logger.warning(e)
         return
         
         

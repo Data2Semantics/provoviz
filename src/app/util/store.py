@@ -41,10 +41,17 @@ class Store(object):
              
     def query(self,q):
         if self.remote :
-            json_results = self.session.get(self.endpoint, params={'query':q})
-            json_parser = JSONResultParser()
-            return json_parser.parse(StringIO(json_results.text))
+            try :
+                app.logger.debug("Connecting to {}".format(self.endpoint))
+                json_results = self.session.get(self.endpoint, params={'query':q})
+                json_parser = JSONResultParser()
+                return json_parser.parse(StringIO(json_results.text))
+            except Exception as e:
+                emit("Problem running query : {}".format(e.message))
+                app.logger.warning("Problem running query : {}".format(e.message))
+                raise e
         else :
+            app.logger.debug("Directly querying internal store")
             return self.graph.query(q)
             
 

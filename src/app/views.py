@@ -59,6 +59,9 @@ def endpoint_service():
     if endpoint_uri:
         store = Store(endpoint=endpoint_uri)
         
+        if graph_uri == 'http://example.com/none':
+            graph_uri = None
+        
         response = generate_graphs(store, graph_uri=graph_uri)
         response = json.dumps(response)
         
@@ -138,8 +141,9 @@ def generate_graphs(store, graph_uri=None):
         
         try:
             graph, width, types, diameter = s.extract_activity_graph(G, activity_uri, activity_id)
-        except:
-            emit("Something went wrong, will skip this activity...")
+        except Exception as e:
+            emit("Something went wrong, will skip this activity... {}".format(e.message))
+            app.logger.warning(e.message)
             continue
         
         activity = {}
