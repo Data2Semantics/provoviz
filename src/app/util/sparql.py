@@ -241,6 +241,7 @@ def extract_activity_graph(G, activity_uri, activity_id):
     except Exception as e:
         emit(u"Could not extract ego graph for {}/{} (Bug in NetworkX?)".format(activity_id, activity_uri))
         app.logger.debug(u"Could not extract ego graph for {}/{} (Bug in NetworkX?)".format(activity_id, activity_uri))
+        app.logger.warning(e.message)
         app.logger.warning(e)
         return
         

@@ -143,6 +143,7 @@ def generate_graphs(store, graph_uri=None):
             graph, width, types, diameter = s.extract_activity_graph(G, activity_uri, activity_id)
         except Exception as e:
             emit("Something went wrong, will skip this activity... {}".format(e.message))
+            app.logger.warning("Something went wrong, will skip this activity... {}".format(e.message))
             app.logger.warning(e.message)
             continue
         
