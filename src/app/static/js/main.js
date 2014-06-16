@@ -1,16 +1,16 @@
 var graphs_url;
-var activities_url;
-var service_url;
+var endpoint_url;
+var data_url;
 
 var socket = io.connect('http://' + document.domain + ':' + location.port + '/log');
 
 
 
-function initialize(g_url, a_url, s_url) {
+function initialize(g_url, e_url, d_url) {
 	
     graphs_url = g_url;
-    activities_url = a_url;
-    service_url = s_url;
+    endpoint_url = e_url;
+    data_url = d_url;
     
     
 	
@@ -37,7 +37,15 @@ function initialize(g_url, a_url, s_url) {
     $("#ignore-named-graphs").click(function(e) {
        e.stopPropagation();
     });
+    
+    $("#format-radio-turtle").click(function(e) {
+       e.stopPropagation(); 
+    });
 	
+    $("#format-radio-rdfxml").click(function(e) {
+       e.stopPropagation(); 
+    });
+    
 	$("#title").fitText();
     $("#title").show();
     
@@ -61,9 +69,8 @@ function initialize(g_url, a_url, s_url) {
     
     $('#submit-provenance-endpoint').on('click',function(){
         $('#log').html("Connecting to endpoint...");
-		var value = $('#provenance-endpoint').val();
-		
-		if (value == ''){
+		var value = $('#provenance-endpoint').val();		
+        if (value == ''){
 			value = $('#provenance-endpoint').attr('placeholder');
 		}
 		
@@ -72,7 +79,11 @@ function initialize(g_url, a_url, s_url) {
 
 	$('#submit-provenance-data').on('click', function(){
         $('#log').html("Sending provenance data");
-		data_client($('#provenance-data').val());
+        
+        var data = $('#provenance-data').val();
+        var format = $('input[name=format-radios]:checked' ).val();
+        
+		data_client(data, format);
 	});
 	
 	$('#source').on('click', function(){
@@ -150,7 +161,7 @@ function loading(){
 function endpoint_client(graph_uri, endpoint_uri){
 	loading();
 	
-    $.get(activities_url, {graph_uri: graph_uri, endpoint_uri: endpoint_uri }).done(function(data){
+    $.get(endpoint_url, {graph_uri: graph_uri, endpoint_uri: endpoint_uri }).done(function(data){
 		$("#serviceactivities").empty();
 		$("#serviceactivities").html(data);
 		$("#loading").hide();
@@ -161,7 +172,7 @@ function endpoint_client(graph_uri, endpoint_uri){
     });
 }
 
-function data_client(provodata) {
+function data_client(data, format) {
     
     
 	loading();
@@ -169,15 +180,15 @@ function data_client(provodata) {
     $("#named-graphs-dropdown").hide();
 
 
-	var hash=CryptoJS.SHA1(provodata);
+    // var hash=CryptoJS.SHA1(data);
+    // 
+    // var graph_uri = "http://prov.data2semantics.org/resource/"+hash;
+    // 
+    // console.log(graph_uri);
 	
-	var graph_uri = "http://prov.data2semantics.org/resource/"+hash;
+	var post_data = { data: data, format: format };
 	
-	console.log(graph_uri);
-	
-	var post_data = { data: provodata, graph_uri: graph_uri };
-	
-	$.post(service_url, post_data, function(data){
+	$.post(data_url, post_data, function(data){
 		$("#serviceactivities").empty();
 		$("#serviceactivities").html(data);
 		$("#loading").hide();

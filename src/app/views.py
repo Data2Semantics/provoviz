@@ -81,6 +81,12 @@ def data_service():
     else :
         client = None    
     
+    ## Fallback to 'turtle' format if necessary
+    if 'format' in request.form:
+        data_format = request.form['format']
+    else :
+        data_format = 'turtle'
+    
     ## If the form posted to us contains data, then yay!
     if 'data' in request.form:
         app.logger.debug("Retrieved some data!")
@@ -92,7 +98,8 @@ def data_service():
             emit("Initializing data store")
             
             data_hash = hashlib.sha1(prov_data).hexdigest()
-            store = Store(data=prov_data)
+            
+            store = Store(data=prov_data, data_format=data_format)
             
             emit("Generating graphs")
             
@@ -111,7 +118,7 @@ def data_service():
             emit(message)
             return make_response(message, 500)
     else :
-        message = "You need to provide PROV-O in Turtle format using the 'data' field in your POST request."
+        message = "You need to provide PROV-O in Turtle or RDF/XML format using the 'data' field in your POST request. Providing a URL directly will work as well. Specify the format (turtle or xml) using the 'format' field."
         emit(message)
         return make_response(message, 500)
     

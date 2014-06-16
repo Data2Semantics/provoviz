@@ -8,7 +8,7 @@ import requests
 class Store(object):
     
     # Initialize the store, either with data or with endpoint (but not both)
-    def __init__(self, data=None, endpoint=None, auth=None):
+    def __init__(self, data=None, data_format='turtle', endpoint=None, auth=None):
         if data and not endpoint:
             emit("Loading PROV data in Turtle format")
             
@@ -16,9 +16,16 @@ class Store(object):
             try :
                 self.graph = Graph()  
                 app.logger.debug('Loading PROV-O definitions from {}'.format(url_for('.static',filename='prov-o.ttl',_external=True)))           
-                self.graph.parse(url_for('.static',filename='prov-o.ttl',_external=True),format="turtle")      
-                app.logger.debug('Loading data...')
-                self.graph.parse(data=data,format="turtle")
+                self.graph.parse(url_for('.static',filename='prov-o.ttl',_external=True),format='turtle')      
+                
+                
+                if data.lower().startswith('http'):
+                    app.logger.debug('Loading data from URL: {}'.format(data))
+                    self.graph.parse(location=data,format=data_format)
+                else :
+                    app.logger.debug('Loading data...')
+                    self.graph.parse(data=data,format=data_format)
+                    
             except Exception as e:
                 emit("Store could not load data (not Turtle?)")
                 

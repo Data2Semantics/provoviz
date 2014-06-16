@@ -78,7 +78,25 @@
 					<div style="margin: 10px;" class="form-group">
                         <label for="provenance-data">Upload Provenance</label>
 						<textarea style="height: 131px; width: 455px;" id="provenance-data" class="col-xs-12" name="data" rows="4" placeholder="PROV-O input"></textarea>
-                        <span class="help-block">Copy and paste a Turtle serialization of a PROV-O graph in the text area above.</span>
+                        <div>
+                            <div class="radio-inline">
+                              <label>
+                                <input type="radio" name="format-radios" id="format-radio-turtle" value="turtle" checked>
+                                Turtle
+                              </label>
+                            </div>
+                            <div class="radio-inline">
+                              <label>
+                                <input type="radio" name="format-radios" id="format-radio-rdfxml" value="xml">
+                                RDF/XML
+                              </label>
+                            </div>
+                        </div>
+                        <span class="help-block">Use the above text area to:
+                            <ul>
+                                <li>paste a Turtle or RDF/XML serialization of a PROV-O graph, or</li>
+                                <li>paste a URL of the location of a PROV-O graph</li>
+                            </ul></span>
 						<button id="submit-provenance-data" class="btn btn-primary  btn-block" value="go" type="button">Submit</button>
 					</div>                  
                 </ul>
@@ -133,32 +151,7 @@
 	</div>
     
     <div class="container" id="contents">
-        <!-- <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="page-header">
-                    <h1><img src="{{ url_for('.static',filename='img/logo-no-text-150dpi.png') }}"style="float: left; width: 100px;"/>PROV-O-Viz <small>Visualizing the Train of Thought</small> </h1>
-                    <p>Copyright (c) 2013, Rinke Hoekstra, VU University Amsterdam</p>
-                </div>
-            </div>
-        </div> -->
-		
-		<div class="row hidden" id="about">
-			<div class="col-lg-12">				
-				<h4>About PROV-O-Viz</h4>
-				<p>With PROV-O-Viz you can visualize <em>any</em> provenance graph expressed using the <a href="http://www.w3.org/TR/prov-o/" target="_blank">W3C PROV-O vocabulary</a> as an intuitive <a href="http://bost.ocks.org/mike/sankey/" target="_blank">Sankey diagram</a>. Really neat.</p>
-				<p>PROV-O-Viz was developed by the <a href="http://www.data2semantics.org" target="_blank">Data2Semantics</a> project, funded under the <a href="http://www.commit-nl.nl" target="_blank">COMMIT/ programme</a>.</p>
-				<h4>How to use it</h4>
-				<p>To see what it does, you can point PROV-O-Viz to your own SPARQL endpoint, containing Named Graphs with PROV-O activities and entities in it.</p>
-				<p>Alternatively, you can simply copy and paste some of PROV-O in Turtle format in the Paste-And-Go form.</p>
 
-				<p>You can also POST PROV-O in Turtle format to the PROV-O-Viz service, and we'll return a self-contained HTML snippet for you to include in your website.</p>
-				<ul>
-					<li>The service lives at <code>http://provoviz.org/service</code>, and</li>
-					<li>expects a POST with a <code>graph_uri</code> parameter (a URI that identifies your provenance graph), and</li>
-				 	<li>a <code>data</code>	parameter that contains a Turtle serialization of a PROV-O graph</li>
-				</ul>
-			</div>
-		</div>
 
         <!-- Modal -->
         <div class="modal fade" id="api-modal" tabindex="-1" role="dialog" aria-labelledby="api-modal-label" aria-hidden="true">
@@ -186,7 +179,6 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
               </div>
             </div>
           </div>
@@ -195,17 +187,7 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				
-				<div id="noselection" class="row" style="display: none;">
-				    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
-				        <div class="alert alert-warning" style="margin-top: 2em;">This is where you will be able to select activities to visualize once you've <strong>given us some PROV</strong>!</div>
-				    </div>
-				</div>
-				<div id="selectgraph" class="row" style="display: none;">
-				    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
-				        <div class="alert alert-warning" style="margin-top: 2em;">Please select a graph from the "Provenance Graphs" dropdown menu...</div>
-				    </div>
-				</div>
+
 				<div id="loading" class="row" style="display: none;">
 				    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
 				        <div class="alert alert-info" style="margin-top: 2em;">Loading...
@@ -213,15 +195,7 @@
 						</div>
 				    </div>
 				</div>
-				<div id="noresponse" class="row" style="display: none;">
-				    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
-				        <div class="alert alert-error" style="margin-top: 2em;">The query did not return anything, sorry!</div>
-				    </div>
-				</div>
-				<div  id="activities-row" style="display: none;">
-	                <!-- <p>When you select an activity from the drop down box, we will render Sankey diagram showing the <strong>activity</strong> together with causally-related <strong>entities</strong> and <strong>activities</strong>.</p> -->
 
-				</div>
             </div>
         </div>
 	</div>
