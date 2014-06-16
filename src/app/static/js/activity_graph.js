@@ -38,6 +38,7 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
     var svg = d3.select(graph_div).append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
+        .attr("id","svg")
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
