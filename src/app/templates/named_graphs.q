@@ -17,4 +17,4 @@ SELECT DISTINCT ?graph WHERE {
     ?s a prov:Activity .
   }
   
-}
+} ORDER BY ?graph
