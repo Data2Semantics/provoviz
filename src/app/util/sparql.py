@@ -369,7 +369,14 @@ def walk_weights(graph, pending_nodes = [], edge_weights = {}, visited = []):
             visited.append(n)
 
     # Once we have visited all nodes, we call walk_weights recursively with the next_nodes list
-    return walk_weights(graph, next_nodes, edge_weights, visited)
+    
+    # If next_nodes is the same as the pending_nodes, we run the risk of going in circles, and we'll just return the edge_weights
+    
+    if set(next_nodes) == set(pending_nodes):
+        app.logger.warning("Next nodes and pending nodes are equal, we are going in circles. Returning edge_weights.")
+        return edge_weights
+    else :
+        return walk_weights(graph, next_nodes, edge_weights, visited)
     
 
 def emit(message):
