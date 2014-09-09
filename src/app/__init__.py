@@ -18,6 +18,6 @@ socketio = SocketIO(app)
 app.config.from_object('config')
 
 app.debug = True
-# app.logger.setLevel(20)
+app.logger.setLevel(20)
 
 import views
