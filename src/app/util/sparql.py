@@ -261,11 +261,10 @@ def extract_activity_graph(G, activity_uri, activity_id):
     edge_weights = {}
     try:
         # Walk all edges, and assign weights
-        edge_weights = walk_weights(graph = sG, pending_nodes = start_nodes, edge_weights = {}, visited = [])
+        edge_weights = walk_weights(graph = sG, pending_nodes = set(start_nodes), edge_weights = {}, visited = set())
     except Exception as e:
         emit("ERROR: Provenance trace contains cycles: {}".format(e.message))
         app.logger.error("ERROR: Provenance trace contains cycles: {}".format(e.message))
-        quit()
         raise e
         
     
@@ -312,13 +311,13 @@ def extract_activity_graph(G, activity_uri, activity_id):
     return g_json, width, types, diameter
 
 
-def walk_weights(graph, pending_nodes = [], edge_weights = {}, visited = []):
+def walk_weights(graph, pending_nodes = set(), edge_weights = {}, visited = set()):
     # If we have no more nodes in the queue, return the computed edge weights
     app.logger.debug(pending_nodes)
-    if pending_nodes == []:
+    if pending_nodes == set():
         return edge_weights
         
-    next_nodes = []
+    next_nodes = set()
     for n in pending_nodes:
         # If a node has already been visited, just ignore it
         if n in visited:
@@ -331,10 +330,10 @@ def walk_weights(graph, pending_nodes = [], edge_weights = {}, visited = []):
             out_edges = graph.out_edges([n])
             for (u,v) in out_edges:
                 edge_weights[(u,v)] = log(10)
-                next_nodes.append(v)
+                next_nodes.add(v)
                 
             # We can safely add the node to the visited list.
-            visited.append(n)
+            visited.add(n)
             
         # Otherwise, the node *does* have outgoing edges
         else:
@@ -348,7 +347,7 @@ def walk_weights(graph, pending_nodes = [], edge_weights = {}, visited = []):
             # This is because we need all edge weights before we can redistribute the weight to the outgoing edges
             if incomplete != [] :
                 app.logger.debug("Node `{}` has unvisited incoming edges, adding to end of queue".format(n))
-                next_nodes.append(n)
+                next_nodes.add(n)
                 continue
             
             # Otherwise, we'll just calculate the accumulated weight of all incoming edges
@@ -366,11 +365,16 @@ def walk_weights(graph, pending_nodes = [], edge_weights = {}, visited = []):
             # add the target node to the next_nodes queue
             for (u,v) in out_edges:
                 edge_weights[(u,v)] = accumulated_weight/out_degree
-                next_nodes.append(v)
+                next_nodes.add(v)
                 
             # Only append node to visited if it is not in next_nodes
-            visited.append(n)
+            visited.add(n)
 
+    if next_nodes == pending_nodes :
+        app.logger.warning("We are running around in circles: `next_nodes` contains only nodes that we already visited")
+        app.logger.warning(next_nodes)
+        return edge_weights
+        
     # Once we have visited all nodes, we call walk_weights recursively with the next_nodes list
     return walk_weights(graph, next_nodes, edge_weights, visited)
     
