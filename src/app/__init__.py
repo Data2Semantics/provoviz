@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from flask import Flask
 import os
+
 from flask.ext.socketio import SocketIO, emit
 
 TEMPLATE_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
@@ -17,6 +18,6 @@ socketio = SocketIO(app)
 app.config.from_object('config')
 
 app.debug = True
-
+# app.logger.setLevel(20)
 
 import views

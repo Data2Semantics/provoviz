@@ -234,13 +234,13 @@ def extract_ego_graph(G, activity_uri):
 
 def extract_activity_graph(G, activity_uri, activity_id):
     emit(u"Extracting ego graph for {}".format(activity_id))
-    app.logger.debug(u"Extracting graph for {} ({})".format(activity_uri, activity_id))
+    app.logger.info(u"Extracting graph for {} ({})".format(activity_uri, activity_id))
     
     try:
         sG = extract_ego_graph(G, activity_uri)
     except Exception as e:
         emit(u"Could not extract ego graph for {}/{} (Bug in NetworkX?)".format(activity_id, activity_uri))
-        app.logger.debug(u"Could not extract ego graph for {}/{} (Bug in NetworkX?)".format(activity_id, activity_uri))
+        app.logger.warning(u"Could not extract ego graph for {}/{} (Bug in NetworkX?)".format(activity_id, activity_uri))
         app.logger.warning(e.message)
         app.logger.warning(e)
         return
@@ -264,7 +264,10 @@ def extract_activity_graph(G, activity_uri, activity_id):
         edge_weights = walk_weights(graph = sG, pending_nodes = start_nodes, edge_weights = {}, visited = [])
     except Exception as e:
         emit("ERROR: Provenance trace contains cycles: {}".format(e.message))
+        app.logger.error("ERROR: Provenance trace contains cycles: {}".format(e.message))
+        quit()
         raise e
+        
     
     # Check to make sure that the edge weights dictionary has the same number of keys as edges in the ego graph
     app.logger.debug("Check {}/{}".format(len(edge_weights.keys()),len(sG.edges())))
