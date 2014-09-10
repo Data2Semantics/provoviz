@@ -370,18 +370,20 @@ def walk_weights(graph, pending_nodes = set(), edge_weights = {}, visited = set(
             # Only append node to visited if it is not in next_nodes
             visited.add(n)
 
-    if next_nodes == pending_nodes :
-        app.logger.warning("We are running around in circles: `next_nodes` contains only nodes that we already visited")
-        app.logger.warning(next_nodes)
-        return edge_weights
-        
     # Once we have visited all nodes, we call walk_weights recursively with the next_nodes list
-    
     # If next_nodes is the same as the pending_nodes, we run the risk of going in circles, and we'll just return the edge_weights
-    
     if set(next_nodes) == set(pending_nodes):
-        app.logger.warning("Next nodes and pending nodes are equal, we are going in circles. Returning edge_weights.")
-        return edge_weights
+        app.logger.warning("Next nodes and pending nodes are equal, we are going in circles. Assigning log(10) weights to incoming edges, and trying again.")
+        
+        # Get all incoming edges
+        in_edges = graph.in_edges(list(next_nodes))
+        # Filter out those that do not have an edge weight
+        incomplete = [e for e in in_edges if e not in edge_weights.keys()]
+        # Assign the arbitrary value of log(10) to the incoming edges
+        for (u,v) in incomplete:
+            edge_weights[(u,v)] = log(10)
+        
+        return walk_weights(graph, next_nodes, edge_weights, visited)
     else :
         return walk_weights(graph, next_nodes, edge_weights, visited)
     
