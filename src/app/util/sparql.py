@@ -208,6 +208,12 @@ def build_full_graph(store, graph_uri=None):
     G = build_graph(G, store, source="activity1", target="activity2", query=q_informed_by)
  
 
+    for (s,t) in G.edges():
+        if (t,s) in G.edges():
+            app.logger.warning("Found cycle (removing the first):\n{} {}\n{} {}".format(s,t,t,s))
+            
+            app.logger.warning("Data:\nSource {}\nTarget {}".format(G.node[s],G.node[t]))
+            G.remove_edge(s,t)
     
     emit("Building full provenance graph complete...")
 
