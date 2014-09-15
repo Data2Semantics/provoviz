@@ -208,6 +208,11 @@ def build_full_graph(store, graph_uri=None):
     G = build_graph(G, store, source="activity1", target="activity2", query=q_informed_by)
  
 
+    for c in nx.simple_cycles(G):
+        app.logger.warning("Found cycle of length {}, removing the edge between the last two nodes (if it still exists)".format(len(c)))
+        if (c[-2],c[-1]) in G.edges():
+            G.remove_edge(c[-2],c[-1])
+
     for (s,t) in G.edges():
         if (t,s) in G.edges():
             app.logger.warning("Found cycle (removing the first):\n{} {}\n{} {}".format(s,t,t,s))
