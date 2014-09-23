@@ -8,6 +8,7 @@ import networkx as nx
 from networkx.readwrite import json_graph
 import json
 from rdflib import Graph, Namespace, RDF, RDFS, Literal, URIRef
+
 from rdflib.serializer import Serializer
 import rdfextras
 from math import log
@@ -162,17 +163,15 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             target_type = re.sub('\d+$','',target)
             app.logger.debug("No {}_type in result!!".format(target))
             
-        
-        
+        try :
+            [_discard, source_type] = source_type.split('#')
+            [_discard, target_type] = target_type.split('#')
+        except :
+            app.logger.warning('Could not split URI for source_type or target_type')
         
         G.add_node(source_uri, label=source_binding, type=source_type, uri=source_uri)
         G.add_node(target_uri, label=target_binding, type=target_type, uri=target_uri)
         G.add_edge(source_uri, target_uri, value=10)
-            
-            
-            
-
-
 
     app.logger.debug('Query-based graph building complete...')
     emit('Query-based graph building complete...')
