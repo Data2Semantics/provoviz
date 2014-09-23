@@ -23,4 +23,4 @@ SELECT DISTINCT ?activity ?label WHERE {
   ?activity a prov:Activity .
   OPTIONAL {?activity rdfs:label ?label . }
   {% endif %}
-} ORDER BY ?activity
+} ORDER BY ?label
