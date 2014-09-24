@@ -16,11 +16,15 @@ import time
 from app import app, socketio
 import pprint
 
+from jinja2 import Environment, PackageLoader
 
 
 
+env = Environment(loader=PackageLoader('app','templates'))
 
 concept_type_color_dict = {'popg': '#9edae5', 'inpo': '#ffbb78', 'elii': '#dbdb8d', 'idcn': '#9edae5', 'neop': '#2ca02c', 'vita': '#9467bd', 'inpr': '#c5b0d5', 'phsu': '#c5b0d5', 'blor': '#98df8a', 'hops': '#c7c7c7', 'menp': '#f7b6d2', 'phsf': '#d62728', 'ftcn': '#e377c2', 'anim': '#ff9896', 'food': '#bcbd22', 'grpa': '#ffbb78', 'geoa': '#2ca02c', 'hcpp': '#98df8a', 'lbtr': '#c7c7c7', 'ocdi': '#17becf', 'tisu': '#17becf', 'orch': '#7f7f7f', 'tmco': '#dbdb8d', 'clas': '#bcbd22', 'lipd': '#c49c94', 'dsyn': '#f7b6d2', 'horm': '#aec7e8', 'bact': '#2ca02c', 'grup': '#e377c2', 'bacs': '#ffbb78', 'enty': '#c5b0d5', 'resa': '#98df8a', 'medd': '#9467bd', 'cell': '#bcbd22', 'fndg': '#ff7f0e', 'sbst': '#ff9896', 'prog': '#ff9896', 'celf': '#aec7e8', 'chvf': '#1f77b4', 'diap': '#aec7e8', 'celc': '#8c564b', 'hcro': '#ff7f0e', 'inbe': '#9467bd', 'clna': '#ffbb78', 'acab': '#d62728', 'bodm': '#9467bd', 'patf': '#e377c2', 'carb': '#c7c7c7', 'bpoc': '#d62728', 'dora': '#8c564b', 'moft': '#7f7f7f', 'plnt': '#7f7f7f', 'ortf': '#f7b6d2', 'bmod': '#9edae5', 'sosy': '#dbdb8d', 'enzy': '#d62728', 'qnco': '#1f77b4', 'imft': '#7f7f7f', 'antb': '#1f77b4', 'bdsy': '#c5b0d5', 'nnon': '#9467bd', 'socb': '#c49c94', 'ocac': '#8c564b', 'bdsu': '#8c564b', 'rcpt': '#ff9896', 'nsba': '#c5b0d5', 'mnob': '#e377c2', 'orga': '#1f77b4', 'orgf': '#c7c7c7', 'lbpr': '#d62728', 'orgt': '#aec7e8', 'gngm': '#f7b6d2', 'virs': '#17becf', 'fngs': '#98df8a', 'aapp': '#17becf', 'opco': '#c49c94', 'irda': '#98df8a', 'famg': '#2ca02c', 'acty': '#ff7f0e', 'inch': '#bcbd22', 'cnce': '#9edae5', 'topp': '#ffbb78', 'spco': '#2ca02c', 'lang': '#dbdb8d', 'podg': '#aec7e8', 'mobd': '#ff9896', 'qlco': '#c49c94', 'npop': '#ff7f0e', 'hlca': '#1f77b4', 'phpr': '#ff7f0e', 'strd': '#8c564b'}
+
+
 
 
 def uri_to_label(uri):
@@ -42,7 +46,10 @@ def shorten(text):
 
 def get_activities(store, graph_uri=None):
     emit('Retrieving activities...')
-    q = render_template('activities.q', graph_uri=graph_uri)
+
+    
+    template = env.get_template('activities.q')
+    q = template.render(graph_uri=graph_uri)
     
     results = store.query(q)
     
@@ -78,7 +85,10 @@ def get_activities(store, graph_uri=None):
 
 def get_named_graphs(store):
     emit('Retrieving graphs...')
-    q = render_template('named_graphs.q')
+
+    
+    template = env.get_template('named_graphs.q')
+    q = template.render()
 
     results = store.query(q)
 
@@ -186,22 +196,26 @@ def build_full_graph(store, graph_uri=None):
     
     G = nx.DiGraph()
     
-    q_activity_to_resource = render_template('activity_to_resource.q', graph_uri=graph_uri)
+    q_activity_to_resource_template = env.get_template('activity_to_resource.q')
+    q_activity_to_resource = q_activity_to_resource_template.render(graph_uri=graph_uri)
     app.logger.debug("Running activity_to_resource")
     emit("Running activity_to_resource")
     G = build_graph(G, store, source="activity", target="entity", query=q_activity_to_resource)
     
-    q_resource_to_activity = render_template('resource_to_activity.q', graph_uri=graph_uri)
+    q_resource_to_activity_template = env.get_template('resource_to_activity.q')
+    q_resource_to_activity = q_resource_to_activity_template.render(graph_uri=graph_uri)
     app.logger.debug("Running resource to activity")
     emit("Running activity_to_resource")
     G = build_graph(G, store, source="entity", target="activity", query=q_resource_to_activity)
     
-    q_derived_from = render_template('derived_from.q', graph_uri = graph_uri)
+    q_derived_from_template = env.get_template('derived_from.q')
+    q_derived_from = q_derived_from_template.render(graph_uri = graph_uri)
     app.logger.debug("Running derived from")
     emit("Running derived from")
     G = build_graph(G, store, source="entity1", target="entity2", query=q_derived_from)
     
-    q_informed_by = render_template('informed_by.q', graph_uri = graph_uri)
+    q_informed_by_template = env.get_template('informed_by.q')
+    q_informed_by = q_informed_by_template.render(graph_uri = graph_uri)
     app.logger.debug("Running informed by")
     emit("Running informed by")
     G = build_graph(G, store, source="activity1", target="activity2", query=q_informed_by)
