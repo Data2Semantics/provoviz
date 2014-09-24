@@ -156,18 +156,18 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
         
         try  :
             source_type = result[source+"_type"]
-            logger.debug(("{}_type in result".format(source)))
             if not source_type:
                 raise Exception("None type")
+            logger.debug(("{}_type in result: {}".format(source, source_type)))
         except :
             source_type = re.sub('\d+$','',source)
             logger.debug(("No {}_type in result!!".format(source)))
         
         try :
             target_type = result[target+"_type"]
-            logger.debug(("{}_type in result".format(target)))
             if not target_type:
                 raise Exception("None type")
+            logger.debug(("{}_type in result: {}".format(target, target_type)))
         except:
             target_type = re.sub('\d+$','',target)
             logger.debug(("No {}_type in result!!".format(target)))
@@ -176,7 +176,7 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             [_discard, source_type] = unicode(source_type).split('#')
             [_discard, target_type] = unicode(target_type).split('#')
         except :
-            logger.debug('Could not split URI for source_type or target_type')
+            logger.debug('Could not split URI for source_type {} or target_type {}'.format(source_binding, target_binding))
         
         G.add_node(source_uri, label=unicode(source_binding), type=source_type, uri=unicode(source_uri))
         G.add_node(target_uri, label=unicode(target_binding), type=target_type, uri=unicode(target_uri))
