@@ -11,35 +11,35 @@ def generate_graphs(store, graph_uri=None):
     ## It seems we're good to go!
     G = s.build_full_graph(store,graph_uri)
     
-    activities = s.get_activities(store,graph_uri)
+    resources = s.get_prov_resources(store,graph_uri)
     
     response = []
-    total = len(activities)
+    total = len(resources)
     count = 0
-    for a in activities:
+    for r in resources:
         count += 1
-        activity_uri = a['id']
-        activity_id = a['text']
+        resource_uri = r['id']
+        resource_id = r['text']
         
         # try:
-        logger.debug("Extracting graph for {} - {}/{}".format(activity_id, count, total))
+        logger.debug("Extracting graph for {} - {}/{}".format(resource_id, count, total))
         
         try:
-            graph, width, types, diameter = s.extract_activity_graph(G, activity_uri, activity_id)
+            graph, width, types, diameter = s.extract_resource_graph(G, resource_uri, resource_id)
         except Exception as e:
-            logger.warning("Something went wrong, will skip this activity... {}".format(e.message))
+            logger.warning("Something went wrong, will skip this resource... {}".format(e.message))
             logger.warning(e.message)
             continue
         
-        activity = {}
-        activity['id'] = activity_uri
-        activity['text'] = activity_id
-        activity['graph'] = graph
-        activity['width'] = width
-        activity['types'] = types
-        activity['diameter'] = diameter
+        resource = {}
+        resource['id'] = resource_uri
+        resource['text'] = resource_id
+        resource['graph'] = graph
+        resource['width'] = width
+        resource['types'] = types
+        resource['diameter'] = diameter
     
-        response.append(activity)
+        response.append(resource)
         
     return response
 

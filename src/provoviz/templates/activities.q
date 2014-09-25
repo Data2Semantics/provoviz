@@ -5,8 +5,6 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 
 SELECT DISTINCT ?activity ?label WHERE {
-  
-  
   {% if graph_uri %}
   { GRAPH <{{ graph_uri }}> {
     ?activity a prov:Activity .

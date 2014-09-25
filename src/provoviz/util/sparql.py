@@ -44,43 +44,43 @@ def shorten(text):
         return text
 
 
-def get_activities(store, graph_uri=None):
-    logger.debug(('Retrieving activities...'))
+def get_prov_resources(store, graph_uri=None):
+    logger.debug(('Retrieving prov resources...'))
 
     
-    template = env.get_template('activities.q')
+    template = env.get_template('prov_resources.q')
     q = template.render(graph_uri=graph_uri)
     logger.debug(u"Query: \n".format(q))
     results = store.query(q)
     
-    activities = []
-    activity_uris = set()
+    resources = []
+    resource_uris = set()
     
     for result in results:
-        activity_uri = unicode(result['activity'])
+        resource_uri = unicode(result['resource'])
         
-        if activity_uri in activity_uris:
+        if resource_uri in resource_uris:
             continue
         else :
-            activity_uris.add(activity_uri)
+            resource_uris.add(resource_uri)
         
-        logger.debug(('Activity: {}...'.format(activity_uri)))
+        logger.debug(('PROV Resource: {}...'.format(resource_uri)))
         
         try:
             
-            activity_label = unicode(result['label'])
-            logger.debug(("Found label `{}` in result".format(result['label'])))
-            if not activity_label:
+            resource_label = unicode(result['label'])
+            if not resource_label:
                 raise Exception("None label")
+            logger.debug(("Found label `{}` in result".format(result['label'])))
         except :
-            logger.debug(("No label for {}".format(activity_uri)))
-            activity_label = uri_to_label(unicode(activity_uri))
+            logger.debug(("No label for {}".format(resource_uri)))
+            resource_label = uri_to_label(unicode(resource_uri))
         
-        logger.debug(("Found activity {}".format(activity_label)))
+        logger.debug(("Found PROV resource {}".format(resource_label)))
          
-        activities.append({'id': activity_uri, 'text': activity_label})
+        resources.append({'id': resource_uri, 'text': resource_label})
         
-    return activities
+    return resources
 
 
 def get_named_graphs(store):
@@ -183,7 +183,6 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
         G.add_edge(source_uri, target_uri, value=10)
 
     logger.debug(('Query-based graph building complete...'))
-    logger.debug(('Query-based graph building complete...'))
 
 
     return G
@@ -196,7 +195,7 @@ def build_full_graph(store, graph_uri=None):
     
     q_activity_to_resource_template = env.get_template('activity_to_resource.q')
     q_activity_to_resource = q_activity_to_resource_template.render(graph_uri=graph_uri)
-    logger.debug(("Running activity_to_resource"))
+    logger.debug(("Running activity to resource"))
     G = build_graph(G, store, source="activity", target="entity", query=q_activity_to_resource)
     
     q_resource_to_activity_template = env.get_template('resource_to_activity.q')
@@ -250,13 +249,13 @@ def extract_ego_graph(G, activity_uri):
     
     return sG
 
-def extract_activity_graph(G, activity_uri, activity_id):
-    logger.debug((u"Extracting graph for {} ({})".format(activity_uri, activity_id)))
+def extract_resource_graph(G, resource_uri, resource_id):
+    logger.debug((u"Extracting graph for {} ({})".format(resource_uri, resource_id)))
     
     try:
-        sG = extract_ego_graph(G, activity_uri)
+        sG = extract_ego_graph(G, resource_uri)
     except Exception as e:
-        logger.warning((u"Could not extract ego graph for {}/{} (Bug in NetworkX?)".format(activity_id, activity_uri)))
+        logger.warning((u"Could not extract ego graph for {}/{} (Bug in NetworkX?)".format(resource_id, resource_uri)))
         logger.debug((e.message))
         logger.debug((e))
         return
@@ -264,8 +263,8 @@ def extract_activity_graph(G, activity_uri, activity_id):
         
     logger.debug(("Original graph: {} nodes\nEgo graph: {} nodes".format(len(G.nodes()),len(sG.nodes()))))
 
-    # Set node type for the activity_uri to 'origin'
-    sG.node[activity_uri]['type'] = 'origin'
+    # Set node type for the resource_uri to 'origin'
+    sG.node[resource_uri]['type'] = 'origin'
     
     logger.debug((u"Assigning weights to edges"))
     logger.debug(("Assigning weights to edges"))
@@ -307,7 +306,7 @@ def extract_activity_graph(G, activity_uri, activity_id):
     # Set width to the largest of # end nodes, # start nodes, or the maximum degree
     width = max([end_nodes,start_nodes,max_degree])      
 
-    logger.debug((u"Computing graph diameter {} ({})".format(activity_uri, activity_id)))
+    logger.debug((u"Computing graph diameter {} ({})".format(resource_uri, resource_id)))
     try:
         diameter = nx.diameter(sG.to_undirected())
     except Exception:
@@ -321,7 +320,7 @@ def extract_activity_graph(G, activity_uri, activity_id):
     elif types < 3 :
         types = 3
     
-    logger.debug((u"Done extracting graph for {} ({})".format(activity_uri, activity_id)))
+    logger.debug((u"Done extracting graph for {} ({})".format(resource_uri, resource_id)))
     return g_json, width, types, diameter
 
 
