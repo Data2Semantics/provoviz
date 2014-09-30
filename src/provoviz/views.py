@@ -92,7 +92,7 @@ def generate_graphs(store, graph_uri=None, predefined_resources=None):
     count = 0
     
     if total > 100 :
-        logger.warning("Generating over 100 provenance graphs ({} to be precise)".format(total))
+        logger.warning("Generating over 100 provenance graphs ({} to be precise). This may take a while.".format(total))
     for r in resources:
         count += 1
         resource_uri = r['id']
