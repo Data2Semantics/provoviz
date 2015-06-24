@@ -5,6 +5,7 @@ from app import app, socketio
 from flask import url_for
 import requests
 
+
 class Store(object):
 
     remote = False
@@ -26,7 +27,6 @@ class Store(object):
                 self.graph = Graph()
                 app.logger.debug('Loading PROV-O definitions from {}'.format(url_for('.static',filename='prov-o.ttl',_external=True)))
                 self.graph.parse(url_for('.static',filename='prov-o.ttl',_external=True),format='turtle')
-
 
                 if data.lower().startswith('http'):
                     app.logger.debug('Loading data from URL: {}'.format(data))
@@ -54,6 +54,7 @@ class Store(object):
             self.endpoint = endpoint
         else:
             app.logger.error("Whoops: cannot give me no data nor an endpoint!")
+            raise Exception("No input provided")
 
     def query(self,q):
         if self.remote :
