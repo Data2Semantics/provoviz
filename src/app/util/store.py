@@ -11,6 +11,11 @@ class Store(object):
 
     # Initialize the store, either with data or with endpoint (but not both)
     def __init__(self, data=None, data_format='turtle', endpoint=None, auth=None):
+        app.logger.debug("Data: ")
+        app.logger.debug(data)
+        app.logger.debug("Endpoint: ")
+        app.logger.debug(endpoint)
+
         if data:
             emit("Loading PROV data in Turtle format")
             if endpoint:
