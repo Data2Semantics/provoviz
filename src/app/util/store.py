@@ -7,6 +7,8 @@ import requests
 
 class Store(object):
 
+    remote = False
+
     # Initialize the store, either with data or with endpoint (but not both)
     def __init__(self, data=None, data_format='turtle', endpoint=None, auth=None):
         if data:
