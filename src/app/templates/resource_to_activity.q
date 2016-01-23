@@ -16,6 +16,15 @@ SELECT DISTINCT ?entity ?entity_type ?entity_label ?activity ?activity_type ?act
 			?activity	prov:qualifiedUsage ?qu .
 			?qu			prov:entity ?entity .
 	  	}
+		UNION
+		{ ?activity prov:invalidated ?entity . }
+		UNION
+		{ ?entity prov:wasInvalidatedBy ?activity . }
+	  	UNION
+	  	{ 
+			?activity	prov:qualifiedInvalidation ?qi .
+			?qi			prov:entity ?entity .
+	  	}
     	OPTIONAL { ?activity rdf:type ?activity_type .
     			 ?activity_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
     			 FILTER(!isBlank(?activity_type)) }
