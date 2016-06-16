@@ -148,12 +148,17 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             target_type = re.sub('\d+$', '', target)
             app.logger.debug(u"No {}_type in result!!".format(target))
 
-        try :
-            [_discard, source_type] = source_type.split('#')
-            [_discard, target_type] = target_type.split('#')
-        except :
-            app.logger.warning(u'Could not split URI for source_type or target_type')
-            app.logger.debug(u"{}, {}".format(source_type, target_type))
+        try:
+            [_discard, source_type] = source_type.lower().split('#')
+        except:
+            app.logger.warning(u'Could not split URI for source_type')
+            app.logger.debug(source_type)
+
+        try:
+            [_discard, target_type] = target_type.lower().split('#')
+        except:
+            app.logger.warning(u'Could not split URI for target_type')
+            app.logger.debug(target_type)
 
         G.add_node(source_uri, label=source_binding, type=source_type, uri=source_uri)
         G.add_node(target_uri, label=target_binding, type=target_type, uri=target_uri)
