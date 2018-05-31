@@ -57,6 +57,7 @@ class Store(object):
             raise Exception("No input provided")
 
     def query(self,q):
+        app.logger.debug(q)
         if self.remote :
             try :
                 app.logger.debug("Connecting to {}".format(self.endpoint))

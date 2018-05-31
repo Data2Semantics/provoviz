@@ -130,6 +130,32 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             target_binding = uri_to_label(result[target]).replace("'", "")
             app.logger.debug(u"Set to {}".format(target_binding))
 
+
+        ### Generated at time...
+
+        try:
+            source_time = shorten(result[source + "_time"])
+            app.logger.debug("{}_time in result".format(source))
+            if not source_binding:
+                raise Exception("None time")
+        except:
+            app.logger.debug(u"No {}_time in result!!".format(source))
+            source_time = "unknown"
+
+        try:
+            target_time = shorten(result[target + "_time"])
+            app.logger.debug("{}_time in result".format(target))
+
+            if not target_time:
+                raise Exception("None time")
+        except:
+            app.logger.debug(u"No {}_time in result!!".format(target))
+            target_time = "unknown"
+            app.logger.debug(u"Set to {}".format(target_binding))
+
+
+
+
         try:
             source_type = result[source + "_type"]
             app.logger.debug(u"{}_type in result".format(source))
@@ -160,8 +186,8 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             app.logger.warning(u'Could not split URI for target_type')
             app.logger.debug(target_type)
 
-        G.add_node(source_uri, label=source_binding, type=source_type, uri=source_uri)
-        G.add_node(target_uri, label=target_binding, type=target_type, uri=target_uri)
+        G.add_node(source_uri, label=source_binding, time=source_time, type=source_type, uri=source_uri)
+        G.add_node(target_uri, label=target_binding, time=target_time, type=target_type, uri=target_uri)
         G.add_edge(source_uri, target_uri, value=10)
 
     app.logger.debug('Query-based graph building complete...')
