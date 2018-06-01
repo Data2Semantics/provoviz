@@ -45,6 +45,39 @@
 		stroke-opacity: .5;
 	}
 
+	.d3-tip h5 {
+  color: white;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-size: x-small;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
 
 </style>
 
@@ -68,7 +101,7 @@
 	var activities = {{ response|safe }};
 
 	$(function(){
-        
+
         // The service call is not embedded in the Prov-O-Viz page
         if (typeof embedded_service_call === 'undefined') {
     		console.log("Loading Bootstrap");
@@ -80,87 +113,90 @@
             // NO need to load Bootstrap
             load_modules_and_initialize();
 		}
-        
+
         $("#id{{ data_hash }}_download").on('click',function(e){
             console.log("Clicked save button");
-            
-            saveSvgAsPng(document.getElementById("svg"), "provoviz_diagram.png", 3); 
+
+            saveSvgAsPng(document.getElementById("svg"), "provoviz_diagram.png", 3);
         });
-        
+
 
 	});
-    
+
     function load_modules_and_initialize(){
-		console.log("Loading D3js");
-		$.getScript("{{ url_for('.static',filename='js/d3.v3.js',_external=True)}}").success(function(){
-            console.log("Loaded D3js");
-            
-			console.log("Loading sankey.js");
-			$.getScript("{{ url_for('.static',filename='js/sankey.js',_external=True)}}").success(function(){
-			    console.log("Loaded sankey.js");
-                
-    			console.log("Loading colorbrewer");
-    			$.getScript("{{ url_for('.static',filename='js/colorbrewer.js',_external=True)}}").success(function(){
-    			    console.log("Loaded colorbrewer");
-                    
-        			console.log("Loading activity_graph.js");
-        			$.getScript("{{ url_for('.static',filename='js/activity_graph.js',_external=True)}}").success(function(){
-        			    console.log("Loaded activity_graph.js");
-                        
-                        console.log("Loading saveSvgAsPng.js");
-                        $.getScript("{{ url_for('.static',filename='js/saveSvgAsPng.js',_external=True)}}").success(function(){
-                            console.log("Loaded saveSvgAsPng.js");
-                        })
-        			});
-    			});
+			console.log("Loading D3js");
+			$.getScript("{{ url_for('.static',filename='js/d3.v3.js',_external=True)}}").success(function(){
+	      console.log("Loaded D3js");
+				console.log("Loading D3 tooltip");
+				$.getScript("{{ url_for('.static',filename='js/d3.tip.v0.6.3.js',_external=True)}}").success(function(){
+					console.log("Loaded D3 tooltip");
+					console.log("Loading sankey.js");
+					$.getScript("{{ url_for('.static',filename='js/sankey.js',_external=True)}}").success(function(){
+					    console.log("Loaded sankey.js");
+
+		    			console.log("Loading colorbrewer");
+		    			$.getScript("{{ url_for('.static',filename='js/colorbrewer.js',_external=True)}}").success(function(){
+		    			    console.log("Loaded colorbrewer");
+
+		        			console.log("Loading activity_graph.js");
+		        			$.getScript("{{ url_for('.static',filename='js/activity_graph.js',_external=True)}}").success(function(){
+		        			    console.log("Loaded activity_graph.js");
+
+		                        console.log("Loading saveSvgAsPng.js");
+		                        $.getScript("{{ url_for('.static',filename='js/saveSvgAsPng.js',_external=True)}}").success(function(){
+		                            console.log("Loaded saveSvgAsPng.js");
+		                        })
+		        			});
+		    			});
+					});
+				});
 			});
-		});
-        
-        
-        
-		console.log("Loading jQuery Widgets");
-		$.getScript("{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js',_external=True)}}").success(function(){
-		    console.log("Loaded jQuery Widgets");
-    
-    		console.log("Loading select2");
-    		$.getScript("{{ url_for('.static',filename='js/select2.js',_external=True)}}").success(function(){
-    		    console.log("Loaded select2");
-                $(".select2-container").remove();
-                $("#id{{ data_hash }}_activities").removeClass('select2-offscreen').select2({ placeholder: "Start typing..." , allowClear: true, data: activities });
-    		});
-		});
+
+
+
+			console.log("Loading jQuery Widgets");
+			$.getScript("{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js',_external=True)}}").success(function(){
+			    console.log("Loaded jQuery Widgets");
+
+	    		console.log("Loading select2");
+	    		$.getScript("{{ url_for('.static',filename='js/select2.js',_external=True)}}").success(function(){
+	    		    console.log("Loaded select2");
+	                $(".select2-container").remove();
+	                $("#id{{ data_hash }}_activities").removeClass('select2-offscreen').select2({ placeholder: "Start typing..." , allowClear: true, data: activities });
+	    		});
+			});
     }
-	
+
 	function get_activity_details(activity_name){
 		var selected_activity;
-		
+
 		for (var a in activities) {
 			var activity = activities[a];
-			
+
 			if (activity['id'] == activity_name) {
 				console.log(activity);
 				selected_activity = activity;
 				break;
 			}
-			
+
 		}
-		
-		return selected_activity;	
-		
-		
+
+		return selected_activity;
+
+
 	}
-	
+
 	function build_sankey(activity_name){
 		console.log("Selected activity name: "+ activity_name);
-		
+
 		selected_activity = get_activity_details(activity_name);
-		
+
         console.log("Selected activity:");
 		console.log(selected_activity);
-		
+
         if (selected_activity) {
     		$("#id{{ data_hash }}_graph").empty();
-        
+
     		drawSankeyDiagram('#id{{ data_hash }}_graph', selected_activity.graph, selected_activity.width, selected_activity.types, selected_activity.diameter);
 
     		$('.activity').on('click', function(e){
@@ -172,13 +208,13 @@
     $('#id{{ data_hash }}_activities').change(function(e) {
         console.log(e);
         console.log("Dit is de waarde "+ e.val);
-       
+
         if (e.val == []) {
             return;
         }
-		
+
 		build_sankey(e.val);
-    }); 
+    });
 </script>
 
 

@@ -131,8 +131,7 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             app.logger.debug(u"Set to {}".format(target_binding))
 
 
-        ### Generated at time...
-
+        ### Time properties
         try:
             source_time = shorten(result[source + "_time"])
             app.logger.debug("{}_time in result".format(source))
@@ -151,6 +150,28 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
         except:
             app.logger.debug(u"No {}_time in result!!".format(target))
             target_time = "unknown"
+            app.logger.debug(u"Set to {}".format(target_binding))
+
+
+        ### Creator properties
+        try:
+            source_creator = shorten(result[source + "_creator"])
+            app.logger.debug("{}_creator in result".format(source))
+            if not source_binding:
+                raise Exception("None creator")
+        except:
+            app.logger.debug(u"No {}_creator in result!!".format(source))
+            source_creator = "unknown"
+
+        try:
+            target_creator = shorten(result[target + "_creator"])
+            app.logger.debug("{}_creator in result".format(target))
+
+            if not target_creator:
+                raise Exception("None creator")
+        except:
+            app.logger.debug(u"No {}_creator in result!!".format(target))
+            target_creator = "unknown"
             app.logger.debug(u"Set to {}".format(target_binding))
 
 
@@ -186,8 +207,8 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             app.logger.warning(u'Could not split URI for target_type')
             app.logger.debug(target_type)
 
-        G.add_node(source_uri, label=source_binding, time=source_time, type=source_type, uri=source_uri)
-        G.add_node(target_uri, label=target_binding, time=target_time, type=target_type, uri=target_uri)
+        G.add_node(source_uri, label=source_binding, time=source_time, creator=source_creator, type=source_type, uri=source_uri)
+        G.add_node(target_uri, label=target_binding, time=target_time, creator=target_creator, type=target_type, uri=target_uri)
         G.add_edge(source_uri, target_uri, value=10)
 
     app.logger.debug('Query-based graph building complete...')

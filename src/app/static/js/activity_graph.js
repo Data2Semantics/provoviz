@@ -35,12 +35,36 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
                 .domain(["activity","origin","entity","entity1","entity2","activity1","activity2"])
                 .range(["#CED1FB","#FDEAC8","#FFFCE2","#FFFCE2","#FFFCE2","#CED1FB","#CED1FB"]);
 
+    var div = d3.select("body").append("div")
+        .attr("class", "tooltipsankey")
+        .style("opacity", 0);
+
     var svg = d3.select(graph_div).append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .attr("id","svg")
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function(d) {
+        var content = "<h5>" + d.label + "</h5>";
+        content += "<table>"
+        content += "<tr><th>Type:</th><td>"+ d.type +"</td></tr>";
+        content += "<tr><th>URI:</th><td>"+ d.uri +"</td></tr>";
+        if (d.time != 'unknown'){
+          content += "<tr><th>Time</th><td>"+ d.time +"</td></tr>";
+        }
+        if (d.creator != 'unknown'){
+          content += "<tr><th>Creator</th><td>"+ d.creator +"</td></tr>";
+        }
+        content += "</table>";
+        return content
+      });
+
+    svg.call(tip);
 
     var sankey = d3.sankey()
         .nodeWidth(15)
@@ -74,21 +98,21 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
         .call(d3.behavior.drag()
         .origin(function(d) { return d; })
         .on("dragstart", function() { this.parentNode.appendChild(this); })
-        .on("drag", dragmove))
-        .on("click",function(d) { console.log("Clicked"); console.log(d); build_sankey(d.id); })
-        .on("mouseover", function(d) {
-            div.transition()
-                .duration(200)
-                .style("opacity", .9);
-            div .html("<b>" + d.name + "</b>:<br/>" + format(d.value) + "<br/><b>Generated at:</b>" + d.time)
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-            })
-        .on("mouseout", function(d) {
-            div.transition()
-                .duration(500)
-                .style("opacity", 0);
-        });
+        .on("drag", dragmove));
+
+
+
+    node.on("mouseover", function(d){
+          tip.show(d);
+        })
+        .on("mouseout", function(d){
+          tip.hide(d);
+        })
+        .on("click", dealWithClick);
+
+    function dealWithClick(d,i){
+          console.log("Clicked "+d.id);
+    });
 
     node.append("rect")
         .attr("height", function(d) { return d.dy; })
@@ -97,7 +121,7 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
         .style("stroke", function(d) { return d3.rgb(d.color).darker(1); })
         .style("stroke-width", function(d) { if (d.type == 'origin') { return 2;} else { return 1;}})
         .append("title")
-        .text(function(d) { return d.label + "\n(" + d.type + ")\n" + d.time ; });
+        .text(function(d) { return d.label + "\n(" + d.type + ")"; });
 
     node.append("text")
         .attr("x", -6)
@@ -119,8 +143,21 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
         .text(function(d) { return "(" + d.type + ")"; })
         .filter(function(d) { return d.x < width / 2; })
         .attr("x", 6 + sankey.nodeWidth())
-        .attr("text-anchor", "start")
+        .attr("text-anchor", "start");
 
+
+    // d3.selectAll("g").selectAll(".activity").on("click", activityClick);
+    //
+      // function activityClick(d) {
+      //     // if (d3.event.defaultPrevented) {
+      //     //   console.log("Default prevented!");
+      //     //   return;
+      //     // }
+      //     alert("clicked!"+d.value);
+      //     console.log("Clicked");
+      //     console.log(d);
+      //     build_sankey(d.id);
+      // });
 
     function dragmove(d) {
         d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
