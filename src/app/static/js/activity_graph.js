@@ -166,7 +166,7 @@ node.append("rect")
   })
   .append("title")
   .text(function(d) {
-    return d.label + "\n(" + d.type + ")";
+    return d.label;
   });
 
 node.append("text")
