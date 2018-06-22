@@ -66,12 +66,19 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
       content += "<table>";
       content += "<tr><th>Type:</th><td>" + d.type + "</td></tr>";
       content += "<tr><th>URI:</th><td>" + d.uri + "</td></tr>";
-      if (d.time != 'unknown') {
-        content += "<tr><th>Time</th><td>" + d.time + "</td></tr>";
-      }
       if (d.creator != 'unknown') {
         content += "<tr><th>Creator</th><td>" + d.creator + "</td></tr>";
       }
+      if (d.version != 'unknown') {
+        content += "<tr><th>Version</th><td>" + d.version + "</td></tr>";
+      }
+      if (d.time != 'unknown') {
+        content += "<tr><th>Time</th><td>" + d.time + "</td></tr>";
+      }
+      if (d.modified != 'unknown') {
+        content += "<tr><th>Modified</th><td>" + d.modified + "</td></tr>";
+      }
+
       content += "</table>";
       return content;
     });

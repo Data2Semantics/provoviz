@@ -110,6 +110,7 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
         source_uri = unicode(result[source])
         target_uri = unicode(result[target])
 
+        ### Labels
         try:
             source_binding = shorten(result[source + "_label"])
             app.logger.debug("{}_label in result".format(source))
@@ -174,9 +175,50 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             target_creator = "unknown"
             app.logger.debug(u"Set to {}".format(target_binding))
 
+        ### Version properties
+        try:
+            source_version = shorten(result[source + "_version"])
+            app.logger.debug("{}_version in result".format(source))
+            if not source_version:
+                raise Exception("None version")
+        except:
+            app.logger.debug(u"No {}_version in result!!".format(source))
+            source_version = "unknown"
+
+        try:
+            target_version = shorten(result[target + "_version"])
+            app.logger.debug("{}_version in result".format(target))
+
+            if not target_version:
+                raise Exception("None version")
+        except:
+            app.logger.debug(u"No {}_version in result!!".format(target))
+            target_version = "unknown"
+            app.logger.debug(u"Set to {}".format(target_binding))
+
+        ### Modified properties
+        try:
+            source_modified = shorten(result[source + "_modified"])
+            app.logger.debug("{}_modified in result".format(source))
+            if not source_modified:
+                raise Exception("None modified")
+        except:
+            app.logger.debug(u"No {}_modified in result!!".format(source))
+            source_modified = "unknown"
+
+        try:
+            target_modified = shorten(result[target + "_modified"])
+            app.logger.debug("{}_modified in result".format(target))
+
+            if not target_modified:
+                raise Exception("None modified")
+        except:
+            app.logger.debug(u"No {}_modified in result!!".format(target))
+            target_modified = "unknown"
+            app.logger.debug(u"Set to {}".format(target_binding))
 
 
-
+        # Types
         try:
             source_type = result[source + "_type"]
             app.logger.debug(u"{}_type in result".format(source))
@@ -207,8 +249,8 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             app.logger.warning(u'Could not split URI for target_type')
             app.logger.debug(target_type)
 
-        G.add_node(source_uri, label=source_binding, time=source_time, creator=source_creator, type=source_type, uri=source_uri)
-        G.add_node(target_uri, label=target_binding, time=target_time, creator=target_creator, type=target_type, uri=target_uri)
+        G.add_node(source_uri, label=source_binding, time=source_time, version=source_version, modified=source_modified, creator=source_creator, type=source_type, uri=source_uri)
+        G.add_node(target_uri, label=target_binding, time=target_time, version=target_version, modified=target_modified, creator=target_creator, type=target_type, uri=target_uri)
         G.add_edge(source_uri, target_uri, value=10)
 
     app.logger.debug('Query-based graph building complete...')
