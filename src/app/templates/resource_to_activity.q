@@ -6,7 +6,7 @@ PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 
-SELECT DISTINCT ?entity ?entity_type ?entity_label ?entity_time ?entity_creator ?entity_modified ?entity_version ?activity ?activity_type ?activity_label WHERE {
+SELECT DISTINCT ?entity ?entity_type ?entity_label ?entity_time ?entity_creator ?entity_modified ?entity_class ?entity_version ?activity ?activity_type ?activity_label WHERE {
 	{% if graph_uri %}
 	{ GRAPH <{{graph_uri}}> {
 	{% endif %}
@@ -32,6 +32,7 @@ SELECT DISTINCT ?entity ?entity_type ?entity_label ?entity_time ?entity_creator 
     			 FILTER(!isBlank(?activity_type)) }
     	OPTIONAL { ?activity rdfs:label ?activity_label . }
 			OPTIONAL { ?entity prov:generatedAtTime ?entity_time .}
+			OPTIONAL { ?entity rdf:type ?entity_class .}
 			OPTIONAL { ?entity dct:modified ?entity_modified .}
 			OPTIONAL { ?entity dct:hasVersion ?entity_version .}
 			OPTIONAL { ?entity (dct:creator|dc:creator) ?entity_creator .}

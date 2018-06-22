@@ -218,6 +218,25 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             app.logger.debug(u"Set to {}".format(target_binding))
 
 
+        # Class (Type)
+        try:
+            source_class = result[source + "_class"]
+            app.logger.debug(u"{}_class in result".format(source))
+            if not source_class:
+                raise Exception("None class")
+        except:
+            source_class = re.sub('\d+$', '', source)
+            app.logger.debug(u"No {}_class in result!!".format(source))
+
+        try:
+            target_class = result[target + "_class"]
+            app.logger.debug(u"{}_class in result".format(target))
+            if not target_class:
+                raise Exception("None class")
+        except:
+            target_class = re.sub('\d+$', '', target)
+            app.logger.debug(u"No {}_class in result!!".format(target))
+
         # Types
         try:
             source_type = result[source + "_type"]
@@ -249,8 +268,8 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
             app.logger.warning(u'Could not split URI for target_type')
             app.logger.debug(target_type)
 
-        G.add_node(source_uri, label=source_binding, time=source_time, version=source_version, modified=source_modified, creator=source_creator, type=source_type, uri=source_uri)
-        G.add_node(target_uri, label=target_binding, time=target_time, version=target_version, modified=target_modified, creator=target_creator, type=target_type, uri=target_uri)
+        G.add_node(source_uri, label=source_binding, time=source_time, cls=source_class, version=source_version, modified=source_modified, creator=source_creator, type=source_type, uri=source_uri)
+        G.add_node(target_uri, label=target_binding, time=target_time, cls=target_class, version=target_version, modified=target_modified, creator=target_creator, type=target_type, uri=target_uri)
         G.add_edge(source_uri, target_uri, value=10)
 
     app.logger.debug('Query-based graph building complete...')

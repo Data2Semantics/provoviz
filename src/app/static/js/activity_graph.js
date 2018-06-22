@@ -66,6 +66,9 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
       content += "<table>";
       content += "<tr><th>Type:</th><td>" + d.type + "</td></tr>";
       content += "<tr><th>URI:</th><td>" + d.uri + "</td></tr>";
+      if (d.cls != 'unknown') {
+        content += "<tr><th>Class</th><td>" + d.cls + "</td></tr>";
+      }
       if (d.creator != 'unknown') {
         content += "<tr><th>Creator</th><td>" + d.creator + "</td></tr>";
       }
