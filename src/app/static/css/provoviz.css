@@ -55,6 +55,10 @@
   font-family: "NexusSerif", Georgia, serif; }
 
 
+body {
+	font-family: "NexusSans", Arial, sans-serif;
+}
+
 #title, a.navbar-brand {
 	font-family: "NexusSans";
 }
