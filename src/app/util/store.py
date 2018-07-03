@@ -66,6 +66,7 @@ class Store(object):
                 return json_parser.parse(StringIO(json_results.text))
             except Exception as e:
                 emit("Problem running query : {}".format(e.message))
+                app.logger.debug(json_results)
                 app.logger.warning("Problem running query : {}".format(e.message))
                 raise e
         else :

@@ -19,7 +19,9 @@ function drawDiagramForActivity(diagram_service_url, uri, id, graph_uri, endpoin
   });
 }
 
-
+function dealWithClick(d, i) {
+  console.log("Clicked " + d.id);
+}
 
 
 function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
@@ -62,27 +64,33 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-      var content = "<h5>" + d.label + "</h5>";
-      content += "<table>";
-      content += "<tr><th>Type:</th><td>" + d.type + "</td></tr>";
-      content += "<tr><th>URI:</th><td>" + d.uri + "</td></tr>";
-      if (d.cls != 'unknown') {
-        content += "<tr><th>Class</th><td>" + d.cls + "</td></tr>";
-      }
-      if (d.creator != 'unknown') {
-        content += "<tr><th>Creator</th><td>" + d.creator + "</td></tr>";
-      }
-      if (d.version != 'unknown') {
-        content += "<tr><th>Version</th><td>" + d.version + "</td></tr>";
-      }
-      if (d.time != 'unknown') {
-        content += "<tr><th>Time</th><td>" + d.time + "</td></tr>";
-      }
-      if (d.modified != 'unknown') {
-        content += "<tr><th>Modified</th><td>" + d.modified + "</td></tr>";
-      }
 
-      content += "</table>";
+
+
+      var content = "<div class='panel panel-default'><div class='panel-heading'><strong>" + d.label + "</strong><span class='badge pull-right'>"+ d.type+"</span></div>";
+      content += "<div class='list-group'>";
+      content += "<a href='#' class='list-group-item'><h6 class='list-group-item-heading'>uri</h6><p class='list-group-item-text'>" + d.uri + "</p></a>";
+      if (d.cls != 'unknown') {
+        content += "<a href='#' class='list-group-item'><h6 class='list-group-item-heading'>class</h6><p class='list-group-item-text'>" + d.cls + "</p></a>";
+      }
+      if (d.creator != 'unknown' || d.version != 'unknown' || d.time != 'unknown' || d.modified != 'unknown') {
+        content += "<a href='#' class='list-group-item'>";
+        content += "<h6 class='list-group-item-heading'>metadata</h6>";
+        if (d.creator != 'unknown') {
+          content += "<p>Created by " + d.creator + "</p>";
+        }
+        if (d.version != 'unknown') {
+          content += "<p>Version" + d.version + "</p>";
+        }
+        if (d.time != 'unknown') {
+          content += "<p>Created at " + d.time + "</p>";
+        }
+        if (d.modified != 'unknown') {
+          content += "<p>Modified at " + d.modified + "</p>";
+        }
+        content += "</a>";
+      }
+      content += "</div></div>";
       return content;
     });
 
@@ -150,11 +158,11 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
     .on("mouseout", function(d) {
       tip.hide(d);
     })
-    .on("click", dealWithClick);
+    .on("click", function(d){
+      tip.hide(d);
+    });
 
-  function dealWithClick(d, i) {
-    console.log("Clicked " + d.id);
-  };
+
 
 node.append("rect")
   .attr("height", function(d) {

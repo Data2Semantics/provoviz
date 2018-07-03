@@ -7,7 +7,7 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 
 SELECT DISTINCT ?activity ?activity_type ?activity_label ?entity ?entity_type ?entity_label
-								?entity_time ?entity_creator ?entity_modified ?entity_version ?entity_class WHERE {
+								?entity_time ?entity_creator ?entity_modified ?entity_version (group_concat(?entity_cls;separator=", ") as ?entity_class) WHERE {
 	{% if graph_uri %}
 	{ GRAPH <{{graph_uri}}> {
 	{% endif %}
@@ -25,7 +25,7 @@ SELECT DISTINCT ?activity ?activity_type ?activity_label ?entity ?entity_type ?e
       	OPTIONAL { ?activity rdfs:label ?activity_label .}
       	OPTIONAL { ?entity rdfs:label ?entity_label . }
 				OPTIONAL { ?entity prov:generatedAtTime ?entity_time .}
-				OPTIONAL { ?entity rdf:type ?entity_class .}
+				OPTIONAL { ?entity rdf:type ?entity_cls .}
 				OPTIONAL { ?entity dct:modified ?entity_modified .}
 				OPTIONAL { ?entity dct:hasVersion ?entity_version .}
 				OPTIONAL { ?entity (dct:creator|dc:creator) ?entity_creator .}
@@ -45,4 +45,4 @@ SELECT DISTINCT ?activity ?activity_type ?activity_label ?entity ?entity_type ?e
     }
   	{% endif %}
 
-}
+} GROUP BY ?entity ?activity ?activity_type ?activity_label ?entity_type ?entity_label ?entity_time ?entity_creator ?entity_modified ?entity_version

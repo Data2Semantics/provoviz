@@ -6,6 +6,7 @@
   color: black;
   padding: 1em;
   overflow-x: auto;
+  margin-top: 200px;
   }
 
 
@@ -45,24 +46,23 @@
   stroke-opacity: .5;
   }
 
-  .d3-tip h5 {
-  color: white;
+  h4.list-group-item-heading {
+    font-size: normal;
+  color: black;
 }
 
 .d3-tip {
-  line-height: 1;
-  font-size: x-small;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
+  max-width: 350px;
+  font-size: small;
+  background: rgba(200, 200, 200, 0);
+  z-index: 999999;
 }
 
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
   box-sizing: border-box;
   display: inline;
-  font-size: 10px;
+  font-size: small;
   width: 100%;
   line-height: 1;
   color: rgba(0, 0, 0, 0.8);
