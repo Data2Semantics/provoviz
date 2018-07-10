@@ -1,70 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Special+Elite);
 
-@font-face {
-  font-family: NexusSans;
-  src: url("../fonts/NexusSansWebPro.eot");
-  src: url("../fonts/NexusSansWebPro.eot?#iefix") format("embedded-opentype"), url("../fonts/NexusSansWebPro.woff") format("woff"), url("../fonts/NexusSansWebPro.ttf") format("truetype"), url("../fonts/NexusSansWebPro.svg#NexusSansWebPro") format("svg");
-  font-style: normal;
-  font-weight: normal; }
-@font-face {
-  font-family: NexusSans;
-  src: url("../fonts/NexusSansWebPro-Italic.eot");
-  src: url("../fonts/NexusSansWebPro-Italic.eot?#iefix") format("embedded-opentype"), url("../fonts/NexusSansWebPro-Italic.woff") format("woff"), url("../fonts/NexusSansWebPro-Italic.ttf") format("truetype"), url("../fonts/NexusSansWebPro-Italic.svg#NexusSansWebPro-Italic") format("svg");
-  font-style: italic;
-  font-weight: normal; }
-@font-face {
-  font-family: NexusSans;
-  src: url("../fonts/NexusSansWebPro-Bold.eot");
-  src: url("../fonts/NexusSansWebPro-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/NexusSansWebPro-Bold.woff") format("woff"), url("../fonts/NexusSansWebPro-Bold.ttf") format("truetype"), url("../fonts/NexusSansWebPro-Bold.svg#NexusSansWebPro-Bold") format("svg");
-  font-style: normal;
-  font-weight: 700; }
-@font-face {
-  font-family: NexusSans;
-  src: url("../fonts/NexusSansWebPro-BoldItalic.eot");
-  src: url("../fonts/NexusSansWebPro-BoldItalic.eot?#iefix") format("embedded-opentype"), url("../fonts/NexusSansWebPro-BoldItalic.woff") format("woff"), url("../fonts/NexusSansWebPro-BoldItalic.ttf") format("truetype"), url("../fonts/NexusSansWebPro-BoldItalic.svg#NexusSansWebPro-BoldItalic") format("svg");
-  font-style: italic;
-  font-weight: 700; }
-@font-face {
-  font-family: NexusSerif;
-  src: url("../fonts/NexusSerifWebPro.eot");
-  src: url("../fonts/NexusSerifWebPro.eot?#iefix") format("embedded-opentype"), url("../fonts/NexusSerifWebPro.woff") format("woff"), url("../fonts/NexusSerifWebPro.ttf") format("truetype"), url("../fonts/NexusSerifWebPro.svg#NexusSerifWebPro") format("svg");
-  font-style: normal;
-  font-weight: normal; }
-@font-face {
-  font-family: NexusSerif;
-  src: url("../fonts/NexusSerifWebPro-Italic.eot");
-  src: url("../fonts/NexusSerifWebPro-Italic.eot?#iefix") format("embedded-opentype"), url("../fonts/NexusSerifWebPro-Italic.woff") format("woff"), url("../fonts/NexusSerifWebPro-Italic.ttf") format("truetype"), url("../fonts/NexusSerifWebPro-Italic.svg#NexusSerifWebPro-Italic") format("svg");
-  font-style: italic;
-  font-weight: normal; }
-@font-face {
-  font-family: NexusSerif;
-  src: url("../fonts/NexusSerifWebPro-Bold.eot");
-  src: url("../fonts/NexusSerifWebPro-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/NexusSerifWebPro-Bold.woff") format("woff"), url("../fonts/NexusSerifWebPro-Bold.ttf") format("truetype"), url("../fonts/NexusSerifWebPro-Bold.svg#NexusSerifWebPro-Bold") format("svg");
-  font-style: normal;
-  font-weight: 700; }
-@font-face {
-  font-family: NexusSerif;
-  src: url("../fonts/NexusSerifWebPro-Bold.eot");
-  src: url("../fonts/NexusSerifWebPro-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/NexusSerifWebPro-Bold.woff") format("woff"), url("../fonts/NexusSerifWebPro-Bold.ttf") format("truetype"), url("../fonts/NexusSerifWebPro-Bold.svg#NexusSerifWebPro-Bold") format("svg");
-  font-style: italic;
-  font-weight: 700; }
-.els-sans {
-  font-family: "NexusSans", Arial, sans-serif; }
-
-.els-serif {
-  font-family: "NexusSerif", Georgia, serif; }
-
-
 #title, a.navbar-brand {
-	font-family: "NexusSans";
-}
-
-.navbar {
-	background-color: #007398;
-}
-
-a:hover {
-	color: #e9711c;
+	font-family: "Special Elite";
 }
 
 a.navbar-brand {
@@ -72,9 +9,9 @@ a.navbar-brand {
 }
 
 a.navbar-brand img {
-    width: 100px;
-    margin-top: -15px;
-    margin-left: -100px;
+    width: 100px; 
+    margin-top: -15px; 
+    margin-left: -100px; 
 }
 
 #serviceactivities {
@@ -89,8 +26,8 @@ a.navbar-brand img {
 #title {
 	text-align: center;
 	font-size: 120px;
-	text-shadow:rgba(0,0,0,0.5) 0px 0px 8px;
-
+	text-shadow:rgba(0,0,0,0.5) 0px 0px 8px; 
+	
 }
 
 #contents {
@@ -103,7 +40,7 @@ a.navbar-brand img {
 
 textarea {
     font-family: Inconsolata, Menlo, Monaco, "Andale Mono", "Courier New";
-
+    
 }
 
 .dropdown-menu {

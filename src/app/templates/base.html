@@ -11,16 +11,16 @@
     <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2-bootstrap.css') }}" />
     <script type="application/x-javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="application/x-javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/core-min.js"></script>
-
+    
     <script>
     // Make sure that we know what modules to load from the service response
     var embedded_service_call = true;
     $("#title").hide();
     $("#about").hide();
-
+    
     $(document).ready(function() {
         $.getScript("{{ url_for('.static',filename='js/bootstrap.min.js') }}").success(function(){
-            console.log("Loading jQuery Storage");
+            console.log("Loading jQuery Storage");                
             $.getScript("{{ url_for('.static',filename='js/jquery.storage.js') }}").success(function(){
                 console.log("jQuery Storage loaded");
                 console.log("Loading jQuery Fittext");
@@ -35,11 +35,11 @@
                             console.log("Loading Main module");
                             $.getScript("{{ url_for('.static',filename='js/main.js') }}").success(function(){
                                 console.log("Main module loaded");
-
+                                
                                 var graphs_url = '{{ url_for("graphs_service") }}';
                                 var endpoint_url = '{{ url_for("endpoint_service") }}';
                                 var data_url = '{{ url_for("data_service") }}';
-
+                                
                                 initialize(graphs_url, endpoint_url, data_url);
                             });
                         });
@@ -48,17 +48,17 @@
             });
         });
     });
-
+        
     </script>
 
+    
 
 
-
-
+    
 </head>
 
 <body>
-
+    
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
           <div class="navbar-header">
@@ -67,8 +67,8 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-
-            <a class="navbar-brand" href="#">Entellect</a>
+            
+            <a class="navbar-brand" href="#"><img src="{{ url_for('.static',filename='img/logo-no-text-150dpi.png') }}"/></a>
             <a class="navbar-brand">PROV-O-Viz</a>
           </div>
           <div class="navbar-collapse collapse navbar-responsive-collapse">
@@ -100,7 +100,7 @@
                             </ul>
                         </span>
 						<button id="submit-provenance-data" class="btn btn-primary  btn-block" value="go" type="button">Submit</button>
-					</div>
+					</div>                  
                 </ul>
               </li>
               <li class="dropdown keep-open" id="sparql-endpoint-dropdown">
@@ -114,7 +114,7 @@
                               <label>
                                 <input type="checkbox" id="ignore-named-graphs" name="ignore-named-graphs"/> Ignore Named Graphs
                               </label>
-                            </div>
+                            </div> 
                             <span class="help-block">Specify the URI of your SPARQL endpoint above. Typically provenance graphs are stored as separate named graphs. If you experience performance problems, or have provenance graphs spanning multiple Named Graphs, check the box.</span>
 		                </div>
                         <button type="button" id="submit-provenance-endpoint" value="go" class="btn btn-primary btn-block">Submit</button>
@@ -123,7 +123,7 @@
                             <p>When you select a Named Graph, we will retrieve a list of all activities in that graph. Only graphs with activities are shown here.</p>
 
                         </div> -->
-					</div>
+					</div>                  
                 </ul>
               </li>
               <li class="dropdown" id='named-graphs-dropdown' style="display: none;">
@@ -138,20 +138,20 @@
             <ul class="nav navbar-nav navbar-right">
 				<li><a id="source" data-toggle="modal" href="#source_modal" class="btn btn-disabled" style="float: right; display: none;">&lt;&gt;</a></li>
               <li><a id="#api-button" data-toggle="modal" data-target="#api-modal" href="#">About</a></li>
-              <li><a href="http://www.elsevier.com">Elsevier</a></li>
+              <li><a href="http://www.data2semantics.org">Data2Semantics</a></li>
             </ul>
           </div>
         </div>
     </div>
-
+    
 	<div class="container" id="splash-container">
 		<div class="row">
 			<div id="splash" class='col-lg-12'>
-				<h1 id="title"><img width="400px" style="margin-top: -150px;" src="{{ url_for('.static',filename='img/elsevier_logo.jpg') }}"/></h1>
+				<h1 id="title">PROV-O-Viz</h1>
 			</div>
 		</div>
 	</div>
-
+    
     <div class="container" id="contents">
 
 
