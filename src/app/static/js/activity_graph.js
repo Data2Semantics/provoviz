@@ -20,7 +20,6 @@ function drawDiagramForActivity(diagram_service_url, uri, id, graph_uri, endpoin
 }
 
 function dealWithClick(d, i) {
-  if (d3.event.defaultPrevented) return; // dragged
   console.log("Clicked " + d.id);
 }
 
@@ -65,15 +64,10 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-      var type;
-      if(d.type == 'origin') {
-        type = 'selected';
-      } else {
-        type = d.type;
-      }
 
 
-      var content = "<div class='panel panel-default'><div class='panel-heading'><strong>" + d.label + "</strong><span class='badge pull-right'>"+ type+"</span></div>";
+
+      var content = "<div class='panel panel-default'><div class='panel-heading'><strong>" + d.label + "</strong><span class='badge pull-right'>"+ d.type+"</span></div>";
       content += "<div class='list-group'>";
       content += "<a href='#' class='list-group-item'><h6 class='list-group-item-heading'>uri</h6><p class='list-group-item-text'>" + d.uri + "</p></a>";
       if (d.cls != 'unknown') {
@@ -147,13 +141,6 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
     .attr("transform", function(d) {
       return "translate(" + d.x + "," + d.y + ")";
     })
-    .on("mouseover", function(d) {
-      tip.show(d);
-    })
-    .on("mouseout", function(d) {
-      tip.hide(d);
-    })
-    // .on("click", dealWithClick)
     .call(d3.behavior.drag()
       .origin(function(d) {
         return d;
@@ -162,6 +149,18 @@ function drawSankeyDiagram(graph_div, graph, tree_width, types, diameter) {
         this.parentNode.appendChild(this);
       })
       .on("drag", dragmove));
+
+
+
+  node.on("mouseover", function(d) {
+      tip.show(d);
+    })
+    .on("mouseout", function(d) {
+      tip.hide(d);
+    })
+    .on("click", function(d){
+      tip.hide(d);
+    });
 
 
 
