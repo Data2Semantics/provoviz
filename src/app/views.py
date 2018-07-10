@@ -171,17 +171,17 @@ def generate_graphs(store, graph_uri=None):
     return response
 
 
-
-@socketio.on('connect')
+@socketio.on('connect', namespace='/log')
 def test_connect():
     socketio.emit('message', {'data': 'Connected'})
 
-@socketio.on('disconnect')
+@socketio.on('disconnect', namespace='/log')
 def test_disconnect():
     app.logger.info('Client disconnected')
 
 
 def emit(message):
     socketio.emit('message',
-                  {'data': message })
+                  {'data': message },
+                  namespace='/log')
     time.sleep(.05)

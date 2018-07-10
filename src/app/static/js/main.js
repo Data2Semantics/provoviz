@@ -2,15 +2,7 @@ var graphs_url;
 var endpoint_url;
 var data_url;
 
-console.log(document.location.pathname);
-if (document.location.pathname != '/') {
-	console.log("Socket.io not in root path...");
-	var socket = io.connect('http://' + document.domain + ':' + location.port, {resource: document.location.pathname + '/socket.io'});
-} else {
-	var socket = io.connect('http://' + document.domain + ':' + location.port);
-}
-console.log(socket);
-
+var socket = io.connect('http://' + document.domain + ':' + location.port + '/log');
 
 
 
