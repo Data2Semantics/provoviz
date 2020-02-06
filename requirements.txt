@@ -1,5 +1,5 @@
 beautifulsoup4==4.3.2
-Flask==0.10.1
+Flask==1.0
 Flask-SocketIO==0.3.7
 gevent==1.0.2
 gevent-socketio==0.3.6
