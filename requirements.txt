@@ -16,7 +16,7 @@ pyparsing==1.5.7
 rdfextras==0.4
 rdflib==4.2.0
 rdflib-jsonld==0.3
-requests==2.3.0
+requests==2.20.0
 six==1.7.2
 SPARQLWrapper==1.6.0
 Werkzeug==0.9.6
