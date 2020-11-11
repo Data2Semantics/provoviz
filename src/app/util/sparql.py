@@ -1,52 +1,38 @@
 #!/usr/bin/env python
 
-from SPARQLWrapper import SPARQLWrapper, JSON
-from flask import render_template
 import re
-from urllib import unquote_plus
 import networkx as nx
+
+from urllib import unquote_plus
 from networkx.readwrite import json_graph
-import json
-from rdflib import Graph, Namespace, RDF, RDFS, Literal, URIRef
-
-from rdflib.serializer import Serializer
-import rdfextras
 from math import log
-import time
 from app import app, socketio
-import pprint
-
 from jinja2 import Environment, PackageLoader
-
-
 
 env = Environment(loader=PackageLoader('app','templates'))
 
 concept_type_color_dict = {'popg': '#9edae5', 'inpo': '#ffbb78', 'elii': '#dbdb8d', 'idcn': '#9edae5', 'neop': '#2ca02c', 'vita': '#9467bd', 'inpr': '#c5b0d5', 'phsu': '#c5b0d5', 'blor': '#98df8a', 'hops': '#c7c7c7', 'menp': '#f7b6d2', 'phsf': '#d62728', 'ftcn': '#e377c2', 'anim': '#ff9896', 'food': '#bcbd22', 'grpa': '#ffbb78', 'geoa': '#2ca02c', 'hcpp': '#98df8a', 'lbtr': '#c7c7c7', 'ocdi': '#17becf', 'tisu': '#17becf', 'orch': '#7f7f7f', 'tmco': '#dbdb8d', 'clas': '#bcbd22', 'lipd': '#c49c94', 'dsyn': '#f7b6d2', 'horm': '#aec7e8', 'bact': '#2ca02c', 'grup': '#e377c2', 'bacs': '#ffbb78', 'enty': '#c5b0d5', 'resa': '#98df8a', 'medd': '#9467bd', 'cell': '#bcbd22', 'fndg': '#ff7f0e', 'sbst': '#ff9896', 'prog': '#ff9896', 'celf': '#aec7e8', 'chvf': '#1f77b4', 'diap': '#aec7e8', 'celc': '#8c564b', 'hcro': '#ff7f0e', 'inbe': '#9467bd', 'clna': '#ffbb78', 'acab': '#d62728', 'bodm': '#9467bd', 'patf': '#e377c2', 'carb': '#c7c7c7', 'bpoc': '#d62728', 'dora': '#8c564b', 'moft': '#7f7f7f', 'plnt': '#7f7f7f', 'ortf': '#f7b6d2', 'bmod': '#9edae5', 'sosy': '#dbdb8d', 'enzy': '#d62728', 'qnco': '#1f77b4', 'imft': '#7f7f7f', 'antb': '#1f77b4', 'bdsy': '#c5b0d5', 'nnon': '#9467bd', 'socb': '#c49c94', 'ocac': '#8c564b', 'bdsu': '#8c564b', 'rcpt': '#ff9896', 'nsba': '#c5b0d5', 'mnob': '#e377c2', 'orga': '#1f77b4', 'orgf': '#c7c7c7', 'lbpr': '#d62728', 'orgt': '#aec7e8', 'gngm': '#f7b6d2', 'virs': '#17becf', 'fngs': '#98df8a', 'aapp': '#17becf', 'opco': '#c49c94', 'irda': '#98df8a', 'famg': '#2ca02c', 'acty': '#ff7f0e', 'inch': '#bcbd22', 'cnce': '#9edae5', 'topp': '#ffbb78', 'spco': '#2ca02c', 'lang': '#dbdb8d', 'podg': '#aec7e8', 'mobd': '#ff9896', 'qlco': '#c49c94', 'npop': '#ff7f0e', 'hlca': '#1f77b4', 'phpr': '#ff7f0e', 'strd': '#8c564b'}
 
 
-
-
 def uri_to_label(uri):
     if '#' in uri:
-        (base,hash_sign,local_name) = uri.rpartition('#')
+        (base, hash_sign, local_name) = uri.rpartition('#')
         base_uri = local_name.encode('utf-8')
-    else :
-        base_uri = re.sub("http://.*?/","",uri.encode('utf-8'))
+    else:
+        base_uri = re.sub("http://.*?/", "", uri.encode('utf-8'))
 
+    return shorten(unquote_plus(base_uri).replace('_', ' ').lstrip('-').lstrip(' '))
 
-    return shorten(unquote_plus(base_uri).replace('_',' ').lstrip('-').lstrip(' '))
 
 def shorten(text):
-    if len(text)>32:
+    if len(text) > 32:
         return text[:15] + "..." + text[-15:]
-    else :
+    else:
         return text
 
 
 def get_activities(store, graph_uri=None):
     emit('Retrieving activities...')
-
 
     template = env.get_template('activities.q')
     q = template.render(graph_uri=graph_uri)
@@ -61,18 +47,17 @@ def get_activities(store, graph_uri=None):
 
         if activity_uri in activity_uris:
             continue
-        else :
+        else:
             activity_uris.add(activity_uri)
 
         emit('{}...'.format(activity_uri))
 
         try:
-
             activity_label = result['label']
             app.logger.debug("Found label {} in result".format(result['label']))
             if not activity_label:
                 raise Exception("None label")
-        except :
+        except:
             app.logger.debug("No label for {}".format(activity_uri))
             activity_label = uri_to_label(activity_uri)
 
@@ -86,11 +71,12 @@ def get_activities(store, graph_uri=None):
 def get_named_graphs(store):
     emit('Retrieving graphs...')
 
-
     template = env.get_template('named_graphs.q')
     q = template.render()
+    app.logger.info(q)
 
     results = store.query(q)
+    emit('Retrieved graphs...')
 
     graphs = []
 
@@ -105,16 +91,8 @@ def get_named_graphs(store):
     return graphs
 
 
-
-
-
-
-
-
-
 def build_graph(G, store, name=None, source=None, target=None, query=None, intermediate = None):
     emit('Building edges from {} to {}'.format(source, target))
-
 
     app.logger.debug(u"Query:\n{}".format(query))
 
@@ -123,65 +101,175 @@ def build_graph(G, store, name=None, source=None, target=None, query=None, inter
     for result in results:
         app.logger.debug(u"Result:\n{}".format(result))
 
-        app.logger.debug(u"Source: {}\nTarget: {}".format(result[source],result[target]))
+        app.logger.debug(u"Source: {}\nTarget: {}".format(result[source], result[target]))
 
-        if result[source] == None or result[target] == None:
+        if result[source] is None or result[target] is None:
             app.logger.warning(u"This result is not usable as there is no binding to source and/or target")
             continue
 
         source_uri = unicode(result[source])
         target_uri = unicode(result[target])
 
-        try :
-            source_binding = shorten(result[source+"_label"])
+        ### Labels
+        try:
+            source_binding = shorten(result[source + "_label"])
             app.logger.debug("{}_label in result".format(source))
             if not source_binding:
                 raise Exception("None label")
-        except :
+        except:
             app.logger.debug(u"No {}_label in result!!".format(source))
-            source_binding = uri_to_label(result[source]).replace("'","")
+            source_binding = uri_to_label(result[source]).replace("'", "")
 
-
-
-        try :
-            target_binding = shorten(result[target+"_label"])
+        try:
+            target_binding = shorten(result[target + "_label"])
             app.logger.debug("{}_label in result".format(target))
 
             if not target_binding:
                 raise Exception("None label")
-        except :
+        except:
             app.logger.debug(u"No {}_label in result!!".format(target))
-            target_binding = uri_to_label(result[target]).replace("'","")
+            target_binding = uri_to_label(result[target]).replace("'", "")
             app.logger.debug(u"Set to {}".format(target_binding))
 
 
-        try  :
-            source_type = result[source+"_type"]
+        ### Time properties
+        try:
+            source_time = shorten(result[source + "_time"])
+            app.logger.debug("{}_time in result".format(source))
+            if not source_binding:
+                raise Exception("None time")
+        except:
+            app.logger.debug(u"No {}_time in result!!".format(source))
+            source_time = "unknown"
+
+        try:
+            target_time = shorten(result[target + "_time"])
+            app.logger.debug("{}_time in result".format(target))
+
+            if not target_time:
+                raise Exception("None time")
+        except:
+            app.logger.debug(u"No {}_time in result!!".format(target))
+            target_time = "unknown"
+            app.logger.debug(u"Set to {}".format(target_binding))
+
+
+        ### Creator properties
+        try:
+            source_creator = shorten(result[source + "_creator"])
+            app.logger.debug("{}_creator in result".format(source))
+            if not source_binding:
+                raise Exception("None creator")
+        except:
+            app.logger.debug(u"No {}_creator in result!!".format(source))
+            source_creator = "unknown"
+
+        try:
+            target_creator = shorten(result[target + "_creator"])
+            app.logger.debug("{}_creator in result".format(target))
+
+            if not target_creator:
+                raise Exception("None creator")
+        except:
+            app.logger.debug(u"No {}_creator in result!!".format(target))
+            target_creator = "unknown"
+            app.logger.debug(u"Set to {}".format(target_binding))
+
+        ### Version properties
+        try:
+            source_version = shorten(result[source + "_version"])
+            app.logger.debug("{}_version in result".format(source))
+            if not source_version:
+                raise Exception("None version")
+        except:
+            app.logger.debug(u"No {}_version in result!!".format(source))
+            source_version = "unknown"
+
+        try:
+            target_version = shorten(result[target + "_version"])
+            app.logger.debug("{}_version in result".format(target))
+
+            if not target_version:
+                raise Exception("None version")
+        except:
+            app.logger.debug(u"No {}_version in result!!".format(target))
+            target_version = "unknown"
+            app.logger.debug(u"Set to {}".format(target_binding))
+
+        ### Modified properties
+        try:
+            source_modified = shorten(result[source + "_modified"])
+            app.logger.debug("{}_modified in result".format(source))
+            if not source_modified:
+                raise Exception("None modified")
+        except:
+            app.logger.debug(u"No {}_modified in result!!".format(source))
+            source_modified = "unknown"
+
+        try:
+            target_modified = shorten(result[target + "_modified"])
+            app.logger.debug("{}_modified in result".format(target))
+
+            if not target_modified:
+                raise Exception("None modified")
+        except:
+            app.logger.debug(u"No {}_modified in result!!".format(target))
+            target_modified = "unknown"
+            app.logger.debug(u"Set to {}".format(target_binding))
+
+
+        # Class (Type)
+        try:
+            source_class = result[source + "_class"]
+            app.logger.debug(u"{}_class in result".format(source))
+            if not source_class:
+                raise Exception("None class")
+        except:
+            source_class = re.sub('\d+$', '', source)
+            app.logger.debug(u"No {}_class in result!!".format(source))
+
+        try:
+            target_class = result[target + "_class"]
+            app.logger.debug(u"{}_class in result".format(target))
+            if not target_class:
+                raise Exception("None class")
+        except:
+            target_class = re.sub('\d+$', '', target)
+            app.logger.debug(u"No {}_class in result!!".format(target))
+
+        # Types
+        try:
+            source_type = result[source + "_type"]
             app.logger.debug(u"{}_type in result".format(source))
             if not source_type:
                 raise Exception("None type")
-        except :
-            source_type = re.sub('\d+$','',source)
+        except:
+            source_type = re.sub('\d+$', '', source)
             app.logger.debug(u"No {}_type in result!!".format(source))
 
-        try :
-            target_type = result[target+"_type"]
+        try:
+            target_type = result[target + "_type"]
             app.logger.debug(u"{}_type in result".format(target))
             if not target_type:
                 raise Exception("None type")
         except:
-            target_type = re.sub('\d+$','',target)
+            target_type = re.sub('\d+$', '', target)
             app.logger.debug(u"No {}_type in result!!".format(target))
 
-        try :
-            [_discard, source_type] = source_type.split('#')
-            [_discard, target_type] = target_type.split('#')
-        except :
-            app.logger.warning(u'Could not split URI for source_type or target_type')
-            app.logger.debug(u"{}, {}".format(source_type, target_type))
+        try:
+            [_discard, source_type] = source_type.lower().split('#')
+        except:
+            app.logger.warning(u'Could not split URI for source_type')
+            app.logger.debug(source_type)
 
-        G.add_node(source_uri, label=source_binding, type=source_type, uri=source_uri)
-        G.add_node(target_uri, label=target_binding, type=target_type, uri=target_uri)
+        try:
+            [_discard, target_type] = target_type.lower().split('#')
+        except:
+            app.logger.warning(u'Could not split URI for target_type')
+            app.logger.debug(target_type)
+
+        G.add_node(source_uri, label=source_binding, time=source_time, cls=source_class, version=source_version, modified=source_modified, creator=source_creator, type=source_type, uri=source_uri)
+        G.add_node(target_uri, label=target_binding, time=target_time, cls=target_class, version=target_version, modified=target_modified, creator=target_creator, type=target_type, uri=target_uri)
         G.add_edge(source_uri, target_uri, value=10)
 
     app.logger.debug('Query-based graph building complete...')

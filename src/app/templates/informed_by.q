@@ -5,12 +5,17 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 
 SELECT DISTINCT ?activity1 ?activity1_type ?activity1_label ?activity2 ?activity2_type ?activity2_label WHERE {
-	
+
 	{% if graph_uri %}
 	{ GRAPH <{{graph_uri}}> {
 	{% endif %}
-		?activity2 prov:wasInformedBy ?activity1 .
-    	OPTIONAL { ?activity1 rdf:type ?activity1_type .
+    {?activity2 prov:wasInformedBy ?activity1 .}
+    UNION
+	{
+	?activity2 prov:qualifiedCommunication ?qc .
+	?qc 		prov:activity				?activity1 .
+	}
+		OPTIONAL { ?activity1 rdf:type ?activity1_type .
     			   ?activity1_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
     			   FILTER(!isBlank(?activity1_type)) }
     	OPTIONAL { ?activity1 rdfs:label ?activity1_label .}
@@ -19,7 +24,7 @@ SELECT DISTINCT ?activity1 ?activity1_type ?activity1_label ?activity2 ?activity
     			   ?activity2_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
     			   FILTER(!isBlank(?activity2_type))}
 	{% if graph_uri %}
-	} 
+	}
     } UNION {
     	OPTIONAL { ?activity1 rdf:type ?activity1_type .
     			   ?activity1_type rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
@@ -30,4 +35,4 @@ SELECT DISTINCT ?activity1 ?activity1_type ?activity1_label ?activity2 ?activity
     }
 	{% endif %}
 
-} 
+}

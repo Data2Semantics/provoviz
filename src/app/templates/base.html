@@ -3,13 +3,14 @@
 <html>
 <head>
     <title>PROV Provenance Visualizer</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap.min.css') }}" />
     <!-- <link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap-theme.min.css') }}" /> -->
-	<link rel="stylesheet" href="{{ url_for('.static',filename='css/provoviz.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('.static',filename='css/provoviz.css') }}" />
     <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2.css') }}" />
     <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2-bootstrap.css') }}" />
-    <script type="application/x-javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="application/x-javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+    <script type="application/x-javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/core-min.js"></script>
     
     <script>
     // Make sure that we know what modules to load from the service response
@@ -26,7 +27,7 @@
                 $.getScript("{{ url_for('.static',filename='js/jquery.fittext.js') }}").success(function(){
                     console.log("jQuery Fittext loaded");
                     console.log("Loading SHA1");
-                    $.getScript("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js").success(function(){
+                    $.getScript("https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha1.js").success(function(){
                         console.log("SHA1 loaded");
                         console.log("Loading Socket IO");
                         $.getScript("http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js").success(function(){

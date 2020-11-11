@@ -2,6 +2,11 @@
 
 Copyright © Rinke Hoekstra, VU University Amsterdam, 2013
 
+<h4>NOTICE</h4>
+This library is not actively maintained, but we welcome any contributions and will try to accept merge requests. 
+
+Prov-o-viz currently is Python 2.
+
 <h4>About</h4>
 <p>With PROV-O-Viz you can visualize <em>any</em> provenance graph expressed using the <a href="http://www.w3.org/TR/prov-o/" target="_blank">W3C PROV-O vocabulary</a> as an intuitive <a href="http://bost.ocks.org/mike/sankey/" target="_blank">Sankey diagram</a>. Really neat.</p>
 <p>PROV-O-Viz was developed by the <a href="http://www.data2semantics.org" target="_blank">Data2Semantics</a> project, funded under the <a href="http://www.commit-nl.nl" target="_blank">COMMIT/ programme</a>.</p>

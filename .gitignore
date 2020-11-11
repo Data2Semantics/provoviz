@@ -1,4 +1,6 @@
 .DS_Store
 *.pyc
-*.komodoproject
-provoviz.tmproj
+bin
+lib
+include
+share
