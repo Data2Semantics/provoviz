@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+
+  provoviz:
+    build: .
+    container_name: provoviz
+    volumes:
+      - './src:/code'
+    environment:
+      FLASK_DEBUG: 0
+      FLASK_ENV: development
+      FLASK_APP: run.py
+    ports:
+      - '5000:5000'

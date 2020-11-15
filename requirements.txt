@@ -12,7 +12,6 @@ itsdangerous==0.24
 Jinja2==2.7.3
 MarkupSafe==0.23
 networkx==1.8.1
-pyparsing==1.5.7
 rdfextras==0.4
 rdflib==4.2.0
 rdflib-jsonld==0.3
